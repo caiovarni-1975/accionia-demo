@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulso — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0f; --surface:#13131a; --surface2:#1c1c26; --border:#2a2a38;
+    --text:#e8e8f0; --text-muted:#6b6b80; --text-dim:#3a3a50; --accent:#6366f1;
+    --success:#86efac; --danger:#fca5a5; --warn:#fcd34d;
+    --pausar-bg:#2d0f0f; --pausar-border:#7f1d1d; --pausar-text:#fca5a5;
+    --quiebre-bg:#2d1a0a; --quiebre-border:#92400e; --quiebre-text:#fcd34d;
+    --liquidar-bg:#1a1a0a; --liquidar-border:#713f12; --liquidar-text:#fde68a;
+    --empujar-bg:#0a1f0f; --empujar-border:#14532d; --empujar-text:#86efac;
+    --activar-bg:#0a1628; --activar-border:#1d4ed8; --activar-text:#60a5fa;
+    --monitorear-bg:#1a1a1a; --monitorear-border:#404040; --monitorear-text:#a0a0a0;
+  }
+  body.light {
+    --bg:#f5f5f8; --surface:#ffffff; --surface2:#f0f0f5; --border:#dddde8;
+    --text:#1a1a2e; --text-muted:#6b6b80; --text-dim:#aaaabc; --accent:#6366f1;
+    --pausar-bg:#fee2e2; --pausar-border:#fca5a5; --pausar-text:#991b1b;
+    --quiebre-bg:#fef3c7; --quiebre-border:#fcd34d; --quiebre-text:#92400e;
+    --liquidar-bg:#fefce8; --liquidar-border:#fde68a; --liquidar-text:#713f12;
+    --empujar-bg:#f0fdf4; --empujar-border:#86efac; --empujar-text:#14532d;
+    --activar-bg:#eff6ff; --activar-border:#93c5fd; --activar-text:#1d4ed8;
+    --monitorear-bg:#f5f5f5; --monitorear-border:#d4d4d4; --monitorear-text:#737373;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;min-height:100vh;transition:background .2s,color .2s;}
+
+  /* ── LOGIN ── */
+  #loginOverlay{position:fixed;inset:0;background:#0a0a0f;z-index:1000;display:flex;align-items:center;justify-content:center;}
+  body.light #loginOverlay{background:#f5f5f8;}
+  .login-box{background:#13131a;border:1px solid #2a2a38;border-radius:16px;padding:48px 40px;width:360px;text-align:center;}
+  body.light .login-box{background:#ffffff;border-color:#dddde8;}
+  .login-brand{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px;}
+  .login-brand-dot{width:10px;height:10px;background:#86efac;border-radius:50%;animation:pulse 2s infinite;}
+  .login-brand-name{font-size:20px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:#e8e8f0;}
+  body.light .login-brand-name{color:#1a1a2e;}
+  .login-tagline{font-size:12px;color:#6b6b80;margin-bottom:36px;}
+  .login-input{width:100%;background:#1c1c26;border:1px solid #2a2a38;border-radius:8px;padding:13px 16px;color:#e8e8f0;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;text-align:center;letter-spacing:.12em;transition:border-color .15s;margin-bottom:12px;}
+  body.light .login-input{background:#f0f0f5;border-color:#dddde8;color:#1a1a2e;}
+  .login-input:focus{border-color:#6366f1;}
+  .login-input.error{border-color:#fca5a5;animation:shake .3s ease;}
+  .login-btn{width:100%;background:#6366f1;border:none;border-radius:8px;padding:13px;color:white;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s;}
+  .login-btn:hover{opacity:.9;}
+  .login-error{font-size:12px;color:#fca5a5;margin-top:12px;min-height:18px;}
+  .login-hint{font-size:11px;color:#3a3a50;margin-top:20px;font-family:'DM Mono',monospace;}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+  @keyframes loginFadeOut{to{opacity:0;pointer-events:none}}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* ── APP SHELL ── */
+  #app{display:none;}
+  .header{padding:0 32px;border-bottom:1px solid var(--border);background:var(--surface);transition:background .2s,border-color .2s;position:sticky;top:0;z-index:60;}
+  .header-top{display:flex;align-items:center;justify-content:space-between;height:52px;}
+  .brand{display:flex;align-items:center;gap:10px;}
+  .brand-dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 2s infinite;}
+  .brand-name{font-size:13px;font-weight:600;color:var(--text);letter-spacing:.14em;text-transform:uppercase;}
+  .client-tag{font-size:11px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:4px;font-family:'DM Mono',monospace;}
+  .header-right{display:flex;align-items:center;gap:8px;}
+  .week-label{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:4px 10px;border-radius:4px;}
+  .theme-btn{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:4px 9px;cursor:pointer;font-size:15px;transition:border-color .15s;}
+  .theme-btn:hover{border-color:var(--accent);}
+
+  /* Main nav */
+  .main-nav{display:flex;gap:0;border-bottom:1px solid var(--border);}
+  .main-tab{padding:12px 22px;font-size:13px;font-weight:500;color:var(--text-muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;user-select:none;display:flex;align-items:center;gap:7px;}
+  .main-tab:hover{color:var(--text);}
+  .main-tab.active{color:var(--text);border-bottom-color:var(--accent);}
+  .main-tab-icon{font-size:14px;line-height:1;}
+
+  /* Sub-nav */
+  .sub-nav{display:flex;padding:0 32px;background:var(--surface2);border-bottom:1px solid var(--border);}
+  .sub-tab{padding:9px 16px;font-size:12px;font-weight:600;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;text-transform:uppercase;letter-spacing:.05em;}
+  .sub-tab:hover{color:var(--text-muted);}
+  .sub-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+
+  /* Modules + pages */
+  .module{display:none;}
+  .module.active{display:block;}
+  .page{display:none;}
+  .page.active{display:block;}
+  .page-inner{padding:24px 32px;}
+  .page-title{font-size:20px;font-weight:600;margin-bottom:4px;letter-spacing:-.02em;}
+  .page-subtitle{font-size:13px;color:var(--text-muted);margin-bottom:20px;}
+
+  /* Badges */
+  .badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;font-family:'DM Mono',monospace;letter-spacing:.04em;border:1px solid;white-space:nowrap;}
+  .badge-RIESGO_QUIEBRE{background:var(--quiebre-bg);border-color:var(--quiebre-border);color:var(--quiebre-text);}
+  .badge-LIQUIDAR{background:var(--liquidar-bg);border-color:var(--liquidar-border);color:var(--liquidar-text);}
+  .badge-EMPUJAR{background:var(--empujar-bg);border-color:var(--empujar-border);color:var(--empujar-text);}
+  .badge-ACTIVAR{background:var(--activar-bg);border-color:var(--activar-border);color:var(--activar-text);}
+  .badge-MONITOREAR{background:var(--monitorear-bg);border-color:var(--monitorear-border);color:var(--monitorear-text);}
+  .badge-PAUSAR{background:var(--pausar-bg);border-color:var(--pausar-border);color:var(--pausar-text);}
+  .badge-SIN_DATOS{background:var(--surface2);border-color:var(--border);color:var(--text-dim);}
+
+  /* Plan cards */
+  .plan-grid{display:flex;flex-direction:column;gap:12px;}
+  .plan-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px;display:grid;grid-template-columns:28px 1fr auto;gap:14px;align-items:start;cursor:pointer;transition:border-color .15s,background .15s;}
+  .plan-card:hover{border-color:var(--accent);background:var(--surface2);}
+  .plan-card.rank-1{border-left:3px solid #fca5a5;}
+  .plan-card.rank-2{border-left:3px solid #fcd34d;}
+  .plan-card.rank-3{border-left:3px solid #93c5fd;}
+  .plan-rank{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;color:var(--text-dim);padding-top:3px;}
+  .plan-header{display:flex;align-items:center;gap:10px;margin-bottom:2px;flex-wrap:wrap;}
+  .plan-producto{font-size:15px;font-weight:600;letter-spacing:-.01em;}
+  .plan-variante{font-size:11px;color:var(--text-muted);margin-bottom:6px;}
+  .plan-canal{font-size:12px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:2px 7px;border-radius:3px;}
+  .plan-motivo{font-size:13px;color:var(--text-muted);margin-bottom:10px;line-height:1.5;}
+  .plan-metrics{display:flex;gap:20px;flex-wrap:wrap;}
+  .metric{display:flex;flex-direction:column;gap:2px;}
+  .metric-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
+  .metric-value{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+  .plan-paso{font-size:12px;color:var(--text-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.4;}
+
+  /* Acciones table */
+  .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .table-toolbar{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap;}
+  .search-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;width:200px;outline:none;transition:border-color .15s;}
+  .search-input::placeholder{color:var(--text-muted);}
+  .search-input:focus{border-color:var(--accent);}
+  .filter-select{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 12px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;}
+  .record-count{font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-left:auto;}
+  table{width:100%;border-collapse:collapse;}
+  thead tr{background:var(--surface2);border-bottom:1px solid var(--border);}
+  th{padding:9px 14px;text-align:left;font-size:11px;font-weight:600;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none;}
+  th:hover{color:var(--text);}
+  th.sorted{color:var(--accent);}
+  tbody tr{border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer;}
+  tbody tr:last-child{border-bottom:none;}
+  tbody tr:hover{background:var(--surface2);}
+  td{padding:10px 14px;vertical-align:middle;}
+  .td-rank{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);width:40px;}
+  .td-rank.top3{color:var(--accent);font-weight:600;}
+  .td-producto{font-weight:500;}
+  .td-variante{font-size:11px;color:var(--text-muted);margin-top:2px;}
+  .td-canal{font-size:12px;color:var(--text-muted);}
+  .td-motivo{font-size:12px;color:var(--text-muted);max-width:260px;}
+  .td-paso{font-size:12px;color:var(--text-muted);max-width:220px;}
+  .negative{color:#fca5a5;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+  .positive{color:#86efac;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+  .warning{color:#fcd34d;font-family:'DM Mono',monospace;font-size:13px;font-weight:500;}
+  .cob-critica{color:#fca5a5;font-family:'DM Mono',monospace;font-size:12px;}
+  .cob-alta{color:#fcd34d;font-family:'DM Mono',monospace;font-size:12px;}
+  .cob-normal{color:var(--text-muted);font-family:'DM Mono',monospace;font-size:12px;}
+
+  /* Parámetros */
+  .params-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+  .param-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;}
+  .param-card-title{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+  .param-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);gap:8px;}
+  .param-row:last-child{border-bottom:none;}
+  .param-label{font-size:12px;color:var(--text-muted);}
+  .param-value{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);}
+  .canal-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+  .canal-header{padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:space-between;}
+  .canal-name-lbl{font-size:13px;font-weight:600;}
+  .canal-obj{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);}
+  .gastos-table{width:100%;border-collapse:collapse;}
+  .gastos-table th{padding:8px 14px;text-align:left;font-size:10px;font-weight:600;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--border);}
+  .gastos-table td{padding:8px 14px;font-size:12px;border-bottom:1px solid var(--border);}
+  .gastos-table tr:last-child td{border-bottom:none;}
+  .gastos-table td:last-child{font-family:'DM Mono',monospace;}
+
+  /* Carga Semanal */
+  .carga-info{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .carga-semana-lbl{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;}
+  .carga-semana-val{font-family:'DM Mono',monospace;font-size:15px;font-weight:600;color:var(--accent);}
+  .carga-hint{font-size:12px;color:var(--text-muted);margin-left:auto;}
+  .carga-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+  .carga-table{width:100%;border-collapse:collapse;}
+  .carga-table thead th{padding:9px 12px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);background:var(--surface2);text-align:center;white-space:nowrap;}
+  .carga-table thead th:first-child{text-align:left;padding-left:16px;}
+  .carga-table tbody tr{border-bottom:1px solid var(--border);}
+  .carga-table tbody tr:last-child{border-bottom:none;}
+  .carga-table tbody tr:hover td{background:rgba(99,102,241,.04);}
+  .carga-table td{padding:8px 10px;vertical-align:middle;text-align:center;}
+  .carga-table td:first-child{text-align:left;padding-left:16px;}
+  .sku-name{font-size:13px;font-weight:600;color:var(--text);}
+  .sku-var{font-size:11px;color:var(--text-muted);}
+  .n-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 7px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;outline:none;width:68px;text-align:center;transition:border-color .15s;}
+  .n-input:focus{border-color:var(--accent);}
+  .n-calc{font-family:'DM Mono',monospace;font-size:13px;color:var(--success);font-weight:700;}
+  .carga-footer{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:8px;gap:12px;}
+  .carga-footer-hint{font-size:12px;color:var(--text-muted);}
+  .btn-save{background:var(--accent);border:none;border-radius:8px;padding:10px 24px;color:white;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s;}
+  .btn-save:hover{opacity:.85;}
+  .pauta-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:16px;}
+  .pauta-section-title{font-size:12px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px;}
+  .pauta-row{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+  .pauta-label{font-size:13px;color:var(--text);min-width:200px;}
+  .pauta-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 14px;color:var(--text);font-size:16px;font-family:'DM Mono',monospace;outline:none;width:180px;transition:border-color .15s;}
+  .pauta-input:focus{border-color:var(--accent);}
+  .pauta-hint{font-size:11px;color:var(--text-dim);margin-top:4px;}
+  .pauta-dist-title{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.07em;margin:16px 0 8px;}
+  .pauta-dist-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;}
+  .pauta-dist-row:last-child{border-bottom:none;}
+  .pauta-dist-sku{color:var(--text-muted);}
+  .pauta-dist-val{font-family:'DM Mono',monospace;color:var(--text);}
+
+  /* Configuración */
+  .config-section{margin-bottom:24px;}
+  .config-section-title{font-size:15px;font-weight:600;margin-bottom:4px;}
+  .config-section-sub{font-size:12px;color:var(--text-muted);margin-bottom:14px;}
+  .canal-config-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:12px;}
+  .canal-config-head{padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;justify-content:space-between;}
+  .canal-config-name{font-size:14px;font-weight:600;}
+  .canal-config-badge{font-size:11px;font-family:'DM Mono',monospace;color:var(--success);background:#0a1f0f;border:1px solid #14532d;padding:2px 8px;border-radius:3px;}
+  .canal-config-body{padding:16px 18px;}
+  .config-form-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:10px;}
+  .config-form-row:last-child{margin-bottom:0;}
+  .config-field{display:flex;flex-direction:column;gap:4px;}
+  .config-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;}
+  .config-input{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:7px 11px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;outline:none;transition:border-color .15s;}
+  .config-input:focus{border-color:var(--accent);}
+  .gastos-config-title{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.07em;margin:16px 0 8px;}
+  .gasto-row-cfg{display:grid;grid-template-columns:1fr 160px 100px;gap:8px;align-items:center;margin-bottom:6px;}
+  .productos-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .productos-table{width:100%;border-collapse:collapse;}
+  .productos-table thead th{padding:9px 14px;text-align:left;font-size:10px;font-weight:700;color:var(--text-muted);letter-spacing:.07em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--surface2);}
+  .productos-table tbody tr{border-bottom:1px solid var(--border);}
+  .productos-table tbody tr:last-child{border-bottom:none;}
+  .productos-table td{padding:10px 14px;font-size:13px;}
+  .prod-name{font-weight:600;}
+  .prod-var{font-size:11px;color:var(--text-muted);}
+  .estado-badge{font-size:10px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 7px;border-radius:3px;border:1px solid;}
+  .estado-activo{background:#0a1f0f;border-color:#14532d;color:#86efac;}
+
+  /* Detail overlay */
+  .detail-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;backdrop-filter:blur(4px);align-items:center;justify-content:center;}
+  .detail-overlay.open{display:flex;}
+  .detail-panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;width:580px;max-width:95vw;max-height:90vh;overflow-y:auto;padding:26px;position:relative;animation:slideUp .2s ease;}
+  @keyframes slideUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .detail-close{position:absolute;top:14px;right:14px;background:var(--surface2);border:1px solid var(--border);color:var(--text-muted);border-radius:6px;width:28px;height:28px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+  .detail-close:hover{color:var(--text);border-color:var(--accent);}
+  .detail-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid var(--border);}
+  .detail-title-block{flex:1;}
+  .detail-producto{font-size:18px;font-weight:600;letter-spacing:-.02em;margin-bottom:2px;}
+  .detail-variante{font-size:12px;color:var(--accent);font-weight:500;margin-bottom:3px;}
+  .detail-canal-tag{font-size:12px;color:var(--text-muted);}
+  .detail-section{margin-bottom:18px;}
+  .detail-section-title{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;}
+  .detail-field{margin-bottom:10px;}
+  .detail-field-label{font-size:11px;color:var(--text-muted);font-weight:500;text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px;}
+  .detail-field-value{font-size:13px;color:var(--text);line-height:1.5;}
+  .detail-metrics-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:18px;}
+  .detail-metric-card{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+  .detail-metric-label{font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:3px;}
+  .detail-metric-value{font-family:'DM Mono',monospace;font-size:15px;font-weight:500;}
+  .audit-box{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:12px;font-family:'DM Mono',monospace;font-size:11px;color:var(--text-muted);line-height:1.9;}
+  .historial-table{width:100%;border-collapse:collapse;font-size:11px;font-family:'DM Mono',monospace;}
+  .historial-table th{color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;font-size:10px;font-weight:600;text-align:right;padding:4px 8px;border-bottom:1px solid var(--border);}
+  .historial-table th:first-child{text-align:left;}
+  .historial-table td{padding:5px 8px;text-align:right;color:var(--text-muted);border-bottom:1px solid rgba(255,255,255,.04);}
+  .historial-table td:first-child{text-align:left;color:var(--text);}
+  .historial-table tr.historial-total td{border-top:1px solid var(--border);color:var(--text);font-weight:600;}
+  .historial-table tr:last-child td{border-bottom:none;}
+  .hist-empty{font-size:12px;color:var(--text-dim);padding:8px 0;}
+
+  /* Toast */
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#1c2a1c;border:1px solid #14532d;color:#86efac;font-size:13px;font-weight:500;padding:12px 24px;border-radius:8px;z-index:500;opacity:0;transition:all .3s;pointer-events:none;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .version-badge{position:fixed;bottom:12px;right:16px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-dim);background:var(--surface);border:1px solid var(--border);padding:3px 8px;border-radius:4px;z-index:50;pointer-events:none;}
+
+  @media(max-width:768px){
+    .header,.page-inner{padding:14px;}
+    .sub-nav{padding:0 14px;}
+    .params-grid,.config-form-row{grid-template-columns:1fr;}
+    .detail-metrics-grid{grid-template-columns:1fr 1fr;}
+    .plan-card{grid-template-columns:24px 1fr;}
+    .gasto-row-cfg{grid-template-columns:1fr 1fr;}
+    table{font-size:12px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginOverlay">
+  <div class="login-box">
+    <div class="login-brand"><div class="login-brand-dot"></div><span class="login-brand-name">Pulso</span></div>
+    <div class="login-tagline">Tablero de decisiones semanal</div>
+    <input type="password" id="loginInput" class="login-input" placeholder="Contraseña de acceso" onkeydown="if(event.key==='Enter')tryLogin()">
+    <button class="login-btn" onclick="tryLogin()">Ingresar →</button>
+    <div class="login-error" id="loginError"></div>
+    <div class="login-hint">acceso · demo</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-dot"></div>
+        <span class="brand-name">Pulso</span>
+        <span class="client-tag">NordHaus</span>
+      </div>
+      <div class="header-right">
+        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+        <span class="week-label">Semana: 07/04/2026</span>
+      </div>
+    </div>
+    <!-- MAIN NAV -->
+    <div class="main-nav">
+      <div class="main-tab active" id="mtab-tablero" onclick="showModule('tablero')">
+        <span class="main-tab-icon">📊</span> Tablero
+      </div>
+      <div class="main-tab" id="mtab-carga" onclick="showModule('carga')">
+        <span class="main-tab-icon">📥</span> Carga Semanal
+      </div>
+      <div class="main-tab" id="mtab-config" onclick="showModule('config')">
+        <span class="main-tab-icon">⚙️</span> Configuración
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- MODULE: TABLERO                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="module active" id="mod-tablero">
+    <div class="sub-nav">
+      <div class="sub-tab active" id="stab-plan" onclick="showSubTab('tablero','plan')">Plan Semanal</div>
+      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Acciones</div>
+      <div class="sub-tab" id="stab-params" onclick="showSubTab('tablero','params')">Parámetros</div>
+    </div>
+
+    <div class="page active page-inner" id="tpage-plan">
+      <div class="page-title">Plan Semanal</div>
+      <div class="page-subtitle">Top 3 SKUs más críticos — requieren acción esta semana</div>
+      <div class="plan-grid" id="planGrid"></div>
+    </div>
+
+    <div class="page page-inner" id="tpage-acciones">
+      <div class="page-title">Acciones</div>
+      <div class="page-subtitle">Todas las decisiones por SKU ordenadas por criticidad</div>
+      <div class="table-wrap">
+        <div class="table-toolbar">
+          <input class="search-input" type="text" placeholder="Buscar producto..." id="searchInput" oninput="renderTable()">
+          <select class="filter-select" id="filterAccion" onchange="renderTable()">
+            <option value="">Todas las acciones</option>
+            <option value="RIESGO_QUIEBRE">RIESGO_QUIEBRE</option>
+            <option value="LIQUIDAR">LIQUIDAR</option>
+            <option value="EMPUJAR">EMPUJAR</option>
+            <option value="MONITOREAR">MONITOREAR</option>
+            <option value="ACTIVAR">ACTIVAR</option>
+          </select>
+          <span class="record-count" id="recordCount"></span>
+        </div>
+        <div id="tableContainer"></div>
+      </div>
+    </div>
+
+    <div class="page page-inner" id="tpage-params">
+      <div class="page-title">Parámetros</div>
+      <div class="page-subtitle">Configuración global y por canal que define las decisiones del motor</div>
+      <div id="parametrosContent"></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- MODULE: CARGA SEMANAL                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="module" id="mod-carga">
+    <div class="sub-nav">
+      <div class="sub-tab active" id="stab-cierre" onclick="showSubTab('carga','cierre')">Cierre de semana</div>
+      <div class="sub-tab" id="stab-publicidad" onclick="showSubTab('carga','publicidad')">Publicidad</div>
+    </div>
+
+    <div class="page active page-inner" id="cpage-cierre">
+      <div class="page-title">Cierre de semana</div>
+      <div class="page-subtitle">Stock anterior, ventas del período y reposiciones recibidas</div>
+
+      <div class="carga-info">
+        <span class="carga-semana-lbl">Semana cerrada</span>
+        <span class="carga-semana-val">07/04/2026 — 13/04/2026</span>
+        <span class="carga-hint">12 SKUs activos · Canal: Tienda Nube</span>
+      </div>
+
+      <div class="carga-table-wrap">
+        <table class="carga-table">
+          <thead>
+            <tr>
+              <th style="text-align:left">Producto / Variante</th>
+              <th>Stock Anterior</th>
+              <th>Ventas TN</th>
+              <th>Reposición</th>
+              <th>Stock Actual</th>
+            </tr>
+          </thead>
+          <tbody id="cargaTableBody"></tbody>
+        </table>
+      </div>
+
+      <div class="carga-footer">
+        <span class="carga-footer-hint">Los datos se guardan y el motor recalcula automáticamente.</span>
+        <button class="btn-save" onclick="guardarCierre()">Guardar cierre →</button>
+      </div>
+    </div>
+
+    <div class="page page-inner" id="cpage-publicidad">
+      <div class="page-title">Publicidad</div>
+      <div class="page-subtitle">Pauta invertida en Meta Ads durante la semana</div>
+
+      <div class="pauta-card">
+        <div class="pauta-section-title">Tienda Nube — Meta Ads</div>
+        <div class="pauta-row">
+          <span class="pauta-label">Total pauta Meta (TN)</span>
+          <input class="pauta-input" type="text" value="$165.000" id="pautaInput" oninput="renderPautaDist()">
+        </div>
+        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 12 productos activos.</div>
+        <div class="pauta-dist-title">Distribución por SKU (igual)</div>
+        <div id="pautaDistList"></div>
+      </div>
+
+      <div class="carga-footer">
+        <span class="carga-footer-hint">La pauta se registra por semana y canal.</span>
+        <button class="btn-save" onclick="guardarPublicidad()">Guardar publicidad →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- MODULE: CONFIGURACIÓN                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="module" id="mod-config">
+    <div class="sub-nav">
+      <div class="sub-tab active" id="stab-canales" onclick="showSubTab('config','canales')">Canales y costos</div>
+      <div class="sub-tab" id="stab-productos" onclick="showSubTab('config','productos')">Productos</div>
+    </div>
+
+    <div class="page active page-inner" id="cfgpage-canales">
+      <div class="page-title">Canales y costos</div>
+      <div class="page-subtitle">Configuración de comisiones, gastos y objetivo de margen por canal</div>
+
+      <div class="canal-config-card">
+        <div class="canal-config-head">
+          <span class="canal-config-name">Tienda Nube</span>
+          <span class="canal-config-badge">Activo</span>
+        </div>
+        <div class="canal-config-body">
+          <div class="config-form-row">
+            <div class="config-field">
+              <span class="config-label">Objetivo margen neto</span>
+              <input class="config-input" type="text" value="25%">
+            </div>
+            <div class="config-field">
+              <span class="config-label">Cuotas sin interés</span>
+              <input class="config-input" type="text" value="6 cuotas">
+            </div>
+            <div class="config-field">
+              <span class="config-label">Moneda</span>
+              <input class="config-input" type="text" value="ARS">
+            </div>
+          </div>
+          <div class="gastos-config-title">Gastos del canal</div>
+          <div class="gasto-row-cfg" style="margin-bottom:6px">
+            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Concepto</span>
+            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Tipo</span>
+            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Valor</span>
+          </div>
+          <div id="gastosConfigList"></div>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
+        <button class="btn-save" onclick="guardarConfig()">Guardar configuración →</button>
+      </div>
+    </div>
+
+    <div class="page page-inner" id="cfgpage-productos">
+      <div class="page-title">Productos</div>
+      <div class="page-subtitle">SKUs activos con precio de venta, costo y condiciones</div>
+      <div class="productos-table-wrap">
+        <table class="productos-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Variante</th>
+              <th>Precio TN</th>
+              <th>Costo</th>
+              <th>Cuotas</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="productosTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL OVERLAY -->
+<div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
+  <div class="detail-panel">
+    <button class="detail-close" onclick="closeDetailPanel()">✕</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<div class="version-badge" id="vBadge" style="display:none">Pulso · demo</div>
+
+<script>
+/* ── LOGIN ────────────────────────────── */
+function tryLogin(){
+  const inp=document.getElementById('loginInput');
+  if(inp.value==='demo'){
+    const ov=document.getElementById('loginOverlay');
+    ov.style.animation='loginFadeOut .4s ease forwards';
+    setTimeout(()=>{
+      ov.style.display='none';
+      document.getElementById('app').style.display='block';
+      document.getElementById('vBadge').style.display='block';
+      initApp();
+    },380);
+  } else {
+    inp.classList.add('error');
+    document.getElementById('loginError').textContent='Contraseña incorrecta.';
+    setTimeout(()=>{inp.classList.remove('error');document.getElementById('loginError').textContent='';inp.value='';},1800);
+  }
+}
+
+/* ── DATA ─────────────────────────────── */
+const allData=[
+  {rank_cliente_semana:'1',producto:'Campera Oxford',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Cobertura crítica: 1.8 semanas de stock al ritmo de ventas actual. Si no reponés esta semana, habrá quiebre en plena temporada.',proximo_paso:'Reponer mínimo 10u urgente. Coordinar con taller antes del viernes. No pausar pauta hasta tener stock confirmado.',margen_neto_pct:'0.26',cobertura_stock:'1.8',ventas_semanales:'4',precio_actual:'125000',precio_minimo_recomendado:'98000',demanda_referencia:'4.0',tope_economico_sugerido:'12500',costo_prenda_auditoria:'45000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":2,"b":250000,"d":0,"p":15000},{"s":"2026-03-23","u":3,"b":375000,"d":0,"p":18000},{"s":"2026-03-30","u":4,"b":500000,"d":0,"p":22000},{"s":"2026-04-06","u":4,"b":500000,"d":0,"p":25000}]',auditoria_comparativa:'Stock actual: 7u | Demanda semanal: 4.0u | Cobertura: 1.8 sem | Umbral quiebre: 2.0 sem | Score: 87 pts'},
+  {rank_cliente_semana:'2',producto:'Campera Oxford',variante:'Khaki',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Cobertura 2.0 semanas. Mayor conversión de la temporada — prioritario reponer antes de agotar stock.',proximo_paso:'Reponer 8u mínimo. No pautar hasta confirmar reposición.',margen_neto_pct:'0.24',cobertura_stock:'2.0',ventas_semanales:'3',precio_actual:'125000',precio_minimo_recomendado:'98000',demanda_referencia:'3.0',tope_economico_sugerido:'9375',costo_prenda_auditoria:'45000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":1,"b":125000,"d":0,"p":12000},{"s":"2026-03-23","u":3,"b":375000,"d":0,"p":15000},{"s":"2026-03-30","u":3,"b":375000,"d":0,"p":18000},{"s":"2026-04-06","u":3,"b":375000,"d":0,"p":20000}]',auditoria_comparativa:'Stock actual: 6u | Demanda semanal: 3.0u | Cobertura: 2.0 sem | Umbral quiebre: 2.0 sem | Score: 82 pts'},
+  {rank_cliente_semana:'3',producto:'Jean Slim',variante:'Azul',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'11.2 semanas de stock. Velocidad de venta cayó 3 semanas consecutivas. Riesgo de saldo de temporada si no se actúa.',proximo_paso:'Bajar precio a $59.900 o aplicar 20% off esta semana. Liquidar antes de ingresar nueva colección.',margen_neto_pct:'0.08',cobertura_stock:'11.2',ventas_semanales:'3',precio_actual:'72000',precio_minimo_recomendado:'45000',demanda_referencia:'3.0',tope_economico_sugerido:'2160',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":5,"b":360000,"d":0,"p":8000},{"s":"2026-03-16","u":4,"b":288000,"d":0,"p":8000},{"s":"2026-03-23","u":3,"b":216000,"d":0,"p":8000},{"s":"2026-03-30","u":2,"b":144000,"d":0,"p":5000},{"s":"2026-04-06","u":3,"b":216000,"d":0,"p":5000}]',auditoria_comparativa:'Stock actual: 34u | Demanda semanal: 3.0u | Cobertura: 11.2 sem | Umbral sobrestock: 8.0 sem | Score: 74 pts'},
+  {rank_cliente_semana:'4',producto:'Bermuda Lino',variante:'Beige',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'9.8 semanas de stock. Modelo estival sin rotación suficiente. Ventana de liquidación cerrando con el cambio de colección.',proximo_paso:'Descuento 25% esta semana. Priorizar liquidación antes del nuevo lanzamiento.',margen_neto_pct:'0.06',cobertura_stock:'9.8',ventas_semanales:'3',precio_actual:'58000',precio_minimo_recomendado:'36000',demanda_referencia:'3.0',tope_economico_sugerido:'1740',costo_prenda_auditoria:'24000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":4,"b":232000,"d":0,"p":6000},{"s":"2026-03-16","u":3,"b":174000,"d":0,"p":6000},{"s":"2026-03-23","u":3,"b":174000,"d":0,"p":5000},{"s":"2026-03-30","u":2,"b":116000,"d":0,"p":4000},{"s":"2026-04-06","u":3,"b":174000,"d":0,"p":4000}]',auditoria_comparativa:'Stock actual: 29u | Demanda semanal: 3.0u | Cobertura: 9.8 sem | Umbral sobrestock: 8.0 sem | Score: 68 pts'},
+  {rank_cliente_semana:'5',producto:'Buzo Premium',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Margen 31%, cobertura 4.8 sem, ventas estables. Mejor relación margen-cobertura del catálogo activo.',proximo_paso:'Aumentar pauta esta semana. Margen permite absorber hasta $11.000 de gasto por unidad vendida.',margen_neto_pct:'0.31',cobertura_stock:'4.8',ventas_semanales:'4',precio_actual:'89000',precio_minimo_recomendado:'72000',demanda_referencia:'4.0',tope_economico_sugerido:'11068',costo_prenda_auditoria:'32000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":267000,"d":0,"p":12000},{"s":"2026-03-23","u":4,"b":356000,"d":0,"p":14000},{"s":"2026-03-30","u":4,"b":356000,"d":0,"p":14000},{"s":"2026-04-06","u":4,"b":356000,"d":0,"p":15000}]',auditoria_comparativa:'Stock actual: 19u | Demanda semanal: 4.0u | Cobertura: 4.8 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
+  {rank_cliente_semana:'6',producto:'Remera Essential',variante:'Blanco',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Margen 34% — el más alto del catálogo activo. Cobertura 5.3 sem. Ideal para escalar pauta.',proximo_paso:'Pautar con budget alto. Modelo base con el margen más sólido — el que más aguanta el gasto.',margen_neto_pct:'0.34',cobertura_stock:'5.3',ventas_semanales:'3',precio_actual:'65000',precio_minimo_recomendado:'52000',demanda_referencia:'3.0',tope_economico_sugerido:'7475',costo_prenda_auditoria:'22000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":2,"b":130000,"d":0,"p":10000},{"s":"2026-03-23","u":3,"b":195000,"d":0,"p":12000},{"s":"2026-03-30","u":3,"b":195000,"d":0,"p":12000},{"s":"2026-04-06","u":3,"b":195000,"d":0,"p":13000}]',auditoria_comparativa:'Stock actual: 16u | Demanda semanal: 3.0u | Cobertura: 5.3 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
+  {rank_cliente_semana:'7',producto:'Buzo Premium',variante:'Gris',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Margen 30%, 4.1 sem. Complementario al Negro — pautar juntos para testear preferencia de color.',proximo_paso:'Pautar en conjunto con el Negro. Misma creatividad, variantes distintas.',margen_neto_pct:'0.30',cobertura_stock:'4.1',ventas_semanales:'4',precio_actual:'89000',precio_minimo_recomendado:'72000',demanda_referencia:'4.0',tope_economico_sugerido:'10680',costo_prenda_auditoria:'32000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":267000,"d":0,"p":11000},{"s":"2026-03-23","u":4,"b":356000,"d":0,"p":13000},{"s":"2026-03-30","u":3,"b":267000,"d":0,"p":13000},{"s":"2026-04-06","u":4,"b":356000,"d":0,"p":14000}]',auditoria_comparativa:'Stock actual: 16u | Demanda semanal: 4.0u | Cobertura: 4.1 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
+  {rank_cliente_semana:'8',producto:'Pantalón Cargo',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Semana 2 de historial. Velocidad irregular, confianza insuficiente para decidir pauta.',proximo_paso:'No pautar todavía. Acumular 2 semanas más de datos para confirmar velocidad real de venta.',margen_neto_pct:'0.22',cobertura_stock:'6.4',ventas_semanales:'5',precio_actual:'95000',precio_minimo_recomendado:'78000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'38000',calidad_input:'BAJA_CONFIANZA',historial_json:'[{"s":"2026-03-30","u":3,"b":285000,"d":0,"p":0},{"s":"2026-04-06","u":5,"b":475000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 32u | Demanda semanal: 5.0u | Cobertura: 6.4 sem | Semanas historial: 2 | Confianza: baja'},
+  {rank_cliente_semana:'9',producto:'Jean Slim',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Margen ajustado (18%). Ventas constantes pero insuficiente para absorber pauta activa.',proximo_paso:'No pautar. Evaluar si hay espacio para subir precio $5.000-$8.000 antes de activar pauta.',margen_neto_pct:'0.18',cobertura_stock:'5.6',ventas_semanales:'5',precio_actual:'72000',precio_minimo_recomendado:'62000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":288000,"d":0,"p":5000},{"s":"2026-03-23","u":5,"b":360000,"d":0,"p":5000},{"s":"2026-03-30","u":5,"b":360000,"d":0,"p":4000},{"s":"2026-04-06","u":5,"b":360000,"d":0,"p":4000}]',auditoria_comparativa:'Stock actual: 28u | Demanda semanal: 5.0u | Cobertura: 5.6 sem | Margen obj: 25% | Margen actual: 18%'},
+  {rank_cliente_semana:'10',producto:'Hoodie Premium',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Cobertura elevada (8.2 sem) con ventas bajas. Verificar precio vs. mercado antes de pautar.',proximo_paso:'Revisar precio competencia. Si está alineado, puede pasar a EMPUJAR la semana próxima.',margen_neto_pct:'0.20',cobertura_stock:'8.2',ventas_semanales:'5',precio_actual:'98000',precio_minimo_recomendado:'82000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'38000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":392000,"d":0,"p":8000},{"s":"2026-03-23","u":5,"b":490000,"d":0,"p":9000},{"s":"2026-03-30","u":5,"b":490000,"d":0,"p":9000},{"s":"2026-04-06","u":5,"b":490000,"d":0,"p":10000}]',auditoria_comparativa:'Stock actual: 41u | Demanda semanal: 5.0u | Cobertura: 8.2 sem | Umbral sobrestock: 8.0 sem | Margen: 20%'},
+  {rank_cliente_semana:'11',producto:'Remera Essential',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Sin ventas registradas en TN. Producto disponible en stock, canal no activado.',proximo_paso:'Publicar en TN esta semana. Usar misma creatividad que el Blanco para testear demanda.',margen_neto_pct:'0.32',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'65000',precio_minimo_recomendado:'52000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'22000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 18u | Precio: $65.000 | Margen proyectado: 32%'},
+  {rank_cliente_semana:'12',producto:'Pantalón Cargo',variante:'Verde',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'NordHaus',motivo:'Modelo nuevo. Sin historial de ventas. Activar canal y comenzar a medir demanda.',proximo_paso:'Publicar con fotos del lanzamiento. No pautar hasta tener 2 semanas de datos.',margen_neto_pct:'0.26',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'95000',precio_minimo_recomendado:'78000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'38000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Modelo nuevo | Stock: 24u | Precio: $95.000 | Sin historial de ventas'},
+];
+
+const CARGA_DATA=[
+  {sku:'Campera Oxford',v:'Negro',  sa:11,vtn:4,rep:0},
+  {sku:'Campera Oxford',v:'Khaki',  sa:9, vtn:3,rep:0},
+  {sku:'Jean Slim',     v:'Azul',   sa:37,vtn:3,rep:0},
+  {sku:'Bermuda Lino',  v:'Beige',  sa:32,vtn:3,rep:0},
+  {sku:'Buzo Premium',  v:'Negro',  sa:23,vtn:4,rep:0},
+  {sku:'Remera Essential',v:'Blanco',sa:19,vtn:3,rep:0},
+  {sku:'Buzo Premium',  v:'Gris',   sa:20,vtn:4,rep:0},
+  {sku:'Pantalón Cargo',v:'Negro',  sa:37,vtn:5,rep:0},
+  {sku:'Jean Slim',     v:'Negro',  sa:33,vtn:5,rep:0},
+  {sku:'Hoodie Premium',v:'Negro',  sa:46,vtn:5,rep:0},
+  {sku:'Remera Essential',v:'Negro',sa:18,vtn:0,rep:0},
+  {sku:'Pantalón Cargo',v:'Verde',  sa:24,vtn:0,rep:0},
+];
+
+const GASTOS_CONFIG=[
+  {nombre:'Comisión plataforma',tipo:'% s/venta',valor:'8.00%'},
+  {nombre:'Pasarela de pago',   tipo:'% s/venta',valor:'2.50%'},
+  {nombre:'Impuestos y percepciones',tipo:'% s/venta',valor:'10.00%'},
+  {nombre:'Financiación en cuotas',tipo:'% s/venta',valor:'8.50%'},
+  {nombre:'Meta Ads (% s/facturación)',tipo:'% s/venta',valor:'10.00%'},
+];
+
+const PRODUCTOS_CONFIG=[
+  {sku:'Campera Oxford',v:'Negro',  precio:125000,costo:45000,cuotas:6},
+  {sku:'Campera Oxford',v:'Khaki',  precio:125000,costo:45000,cuotas:6},
+  {sku:'Jean Slim',     v:'Azul',   precio:72000, costo:28000,cuotas:6},
+  {sku:'Bermuda Lino',  v:'Beige',  precio:58000, costo:24000,cuotas:6},
+  {sku:'Buzo Premium',  v:'Negro',  precio:89000, costo:32000,cuotas:6},
+  {sku:'Remera Essential',v:'Blanco',precio:65000,costo:22000,cuotas:6},
+  {sku:'Buzo Premium',  v:'Gris',   precio:89000, costo:32000,cuotas:6},
+  {sku:'Pantalón Cargo',v:'Negro',  precio:95000, costo:38000,cuotas:6},
+  {sku:'Jean Slim',     v:'Negro',  precio:72000, costo:28000,cuotas:6},
+  {sku:'Hoodie Premium',v:'Negro',  precio:98000, costo:38000,cuotas:6},
+  {sku:'Remera Essential',v:'Negro',precio:65000, costo:22000,cuotas:6},
+  {sku:'Pantalón Cargo',v:'Verde',  precio:95000, costo:38000,cuotas:6},
+];
+
+/* ── NAVIGATION ───────────────────────── */
+let sortCol='rank_cliente_semana',sortDir='asc',isDark=true;
+
+function showModule(mod){
+  document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
+  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('mod-'+mod).classList.add('active');
+  document.getElementById('mtab-'+mod).classList.add('active');
+}
+
+function showSubTab(mod, tab){
+  const prefixes={tablero:'tpage',carga:'cpage',config:'cfgpage'};
+  const stabs={tablero:['plan','acciones','params'],carga:['cierre','publicidad'],config:['canales','productos']};
+  const prefix=prefixes[mod];
+  stabs[mod].forEach(t=>{
+    const p=document.getElementById(prefix+'-'+t);
+    const s=document.getElementById('stab-'+t);
+    if(p) p.classList.toggle('active',t===tab);
+    if(s) s.classList.toggle('active',t===tab);
+  });
+}
+
+function toggleTheme(){
+  isDark=!isDark;
+  document.body.classList.toggle('light',!isDark);
+  document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';
+}
+
+/* ── HELPERS ──────────────────────────── */
+function num(v){const n=parseFloat(String(v||'').replace(',','.'));return isNaN(n)?0:n;}
+function pct(v){return (num(v)*100).toFixed(2)+'%';}
+function money(v){return '$'+num(v).toLocaleString('es-AR',{minimumFractionDigits:0});}
+function pctClass(v){const n=num(v);return n<0?'negative':n<0.1?'warning':'positive';}
+function cobClass(v){const n=num(v);return n<2?'cob-critica':n>8?'cob-alta':'cob-normal';}
+function badge(a){const t=(a||'').trim();return `<span class="badge badge-${t}">${t}</span>`;}
+
+function showToast(msg){
+  const t=document.createElement('div');
+  t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.classList.add('show'),10);
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300);},2600);
+}
+
+/* ── TABLERO ──────────────────────────── */
+function lastSaleLabel(r){
+  let rows=[];try{rows=JSON.parse(r.historial_json||'[]');}catch(e){}
+  const ws=rows.filter(v=>v.u>0);
+  if(!ws.length) return '—';
+  const last=ws[ws.length-1];
+  return last.s?last.s.substring(5).split('-').reverse().join('/'):'—';
+}
+
+function buildHistorialHTML(r){
+  let rows=[];try{rows=JSON.parse(r.historial_json||'[]');}catch(e){}
+  if(!rows.length) return '<div class="hist-empty">Sin historial registrado.</div>';
+  const hdr=`<table class="historial-table"><thead><tr><th>Semana</th><th>Unid.</th><th>Venta Bruta</th><th>Desctos.</th><th>Pauta</th></tr></thead><tbody>`;
+  const body=rows.map(v=>{
+    const lbl=v.s?v.s.substring(5).split('-').reverse().join('/'):'—';
+    return `<tr><td>${lbl}</td><td>${v.u}</td><td>${money(v.b)}</td><td>${v.d>0?money(v.d):'—'}</td><td>${v.p>0?money(v.p):'—'}</td></tr>`;
+  }).join('');
+  const tU=rows.reduce((s,v)=>s+num(v.u),0),tB=rows.reduce((s,v)=>s+num(v.b),0),tP=rows.reduce((s,v)=>s+num(v.p),0);
+  return hdr+body+`<tr class="historial-total"><td>Total</td><td>${tU} u</td><td>${money(tB)}</td><td>—</td><td>${tP>0?money(tP):'—'}</td></tr></tbody></table>`;
+}
+
+function renderPlan(){
+  const conDatos=allData.filter(r=>r.accion!=='SIN_DATOS'&&(num(r.precio_actual)>0||num(r.ventas_semanales)>0));
+  const top3=conDatos.slice(0,3);
+  const rc=['rank-1','rank-2','rank-3'];
+  document.getElementById('planGrid').innerHTML=top3.map((r,i)=>`
+    <div class="plan-card ${rc[i]}" onclick="openDetail(${allData.indexOf(r)})">
+      <div class="plan-rank">#${num(r.rank_cliente_semana)}</div>
+      <div>
+        <div class="plan-header"><span class="plan-producto">${r.producto}</span><span class="plan-canal">${r.canal_nombre}</span>${badge(r.accion)}</div>
+        ${r.variante?`<div class="plan-variante">${r.variante}</div>`:''}
+        <div class="plan-motivo">${r.motivo}</div>
+        <div class="plan-metrics">
+          <div class="metric"><span class="metric-label">Margen</span><span class="metric-value ${pctClass(r.margen_neto_pct)}">${pct(r.margen_neto_pct)}</span></div>
+          <div class="metric"><span class="metric-label">Cobertura</span><span class="metric-value ${cobClass(r.cobertura_stock)}">${num(r.cobertura_stock).toFixed(1)} sem</span></div>
+          <div class="metric"><span class="metric-label">Últ. venta</span><span class="metric-value">${lastSaleLabel(r)}</span></div>
+          <div class="metric"><span class="metric-label">Precio</span><span class="metric-value">${money(r.precio_actual)}</span></div>
+        </div>
+        <div class="plan-paso">→ ${r.proximo_paso}</div>
+      </div>
+      <div style="padding-top:3px"><span style="font-size:11px;color:var(--text-muted)">Ver →</span></div>
+    </div>`).join('');
+}
+
+function renderTable(){
+  const search=(document.getElementById('searchInput')?.value||'').toLowerCase();
+  const filterA=document.getElementById('filterAccion')?.value||'';
+  let filtered=allData.filter(r=>{
+    const ms=!search||(r.producto||'').toLowerCase().includes(search)||(r.variante||'').toLowerCase().includes(search);
+    const mf=!filterA||(r.accion||'').trim()===filterA;
+    return ms&&mf;
+  });
+  filtered.sort((a,b)=>{let va=a[sortCol]||'',vb=b[sortCol]||'';const na=parseFloat(va),nb=parseFloat(vb);if(!isNaN(na)&&!isNaN(nb))return sortDir==='asc'?na-nb:nb-na;return sortDir==='asc'?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va));});
+  document.getElementById('recordCount').textContent=`${filtered.length} registros`;
+  const cols=[{key:'rank_cliente_semana',label:'#'},{key:'producto',label:'Producto'},{key:'canal_nombre',label:'Canal'},{key:'accion',label:'Acción'},{key:'motivo',label:'Motivo'},{key:'margen_neto_pct',label:'Margen'},{key:'cobertura_stock',label:'Cobertura'},{key:'proximo_paso',label:'Próximo paso'}];
+  const thead=`<thead><tr>${cols.map(c=>`<th class="${sortCol===c.key?'sorted':''}" onclick="sortBy('${c.key}')">${c.label}${sortCol===c.key?(sortDir==='asc'?' ↑':' ↓'):''}</th>`).join('')}</tr></thead>`;
+  const bottomA=['ACTIVAR','MONITOREAR','SIN_DATOS'];
+  const ordenados=[...filtered.filter(r=>!bottomA.includes(r.accion)),...filtered.filter(r=>r.accion==='ACTIVAR'),...filtered.filter(r=>r.accion==='MONITOREAR'),...filtered.filter(r=>r.accion==='SIN_DATOS')];
+  let filas='',sepA=false,sepM=false;
+  ordenados.forEach(r=>{
+    if(!sepA&&r.accion==='ACTIVAR'){sepA=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--activar-text);text-transform:uppercase;letter-spacing:.1em;background:var(--activar-bg);border-bottom:1px solid var(--border)">Stock sin movimiento — activar canal</td></tr>`;}
+    if(!sepM&&r.accion==='MONITOREAR'){sepM=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--monitorear-text);text-transform:uppercase;letter-spacing:.1em;background:var(--monitorear-bg);border-bottom:1px solid var(--border)">Monitorear — historial insuficiente para acción fuerte</td></tr>`;}
+    const rank=num(r.rank_cliente_semana),idx=allData.indexOf(r);
+    const cobD=(r.accion==='ACTIVAR'||num(r.cobertura_stock)>=999)?'—':num(r.cobertura_stock).toFixed(1)+' sem';
+    filas+=`<tr onclick="openDetail(${idx})"><td class="td-rank ${rank<=3?'top3':''}">${rank}</td><td><div class="td-producto">${r.producto}</div><div class="td-variante">${r.variante}</div></td><td class="td-canal">${r.canal_nombre}</td><td>${badge(r.accion)}</td><td class="td-motivo">${r.motivo}</td><td class="${pctClass(r.margen_neto_pct)}">${pct(r.margen_neto_pct)}</td><td class="${cobClass(r.cobertura_stock)}">${cobD}</td><td class="td-paso">${r.proximo_paso}</td></tr>`;
+  });
+  document.getElementById('tableContainer').innerHTML=`<table>${thead}<tbody>${filas}</tbody></table>`;
+}
+function sortBy(col){if(sortCol===col)sortDir=sortDir==='asc'?'desc':'asc';else{sortCol=col;sortDir='asc';}renderTable();}
+
+function renderParametros(){
+  const prow=(l,v)=>`<div class="param-row"><span class="param-label">${l}</span><span class="param-value">${v}</span></div>`;
+  let html=`<div class="params-grid">
+    <div class="param-card"><div class="param-card-title">Cliente</div>${prow('Nombre','NordHaus')}${prow('Moneda','ARS')}</div>
+    <div class="param-card"><div class="param-card-title">Umbrales del motor</div>${prow('Stock bajo','< 2 semanas')}${prow('Sobrestock','> 8 semanas')}${prow('Ventana demanda','4 semanas')}</div>
+    <div class="param-card"><div class="param-card-title">Pesos de demanda</div>${prow('Semana 1 (reciente)','40%')}${prow('Semana 2','30%')}${prow('Semana 3','20%')}${prow('Semana 4','10%')}</div>
+    <div class="param-card"><div class="param-card-title">Score de criticidad</div>${prow('Margen negativo','100 pts')}${prow('Riesgo quiebre','50 pts')}${prow('Sobrestock','35 pts')}${prow('Margen bajo','25 pts')}${prow('Oportunidad','15 pts')}</div>
+  </div>
+  <div class="page-subtitle" style="margin-bottom:16px">Configuración por canal</div>
+  <div class="canal-table-wrap">
+    <div class="canal-header"><span class="canal-name-lbl">Tienda Nube</span><span class="canal-obj">Objetivo margen: 25%</span></div>
+    <table class="gastos-table"><thead><tr><th>Gasto</th><th>Tipo</th><th>Valor</th></tr></thead><tbody>
+    ${GASTOS_CONFIG.map(g=>`<tr><td>${g.nombre}</td><td style="color:var(--text-muted)">${g.tipo}</td><td>${g.valor}</td></tr>`).join('')}
+    </tbody></table>
+  </div>`;
+  document.getElementById('parametrosContent').innerHTML=html;
+}
+
+function openDetail(idx){
+  const r=allData[idx];if(!r)return;
+  const isA=(r.accion||'').trim()==='ACTIVAR';
+  const cobV=(isA||num(r.cobertura_stock)>=999)?'—':num(r.cobertura_stock).toFixed(1)+' sem';
+  const demV=isA?'N/A':num(r.demanda_referencia).toFixed(1)+'/sem';
+  document.getElementById('detailContent').innerHTML=`
+    <div class="detail-header"><div class="detail-title-block"><div class="detail-producto">${r.producto}</div>${r.variante?`<div class="detail-variante">${r.variante}</div>`:''}<div class="detail-canal-tag">${r.canal_nombre} · Rank #${num(r.rank_cliente_semana)}</div></div>${badge(r.accion)}</div>
+    <div class="detail-section"><div class="detail-section-title">Decisión</div>
+      <div class="detail-field"><div class="detail-field-label">Motivo</div><div class="detail-field-value">${r.motivo}</div></div>
+      <div class="detail-field"><div class="detail-field-label">Próximo paso</div><div class="detail-field-value">${r.proximo_paso}</div></div>
+    </div>
+    <div class="detail-metrics-grid">
+      <div class="detail-metric-card"><div class="detail-metric-label">Margen neto</div><div class="detail-metric-value ${pctClass(r.margen_neto_pct)}">${pct(r.margen_neto_pct)}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Últ. venta</div><div class="detail-metric-value">${lastSaleLabel(r)}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Dem. referencia</div><div class="detail-metric-value">${demV}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Cobertura</div><div class="detail-metric-value ${cobClass(r.cobertura_stock)}">${cobV}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Precio actual</div><div class="detail-metric-value">${money(r.precio_actual)}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Precio mínimo</div><div class="detail-metric-value">${r.precio_minimo_recomendado?money(r.precio_minimo_recomendado):'N/A'}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Tope pauta</div><div class="detail-metric-value">${money(r.tope_economico_sugerido)}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Costo prenda</div><div class="detail-metric-value">${money(r.costo_prenda_auditoria)}</div></div>
+      <div class="detail-metric-card"><div class="detail-metric-label">Calidad input</div><div class="detail-metric-value" style="font-size:12px">${r.calidad_input}</div></div>
+    </div>
+    <div class="detail-section"><div class="detail-section-title">Historial de ventas</div>${buildHistorialHTML(r)}</div>
+    <div class="detail-section"><div class="detail-section-title">Auditoría</div><div class="audit-box">${(r.auditoria_comparativa||'').split('|').map(s=>`<div>${s.trim()}</div>`).join('')}</div></div>`;
+  document.getElementById('detailOverlay').classList.add('open');
+}
+function closeDetail(e){if(e.target===document.getElementById('detailOverlay'))closeDetailPanel();}
+function closeDetailPanel(){document.getElementById('detailOverlay').classList.remove('open');}
+
+/* ── CARGA SEMANAL ────────────────────── */
+function renderCargaTable(){
+  document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>`
+    <tr>
+      <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v}</div></td>
+      <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i})"></td>
+      <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i})"></td>
+      <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i})"></td>
+      <td><span class="n-calc" id="stk_${i}">${d.sa - d.vtn + d.rep}</span></td>
+    </tr>`).join('');
+}
+
+function recalcStock(i){
+  const sa=parseInt(document.getElementById('sa_'+i).value)||0;
+  const vtn=parseInt(document.getElementById('vtn_'+i).value)||0;
+  const rep=parseInt(document.getElementById('rep_'+i).value)||0;
+  document.getElementById('stk_'+i).textContent=sa-vtn+rep;
+}
+
+function guardarCierre(){showToast('✓ Cierre guardado. El motor recalculará el tablero en breve.');}
+function guardarPublicidad(){showToast('✓ Pauta guardada correctamente.');}
+function guardarConfig(){showToast('✓ Configuración guardada.');}
+
+function renderPautaDist(){
+  const raw=document.getElementById('pautaInput').value.replace(/\./g,'').replace('$','').replace(',','.');
+  const total=parseFloat(raw)||165000;
+  const porSKU=Math.round(total/12);
+  document.getElementById('pautaDistList').innerHTML=CARGA_DATA.map(d=>
+    `<div class="pauta-dist-row"><span class="pauta-dist-sku">${d.sku} ${d.v}</span><span class="pauta-dist-val">${money(porSKU)}</span></div>`
+  ).join('');
+}
+
+/* ── CONFIGURACIÓN ────────────────────── */
+function renderGastosConfig(){
+  document.getElementById('gastosConfigList').innerHTML=GASTOS_CONFIG.map(g=>`
+    <div class="gasto-row-cfg">
+      <input class="config-input" type="text" value="${g.nombre}">
+      <input class="config-input" type="text" value="${g.tipo}">
+      <input class="config-input" type="text" value="${g.valor}">
+    </div>`).join('');
+}
+
+function renderProductosTable(){
+  document.getElementById('productosTableBody').innerHTML=PRODUCTOS_CONFIG.map(p=>`
+    <tr>
+      <td><div class="prod-name">${p.sku}</div></td>
+      <td><div class="prod-var">${p.v}</div></td>
+      <td style="font-family:'DM Mono',monospace">${money(p.precio)}</td>
+      <td style="font-family:'DM Mono',monospace">${money(p.costo)}</td>
+      <td style="font-family:'DM Mono',monospace;color:var(--text-muted)">${p.cuotas} cuotas</td>
+      <td><span class="estado-badge estado-activo">Activo</span></td>
+    </tr>`).join('');
+}
+
+/* ── INIT ─────────────────────────────── */
+function initApp(){
+  renderPlan();
+  renderTable();
+  renderParametros();
+  renderCargaTable();
+  renderPautaDist();
+  renderGastosConfig();
+  renderProductosTable();
+}
+</script>
+</body>
+</html>
