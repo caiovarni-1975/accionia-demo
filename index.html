@@ -275,6 +275,139 @@
     .gasto-row-cfg{grid-template-columns:1fr 1fr;}
     table{font-size:12px;}
   }
+
+  /* ── CARGA: semana hero ── */
+  .carga-semana-hero{background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.25);border-radius:8px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .csh-label{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;}
+  .csh-sel{background:transparent;border:none;border-bottom:2px solid var(--accent);color:var(--text);font-size:14px;font-weight:700;font-family:'DM Mono',monospace;padding:2px 6px;cursor:pointer;outline:none;}
+  .csh-sel option{background:var(--surface);color:var(--text);}
+  .csh-sub{font-size:11px;color:var(--text-muted);}
+
+  /* ── CARGA: SE global bar ── */
+  .se-global-bar{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+  .se-global-bar.active{background:rgba(252,211,77,.07);border-color:rgba(252,211,77,.4);}
+  .se-lbl{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;flex-shrink:0;}
+  .se-chk-wrap{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:13px;}
+  .se-chk-wrap input[type=checkbox]{accent-color:var(--warn);width:14px;height:14px;cursor:pointer;}
+  .se-mot-sel{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:4px 9px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;display:none;}
+  .se-mot-sel.show{display:inline-block;}
+
+  /* ── CARGA: table buttons ── */
+  .atipica-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;color:var(--text-dim);transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+  .atipica-btn:hover{color:var(--text);}
+  .atipica-btn.on{background:rgba(252,211,77,.15);border-color:var(--warn);color:var(--warn);font-weight:700;}
+  .ajuste-btn{background:none;border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;color:var(--text-dim);transition:all .15s;white-space:nowrap;font-family:'DM Sans',sans-serif;}
+  .ajuste-btn:hover{color:var(--text);}
+  .ajuste-btn.on{background:rgba(99,102,241,.15);border-color:var(--accent);color:var(--accent);font-weight:700;}
+
+  /* ── CARGA: fixed bottom bar ── */
+  .carga-fixed-bar{position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);padding:10px 32px;display:flex;align-items:center;justify-content:space-between;z-index:55;}
+  .cfb-status{font-size:11px;color:var(--text-muted);}
+  .cfb-status.dirty{color:var(--warn);}
+  .btn-cfb{padding:9px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid;font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:7px;}
+  .btn-cfb-save{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-cfb-save:hover{opacity:.88;}
+  .btn-cfb-save:disabled{opacity:.35;cursor:not-allowed;}
+
+  /* ── AJUSTE MODAL ── */
+  .ajuste-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+  .ajuste-overlay.show{display:flex;}
+  .ajuste-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px;max-width:420px;width:90%;animation:slideUp .2s ease;}
+  .ajuste-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+  .ajuste-sku{font-size:12px;color:var(--accent);margin-bottom:20px;}
+  .ajuste-form-row{display:flex;flex-direction:column;gap:4px;margin-bottom:14px;}
+  .ajuste-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;}
+  .ajuste-sel,.ajuste-inp,.ajuste-ta{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;width:100%;}
+  .ajuste-sel:focus,.ajuste-inp:focus,.ajuste-ta:focus{border-color:var(--accent);}
+  .ajuste-ta{resize:vertical;min-height:64px;}
+  .ajuste-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;}
+  .btn-ajuste-cancel{background:transparent;border:1px solid var(--border);border-radius:6px;padding:8px 18px;color:var(--text-muted);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+  .btn-ajuste-apply{background:var(--accent);border:1px solid var(--accent);border-radius:6px;padding:8px 18px;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+  /* ── PAST WEEK MODAL ── */
+  .past-week-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+  .past-week-overlay.show{display:flex;}
+  .past-week-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px 32px;max-width:420px;width:90%;}
+  .past-week-title{font-size:15px;font-weight:700;margin-bottom:10px;}
+  .past-week-body{font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.6;}
+  .past-week-body strong{color:var(--warn);}
+  .past-week-actions{display:flex;gap:10px;justify-content:flex-end;}
+
+  /* ── PRECIOS TAB ── */
+  .precios-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:16px;}
+  .precios-table{width:100%;border-collapse:collapse;}
+  .precios-table thead th{padding:9px 14px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid var(--border);background:var(--surface2);text-align:left;}
+  .precios-table thead th:not(:first-child){text-align:center;}
+  .precios-table tbody tr{border-bottom:1px solid var(--border);}
+  .precios-table tbody tr:last-child{border-bottom:none;}
+  .precios-table tbody tr:hover td{background:rgba(99,102,241,.04);}
+  .precios-table td{padding:8px 12px;vertical-align:middle;text-align:center;}
+  .precios-table td:first-child{text-align:left;padding-left:16px;}
+  .precio-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 9px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;outline:none;width:100px;text-align:right;transition:border-color .15s;}
+  .precio-input:focus{border-color:var(--accent);}
+  .cuotas-sel{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 9px;color:var(--text);font-size:12px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;}
+  .precio-minimo{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-dim);}
+
+  /* ── AGREGAR TAB ── */
+  .agregar-radios{display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;}
+  .agregar-radio-lbl{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:10px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:all .15s;}
+  .agregar-radio-lbl:hover{border-color:var(--accent);}
+  .agregar-radio-lbl input[type=radio]{accent-color:var(--accent);width:14px;height:14px;cursor:pointer;}
+  .agregar-radio-lbl.selected{background:rgba(99,102,241,.1);border-color:var(--accent);}
+  .agregar-form{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;}
+  .agregar-form-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+  .form-field{display:flex;flex-direction:column;gap:4px;}
+  .form-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;}
+  .form-input,.form-select{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:8px 12px;color:var(--text);font-size:13px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;width:100%;}
+  .form-input:focus,.form-select:focus{border-color:var(--accent);}
+  .baja-sku-sel{display:flex;flex-direction:column;gap:8px;max-height:280px;overflow-y:auto;}
+  .baja-sku-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-size:13px;transition:all .15s;}
+  .baja-sku-item:hover{border-color:var(--danger);}
+  .baja-sku-item input[type=checkbox]{accent-color:var(--danger);width:14px;height:14px;cursor:pointer;}
+  .baja-sku-item.selected{background:var(--pausar-bg);border-color:var(--pausar-border);}
+
+  /* ── CONFIG: datos cliente ── */
+  .datos-cliente-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:20px;}
+  .dcc-title{font-size:12px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;}
+  .dcc-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+
+  /* ── CONFIG: canal card enhancements ── */
+  .canal-toggle-wrap{display:flex;align-items:center;gap:8px;}
+  .canal-toggle{position:relative;width:36px;height:20px;flex-shrink:0;}
+  .canal-toggle input{opacity:0;width:0;height:0;position:absolute;}
+  .canal-toggle-slider{position:absolute;inset:0;background:var(--border);border-radius:20px;cursor:pointer;transition:.2s;}
+  .canal-toggle-slider::before{content:'';position:absolute;width:14px;height:14px;left:3px;bottom:3px;background:#666;border-radius:50%;transition:.2s;}
+  .canal-toggle input:checked + .canal-toggle-slider{background:#14532d;}
+  .canal-toggle input:checked + .canal-toggle-slider::before{transform:translateX(16px);background:var(--success);}
+  .canal-toggle-lbl{font-size:12px;color:var(--text-muted);}
+
+  /* ── CONFIG: gastos enhanced ── */
+  .gasto-row-full{display:grid;grid-template-columns:1fr 170px 90px 28px;gap:8px;align-items:center;margin-bottom:6px;}
+  .gasto-remove-btn{background:none;border:1px solid var(--border);border-radius:4px;width:26px;height:26px;cursor:pointer;color:var(--text-dim);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;}
+  .gasto-remove-btn:hover{border-color:var(--danger);color:var(--danger);}
+  .add-gasto-btn{background:none;border:1px dashed var(--border);border-radius:6px;padding:8px 14px;color:var(--text-muted);font-size:12px;cursor:pointer;width:100%;text-align:center;transition:all .15s;margin-top:6px;font-family:'DM Sans',sans-serif;}
+  .add-gasto-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .add-canal-btn{background:none;border:1px dashed var(--border);border-radius:8px;padding:14px;color:var(--text-muted);font-size:13px;cursor:pointer;width:100%;text-align:center;transition:all .15s;margin-bottom:16px;font-family:'DM Sans',sans-serif;}
+  .add-canal-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  /* ── CONFIG: tooltip ── */
+  .tooltip-wrap{position:relative;display:inline-flex;align-items:center;}
+  .tooltip-icon{width:15px;height:15px;background:var(--surface2);border:1px solid var(--border);border-radius:50%;font-size:9px;font-weight:700;color:var(--text-muted);display:inline-flex;align-items:center;justify-content:center;cursor:default;flex-shrink:0;margin-left:4px;}
+  .tooltip-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1c1c26;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-size:11px;color:var(--text-muted);white-space:nowrap;z-index:80;pointer-events:none;min-width:180px;}
+  body.light .tooltip-tip{background:#fff;}
+  .tooltip-wrap:hover .tooltip-tip{display:block;}
+
+  /* ── CONFIG: ejecutar motor ── */
+  .btn-ejecutar{background:#14532d;border:1px solid #14532d;border-radius:8px;padding:11px 26px;color:var(--success);font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:9px;transition:opacity .15s;}
+  .btn-ejecutar:hover{opacity:.88;}
+  .motor-spinner-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:300;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
+  .motor-spinner-overlay.show{display:flex;}
+  .motor-spinner-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:36px 44px;text-align:center;}
+  .motor-sp{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .motor-spinner-txt{font-size:13px;color:var(--text-muted);}
+  .motor-spinner-sub{font-size:11px;color:var(--text-dim);margin-top:6px;}
 </style>
 </head>
 <body>
@@ -370,36 +503,59 @@
     <div class="sub-nav">
       <div class="sub-tab active" id="stab-cierre" onclick="showSubTab('carga','cierre')">Cierre de semana</div>
       <div class="sub-tab" id="stab-publicidad" onclick="showSubTab('carga','publicidad')">Publicidad</div>
+      <div class="sub-tab" id="stab-precios" onclick="showSubTab('carga','precios')">Precios y cuotas</div>
+      <div class="sub-tab" id="stab-agregar" onclick="showSubTab('carga','agregar')">+ Agregar</div>
     </div>
 
     <div class="page active page-inner" id="cpage-cierre">
       <div class="page-title">Cierre de semana</div>
       <div class="page-subtitle">Stock anterior, ventas del período y reposiciones recibidas</div>
 
-      <div class="carga-info">
-        <span class="carga-semana-lbl">Semana cerrada</span>
-        <span class="carga-semana-val">07/04/2026 — 13/04/2026</span>
-        <span class="carga-hint">12 SKUs activos · Canal: Tienda Nube</span>
+      <!-- Semana selector -->
+      <div class="carga-semana-hero">
+        <span class="csh-label">Cargando semana</span>
+        <select class="csh-sel" id="cargaSemSel" onchange="onCargaSemanaChange(this.value)">
+          <option value="0">07/04 al 13/04/2026</option>
+          <option value="1">31/03 al 06/04/2026</option>
+          <option value="2">24/03 al 30/03/2026</option>
+          <option value="3">17/03 al 23/03/2026</option>
+          <option value="4">10/03 al 16/03/2026</option>
+        </select>
+        <span class="csh-sub" id="cargaSemSub">lun 7 abr → dom 13 abr</span>
       </div>
 
-      <div class="carga-table-wrap">
+      <!-- Semana especial global -->
+      <div class="se-global-bar" id="seGlobalBar">
+        <span class="se-lbl">⚠ Semana especial</span>
+        <label class="se-chk-wrap">
+          <input type="checkbox" id="seGlobalChk" onchange="toggleSEGlobal()">
+          <span>Marcar toda la semana como atípica</span>
+        </label>
+        <select class="se-mot-sel" id="seGlobalMotivo">
+          <option>Feriado</option>
+          <option>Evento especial</option>
+          <option>Cierre por vacaciones</option>
+          <option>Lanzamiento</option>
+          <option>Otro</option>
+        </select>
+        <span style="font-size:11px;color:var(--text-dim);margin-left:auto">Las semanas atípicas no se usan para calcular demanda de referencia</span>
+      </div>
+
+      <div class="carga-table-wrap" style="padding-bottom:8px">
         <table class="carga-table">
           <thead>
             <tr>
-              <th style="text-align:left">Producto / Variante</th>
-              <th>Stock Anterior</th>
+              <th style="text-align:left;min-width:140px">Producto / Variante</th>
+              <th>Stock Ant.</th>
               <th>Ventas TN</th>
-              <th>Reposición</th>
-              <th>Stock Actual</th>
+              <th>Repos.</th>
+              <th>Stock Act.</th>
+              <th>Sem. esp.</th>
+              <th>Ajuste</th>
             </tr>
           </thead>
           <tbody id="cargaTableBody"></tbody>
         </table>
-      </div>
-
-      <div class="carga-footer">
-        <span class="carga-footer-hint">Los datos se guardan y el motor recalcula automáticamente.</span>
-        <button class="btn-save" onclick="guardarCierre()">Guardar cierre →</button>
       </div>
     </div>
 
@@ -420,8 +576,58 @@
 
       <div class="carga-footer">
         <span class="carga-footer-hint">La pauta se registra por semana y canal.</span>
-        <button class="btn-save" onclick="guardarPublicidad()">Guardar publicidad →</button>
       </div>
+    </div>
+
+    <!-- ── PRECIOS Y CUOTAS ── -->
+    <div class="page page-inner" id="cpage-precios">
+      <div class="page-title">Precios y cuotas</div>
+      <div class="page-subtitle">Precio de venta activo por canal y condiciones de financiación — semana 07/04/2026</div>
+
+      <div class="precios-table-wrap">
+        <table class="precios-table">
+          <thead>
+            <tr>
+              <th>Producto / Variante</th>
+              <th>Precio TN</th>
+              <th>Cuotas s/i</th>
+              <th>Costo unit.</th>
+              <th>Precio mínimo sugerido <span style="font-size:9px;font-weight:400;color:var(--text-dim)">(costo / 0.61)</span></th>
+            </tr>
+          </thead>
+          <tbody id="preciosTableBody"></tbody>
+        </table>
+      </div>
+      <div style="font-size:11px;color:var(--text-dim);padding:0 4px">
+        El precio mínimo sugerido cubre costos de canal (39%) + margen cero. Bajar de ese precio implica pérdida.
+      </div>
+    </div>
+
+    <!-- ── AGREGAR ── -->
+    <div class="page page-inner" id="cpage-agregar">
+      <div class="page-title">+ Agregar / Dar de baja</div>
+      <div class="page-subtitle">Alta de nuevas variantes, nuevos productos o baja de SKUs activos</div>
+
+      <div class="agregar-radios" id="agregarRadios">
+        <label class="agregar-radio-lbl selected" onclick="selectAgregarMode('variante',this)">
+          <input type="radio" name="agrModo" value="variante" checked> Nueva variante
+        </label>
+        <label class="agregar-radio-lbl" onclick="selectAgregarMode('nuevo',this)">
+          <input type="radio" name="agrModo" value="nuevo"> Nuevo producto
+        </label>
+        <label class="agregar-radio-lbl" onclick="selectAgregarMode('baja',this)">
+          <input type="radio" name="agrModo" value="baja"> Dar de baja
+        </label>
+      </div>
+      <div id="agregarFormContainer"></div>
+    </div>
+
+    <!-- ── FIXED BOTTOM BAR (carga) ── -->
+    <div class="carga-fixed-bar" id="cargaFixedBar" style="display:none">
+      <span class="cfb-status" id="cfbStatus">12 SKUs · sin cambios</span>
+      <button class="btn-cfb btn-cfb-save" id="cfbSaveBtn" onclick="guardarSemana()" disabled>
+        💾 Guardar semana
+      </button>
     </div>
   </div>
 
@@ -435,41 +641,116 @@
     </div>
 
     <div class="page active page-inner" id="cfgpage-canales">
-      <div class="page-title">Canales y costos</div>
-      <div class="page-subtitle">Configuración de comisiones, gastos y objetivo de margen por canal</div>
+      <div class="page-title">Configuración</div>
+      <div class="page-subtitle">Parámetros del cliente, canales activos y estructura de costos</div>
 
-      <div class="canal-config-card">
+      <!-- Datos del cliente -->
+      <div class="datos-cliente-card">
+        <div class="dcc-title">Datos del cliente</div>
+        <div class="dcc-grid">
+          <div class="config-field">
+            <span class="config-label">Nombre</span>
+            <input class="config-input" type="text" value="NordHaus" id="cfgClienteNombre">
+          </div>
+          <div class="config-field">
+            <span class="config-label">ID cliente</span>
+            <input class="config-input" type="text" value="CLI_NH" id="cfgClienteId">
+          </div>
+          <div class="config-field">
+            <span class="config-label">Moneda</span>
+            <select class="config-input" id="cfgMoneda">
+              <option selected>ARS</option><option>USD</option><option>BRL</option>
+            </select>
+          </div>
+          <div class="config-field">
+            <label style="display:flex;align-items:center;gap:4px" class="config-label">
+              Obj. margen global
+              <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-tip">Margen neto objetivo aplicado si el canal no tiene uno propio</span></span>
+            </label>
+            <input class="config-input" type="text" value="25%" id="cfgMargenGlobal">
+          </div>
+          <div class="config-field">
+            <span class="config-label">Inicio de semana</span>
+            <select class="config-input" id="cfgInicioSemana">
+              <option selected>Lunes</option><option>Domingo</option>
+            </select>
+          </div>
+          <div class="config-field">
+            <label style="display:flex;align-items:center;gap:4px" class="config-label">
+              Ventana demanda
+              <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-tip">Semanas de historial que se promedian para calcular la demanda de referencia</span></span>
+            </label>
+            <input class="config-input" type="text" value="4 semanas" id="cfgVentana">
+          </div>
+        </div>
+      </div>
+
+      <!-- Canal: Tienda Nube -->
+      <div class="canal-config-card" id="canalCard_TN">
         <div class="canal-config-head">
-          <span class="canal-config-name">Tienda Nube</span>
-          <span class="canal-config-badge">Activo</span>
+          <div style="display:flex;align-items:center;gap:14px;">
+            <label class="canal-toggle">
+              <input type="checkbox" checked onchange="toggleCanal('TN',this.checked)">
+              <span class="canal-toggle-slider"></span>
+            </label>
+            <input class="config-input" type="text" value="Tienda Nube" style="width:160px;font-weight:600;font-size:14px;">
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <select class="config-input" style="width:auto;font-size:12px;padding:4px 8px;">
+              <option selected>E_COMMERCE</option>
+              <option>LOCAL_FISICO</option>
+              <option>MARKETPLACE</option>
+              <option>INSTAGRAM</option>
+              <option>WHATSAPP</option>
+            </select>
+            <span class="canal-config-badge">Activo</span>
+          </div>
         </div>
         <div class="canal-config-body">
           <div class="config-form-row">
             <div class="config-field">
-              <span class="config-label">Objetivo margen neto</span>
+              <label style="display:flex;align-items:center;gap:4px" class="config-label">
+                Objetivo margen neto
+                <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-tip">Motor usa esto para clasificar SKUs como EMPUJAR o MONITOREAR</span></span>
+              </label>
               <input class="config-input" type="text" value="25%">
             </div>
             <div class="config-field">
-              <span class="config-label">Cuotas sin interés</span>
-              <input class="config-input" type="text" value="6 cuotas">
+              <label style="display:flex;align-items:center;gap:4px" class="config-label">
+                Umbral quiebre
+                <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-tip">Semanas de cobertura por debajo de las cuales se activa RIESGO_QUIEBRE</span></span>
+              </label>
+              <input class="config-input" type="text" value="2 semanas">
             </div>
             <div class="config-field">
-              <span class="config-label">Moneda</span>
-              <input class="config-input" type="text" value="ARS">
+              <label style="display:flex;align-items:center;gap:4px" class="config-label">
+                Umbral sobrestock
+                <span class="tooltip-wrap"><span class="tooltip-icon">?</span><span class="tooltip-tip">Semanas de cobertura por encima de las cuales se activa LIQUIDAR</span></span>
+              </label>
+              <input class="config-input" type="text" value="8 semanas">
             </div>
           </div>
-          <div class="gastos-config-title">Gastos del canal</div>
-          <div class="gasto-row-cfg" style="margin-bottom:6px">
-            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Concepto</span>
-            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Tipo</span>
-            <span style="font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em">Valor</span>
+
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;margin-bottom:8px;">
+            <span class="gastos-config-title" style="margin:0">Gastos del canal</span>
+            <div style="display:flex;gap:6px;font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;align-items:center;padding-right:34px">
+              <span style="flex:1;min-width:0">Concepto</span>
+              <span style="width:170px;text-align:left">Modo de cálculo</span>
+              <span style="width:90px;text-align:right">Valor</span>
+            </div>
           </div>
           <div id="gastosConfigList"></div>
+          <button class="add-gasto-btn" onclick="addGasto()">+ Agregar gasto</button>
         </div>
       </div>
 
-      <div style="display:flex;justify-content:flex-end;margin-top:8px;">
-        <button class="btn-save" onclick="guardarConfig()">Guardar configuración →</button>
+      <!-- Agregar nuevo canal -->
+      <button class="add-canal-btn" onclick="showAddCanalToast()">+ Agregar canal</button>
+
+      <!-- Save / Ejecutar motor -->
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px;">
+        <span style="font-size:12px;color:var(--text-muted)">Los cambios se aplican al motor en el próximo cálculo</span>
+        <button class="btn-ejecutar" onclick="ejecutarMotor()">⚡ Guardar y ejecutar motor</button>
       </div>
     </div>
 
@@ -500,6 +781,57 @@
   <div class="detail-panel">
     <button class="detail-close" onclick="closeDetailPanel()">✕</button>
     <div id="detailContent"></div>
+  </div>
+</div>
+
+<!-- AJUSTE MODAL -->
+<div class="ajuste-overlay" id="ajusteOverlay">
+  <div class="ajuste-box">
+    <div class="ajuste-title">Ajuste de inventario</div>
+    <div class="ajuste-sku" id="ajusteSKUName">Campera Oxford · Negro</div>
+    <div class="ajuste-form-row">
+      <span class="ajuste-label">Tipo de ajuste</span>
+      <select class="ajuste-sel" id="ajusteTipo">
+        <option>Merma</option>
+        <option>Rotura</option>
+        <option>Error de conteo</option>
+        <option>Donación</option>
+        <option>Otro</option>
+      </select>
+    </div>
+    <div class="ajuste-form-row">
+      <span class="ajuste-label">Cantidad (negativo = salida)</span>
+      <input class="ajuste-inp" type="number" id="ajusteCantidad" placeholder="Ej: -3" value="-1">
+    </div>
+    <div class="ajuste-form-row">
+      <span class="ajuste-label">Motivo / descripción</span>
+      <textarea class="ajuste-ta" id="ajusteMotivo" placeholder="Detalle opcional del ajuste..."></textarea>
+    </div>
+    <div class="ajuste-actions">
+      <button class="btn-ajuste-cancel" onclick="closeAjuste()">Cancelar</button>
+      <button class="btn-ajuste-apply" onclick="applyAjuste()">Aplicar ajuste</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAST WEEK MODAL -->
+<div class="past-week-overlay" id="pastWeekOverlay">
+  <div class="past-week-box">
+    <div class="past-week-title">⚠️ Estás editando una semana pasada</div>
+    <div class="past-week-body">Vas a cargar datos para la semana <strong id="pastWeekLabel">—</strong>.<br>Si ya hay datos para esa semana, serán <strong>reemplazados</strong> al guardar.<br><br>¿Confirmás que querés editar esta semana?</div>
+    <div class="past-week-actions">
+      <button class="btn-ajuste-cancel" onclick="cancelPastWeek()">Cancelar</button>
+      <button class="btn-ajuste-apply" onclick="confirmPastWeek()">Confirmar y cargar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MOTOR SPINNER OVERLAY -->
+<div class="motor-spinner-overlay" id="motorSpinnerOverlay">
+  <div class="motor-spinner-box">
+    <div class="motor-sp"></div>
+    <div class="motor-spinner-txt">Ejecutando motor de decisiones...</div>
+    <div class="motor-spinner-sub" id="motorSpinnerSub">Calculando cobertura y márgenes</div>
   </div>
 </div>
 
@@ -587,11 +919,13 @@ function showModule(mod){
   document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('mod-'+mod).classList.add('active');
   document.getElementById('mtab-'+mod).classList.add('active');
+  const bar=document.getElementById('cargaFixedBar');
+  if(bar) bar.style.display=mod==='carga'?'flex':'none';
 }
 
 function showSubTab(mod, tab){
   const prefixes={tablero:'tpage',carga:'cpage',config:'cfgpage'};
-  const stabs={tablero:['plan','acciones','params'],carga:['cierre','publicidad'],config:['canales','productos']};
+  const stabs={tablero:['plan','acciones','params'],carga:['cierre','publicidad','precios','agregar'],config:['canales','productos']};
   const prefix=prefixes[mod];
   stabs[mod].forEach(t=>{
     const p=document.getElementById(prefix+'-'+t);
@@ -599,6 +933,9 @@ function showSubTab(mod, tab){
     if(p) p.classList.toggle('active',t===tab);
     if(s) s.classList.toggle('active',t===tab);
   });
+  // Lazy render for new tabs
+  if(mod==='carga'&&tab==='precios') renderPreciosTable();
+  if(mod==='carga'&&tab==='agregar') renderAgregarForm('variante');
 }
 
 function toggleTheme(){
@@ -741,15 +1078,113 @@ function closeDetail(e){if(e.target===document.getElementById('detailOverlay'))c
 function closeDetailPanel(){document.getElementById('detailOverlay').classList.remove('open');}
 
 /* ── CARGA SEMANAL ────────────────────── */
+let _atipicaState={};   // {i: bool}
+let _ajusteState={};    // {i: {cant,tipo,motivo}}
+let _ajusteTarget=null;
+let _pendingSemana=null;
+let _currentSemIdx=0;
+let _cargaDirty=false;
+
+const SEMANA_LABELS=[
+  {label:'07/04 al 13/04/2026',sub:'lun 7 abr → dom 13 abr'},
+  {label:'31/03 al 06/04/2026',sub:'lun 31 mar → dom 6 abr'},
+  {label:'24/03 al 30/03/2026',sub:'lun 24 mar → dom 30 mar'},
+  {label:'17/03 al 23/03/2026',sub:'lun 17 mar → dom 23 mar'},
+  {label:'10/03 al 16/03/2026',sub:'lun 10 mar → dom 16 mar'},
+];
+
+function onCargaSemanaChange(idx){
+  const i=parseInt(idx);
+  if(i===_currentSemIdx) return;
+  _pendingSemana=i;
+  document.getElementById('pastWeekLabel').textContent=SEMANA_LABELS[i].label;
+  document.getElementById('pastWeekOverlay').classList.add('show');
+  // Revert select visually
+  document.getElementById('cargaSemSel').value=_currentSemIdx;
+}
+function cancelPastWeek(){
+  document.getElementById('pastWeekOverlay').classList.remove('show');
+  _pendingSemana=null;
+}
+function confirmPastWeek(){
+  document.getElementById('pastWeekOverlay').classList.remove('show');
+  _currentSemIdx=_pendingSemana;
+  _pendingSemana=null;
+  document.getElementById('cargaSemSel').value=_currentSemIdx;
+  const s=SEMANA_LABELS[_currentSemIdx];
+  document.getElementById('cargaSemSub').textContent=s.sub;
+  // Reset state
+  _atipicaState={};_ajusteState={};
+  document.getElementById('seGlobalChk').checked=false;
+  document.getElementById('seGlobalBar').classList.remove('active');
+  document.getElementById('seGlobalMotivo').classList.remove('show');
+  renderCargaTable();
+  markClean();
+  showToast('Semana '+(s.label.split(' al ')[0])+' cargada.');
+}
+
+function toggleSEGlobal(){
+  const chk=document.getElementById('seGlobalChk');
+  const bar=document.getElementById('seGlobalBar');
+  const mot=document.getElementById('seGlobalMotivo');
+  bar.classList.toggle('active',chk.checked);
+  mot.classList.toggle('show',chk.checked);
+  if(chk.checked){
+    // Mark all SKUs
+    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=true; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.add('on');btn.textContent='⚠ atípica';} });
+  } else {
+    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=false; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.remove('on');btn.textContent='Sem. esp.';} });
+  }
+  markDirty();
+}
+
+function toggleAtipica(i){
+  _atipicaState[i]=!_atipicaState[i];
+  const btn=document.getElementById('atipica_'+i);
+  btn.classList.toggle('on',_atipicaState[i]);
+  btn.textContent=_atipicaState[i]?'⚠ atípica':'Sem. esp.';
+  markDirty();
+}
+
+function openAjuste(i){
+  _ajusteTarget=i;
+  const d=CARGA_DATA[i];
+  document.getElementById('ajusteSKUName').textContent=d.sku+' · '+d.v;
+  const prev=_ajusteState[i]||{cant:-1,tipo:'Merma',motivo:''};
+  document.getElementById('ajusteTipo').value=prev.tipo;
+  document.getElementById('ajusteCantidad').value=prev.cant;
+  document.getElementById('ajusteMotivo').value=prev.motivo;
+  document.getElementById('ajusteOverlay').classList.add('show');
+}
+function closeAjuste(){ document.getElementById('ajusteOverlay').classList.remove('show'); _ajusteTarget=null; }
+function applyAjuste(){
+  const i=_ajusteTarget;
+  if(i===null) return;
+  const cant=parseInt(document.getElementById('ajusteCantidad').value)||0;
+  const tipo=document.getElementById('ajusteTipo').value;
+  const motivo=document.getElementById('ajusteMotivo').value;
+  _ajusteState[i]={cant,tipo,motivo};
+  const btn=document.getElementById('ajuste_'+i);
+  if(btn){ btn.classList.add('on'); btn.textContent='✓ '+cant+'u'; }
+  closeAjuste();
+  markDirty();
+  showToast('✓ Ajuste registrado ('+tipo+': '+cant+'u)');
+}
+
 function renderCargaTable(){
-  document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>`
-    <tr>
+  document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>{
+    const isAt=_atipicaState[i]||false;
+    const hasAj=_ajusteState[i];
+    return `<tr>
       <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v}</div></td>
-      <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i})"></td>
-      <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i})"></td>
-      <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i})"></td>
+      <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i});markDirty()"></td>
+      <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()"></td>
+      <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i});markDirty()"></td>
       <td><span class="n-calc" id="stk_${i}">${d.sa - d.vtn + d.rep}</span></td>
-    </tr>`).join('');
+      <td><button class="atipica-btn${isAt?' on':''}" id="atipica_${i}" onclick="toggleAtipica(${i})">${isAt?'⚠ atípica':'Sem. esp.'}</button></td>
+      <td><button class="ajuste-btn${hasAj?' on':''}" id="ajuste_${i}" onclick="openAjuste(${i})">${hasAj?'✓ '+hasAj.cant+'u':'Ajuste'}</button></td>
+    </tr>`;
+  }).join('');
 }
 
 function recalcStock(i){
@@ -759,7 +1194,28 @@ function recalcStock(i){
   document.getElementById('stk_'+i).textContent=sa-vtn+rep;
 }
 
-function guardarCierre(){showToast('✓ Cierre guardado. El motor recalculará el tablero en breve.');}
+function markDirty(){
+  _cargaDirty=true;
+  const s=document.getElementById('cfbStatus');
+  const btn=document.getElementById('cfbSaveBtn');
+  if(s) s.textContent='Cambios sin guardar';
+  if(s) s.className='cfb-status dirty';
+  if(btn) btn.disabled=false;
+}
+function markClean(){
+  _cargaDirty=false;
+  const s=document.getElementById('cfbStatus');
+  const btn=document.getElementById('cfbSaveBtn');
+  if(s) s.textContent='12 SKUs · sin cambios';
+  if(s) s.className='cfb-status';
+  if(btn) btn.disabled=true;
+}
+
+function guardarSemana(){
+  if(!_cargaDirty) return;
+  markClean();
+  showToast('✓ Semana guardada. El motor recalculará el tablero en breve.');
+}
 function guardarPublicidad(){showToast('✓ Pauta guardada correctamente.');}
 function guardarConfig(){showToast('✓ Configuración guardada.');}
 
@@ -772,14 +1228,190 @@ function renderPautaDist(){
   ).join('');
 }
 
+/* ── PRECIOS Y CUOTAS ─────────────────── */
+function renderPreciosTable(){
+  const tbody=document.getElementById('preciosTableBody');
+  if(!tbody) return;
+  tbody.innerHTML=PRODUCTOS_CONFIG.map((p,i)=>{
+    const min=Math.ceil(p.costo/0.61/1000)*1000; // rounded up to nearest 1000
+    return `<tr>
+      <td><div class="sku-name">${p.sku}</div><div class="sku-var" style="color:var(--text-muted);font-size:11px">${p.v}</div></td>
+      <td><input class="precio-input" type="text" value="${p.precio.toLocaleString('es-AR')}" id="precio_${i}" oninput="markDirty()"></td>
+      <td>
+        <select class="cuotas-sel" id="cuotas_${i}" onchange="markDirty()">
+          ${[1,3,6,12,18].map(c=>`<option value="${c}"${c===p.cuotas?' selected':''}>${c} cuota${c>1?'s':''}</option>`).join('')}
+        </select>
+      </td>
+      <td style="font-family:'DM Mono',monospace;font-size:13px;color:var(--text-muted)">${money(p.costo)}</td>
+      <td class="precio-minimo">${money(min)}</td>
+    </tr>`;
+  }).join('');
+}
+
+/* ── AGREGAR ──────────────────────────── */
+function selectAgregarMode(mode,el){
+  document.querySelectorAll('.agregar-radio-lbl').forEach(l=>l.classList.remove('selected'));
+  el.classList.add('selected');
+  renderAgregarForm(mode);
+}
+
+function renderAgregarForm(mode){
+  const c=document.getElementById('agregarFormContainer');
+  if(!c) return;
+  if(mode==='variante'){
+    c.innerHTML=`<div class="agregar-form">
+      <div class="agregar-form-title">Nueva variante de un producto existente</div>
+      <div class="form-grid">
+        <div class="form-field"><span class="form-label">Producto base</span>
+          <select class="form-select" id="agr-prod-base">
+            ${[...new Set(PRODUCTOS_CONFIG.map(p=>p.sku))].map(s=>`<option>${s}</option>`).join('')}
+          </select>
+        </div>
+        <div class="form-field"><span class="form-label">Nombre variante</span>
+          <input class="form-input" type="text" id="agr-variante" placeholder="Ej: Rojo, XL, Estampado...">
+        </div>
+        <div class="form-field"><span class="form-label">Precio de venta TN</span>
+          <input class="form-input" type="text" id="agr-precio" placeholder="125000">
+        </div>
+        <div class="form-field"><span class="form-label">Costo unitario</span>
+          <input class="form-input" type="text" id="agr-costo" placeholder="45000">
+        </div>
+        <div class="form-field"><span class="form-label">Stock inicial</span>
+          <input class="form-input" type="number" id="agr-stock" placeholder="0" value="0">
+        </div>
+        <div class="form-field"><span class="form-label">Cuotas sin interés</span>
+          <select class="form-select" id="agr-cuotas">
+            ${[1,3,6,12,18].map(c=>`<option${c===6?' selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <button class="btn-cfb btn-cfb-save" style="width:100%;justify-content:center;margin-top:4px" onclick="submitAgregar('variante')">
+        + Agregar variante
+      </button>
+    </div>`;
+  } else if(mode==='nuevo'){
+    c.innerHTML=`<div class="agregar-form">
+      <div class="agregar-form-title">Nuevo producto (categoría nueva)</div>
+      <div class="form-grid">
+        <div class="form-field"><span class="form-label">Nombre del producto</span>
+          <input class="form-input" type="text" id="agr-nombre" placeholder="Ej: Vestido Midi">
+        </div>
+        <div class="form-field"><span class="form-label">Variante inicial</span>
+          <input class="form-input" type="text" id="agr-var1" placeholder="Ej: Negro">
+        </div>
+        <div class="form-field"><span class="form-label">Precio de venta TN</span>
+          <input class="form-input" type="text" id="agr-precio2" placeholder="95000">
+        </div>
+        <div class="form-field"><span class="form-label">Costo unitario</span>
+          <input class="form-input" type="text" id="agr-costo2" placeholder="38000">
+        </div>
+        <div class="form-field"><span class="form-label">Stock inicial</span>
+          <input class="form-input" type="number" id="agr-stock2" value="0" placeholder="0">
+        </div>
+        <div class="form-field"><span class="form-label">Cuotas sin interés</span>
+          <select class="form-select" id="agr-cuotas2">
+            ${[1,3,6,12,18].map(c=>`<option${c===6?' selected':''}>${c}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <button class="btn-cfb btn-cfb-save" style="width:100%;justify-content:center;margin-top:4px" onclick="submitAgregar('nuevo')">
+        + Crear producto
+      </button>
+    </div>`;
+  } else if(mode==='baja'){
+    c.innerHTML=`<div class="agregar-form">
+      <div class="agregar-form-title">Dar de baja SKUs — dejarán de recibir decisiones del motor</div>
+      <div class="baja-sku-sel">
+        ${PRODUCTOS_CONFIG.map((p,i)=>`
+          <label class="baja-sku-item" id="baja_item_${i}" onclick="toggleBajaItem(${i},this)">
+            <input type="checkbox" id="baja_chk_${i}" onclick="event.stopPropagation();toggleBajaItem(${i},this.closest('label'))">
+            <span style="flex:1"><span style="font-weight:600">${p.sku}</span> <span style="color:var(--text-muted);font-size:11px">${p.v}</span></span>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted)">${money(p.precio)}</span>
+          </label>`).join('')}
+      </div>
+      <button class="btn-cfb" style="margin-top:14px;width:100%;justify-content:center;background:#7f1d1d;border-color:#7f1d1d;color:var(--danger)" onclick="submitAgregar('baja')">
+        Confirmar baja de SKUs seleccionados
+      </button>
+    </div>`;
+  }
+}
+
+function toggleBajaItem(i,el){
+  el.classList.toggle('selected');
+  const chk=document.getElementById('baja_chk_'+i);
+  if(chk) chk.checked=el.classList.contains('selected');
+}
+
+function submitAgregar(mode){
+  if(mode==='variante'){
+    const prod=document.getElementById('agr-prod-base')?.value||'';
+    const vari=document.getElementById('agr-variante')?.value||'(sin nombre)';
+    showToast('✓ Variante "'+prod+' · '+vari+'" agregada.');
+  } else if(mode==='nuevo'){
+    const nom=document.getElementById('agr-nombre')?.value||'(sin nombre)';
+    showToast('✓ Producto "'+nom+'" creado. Ahora aparece en la carga semanal.');
+  } else if(mode==='baja'){
+    const bajas=PRODUCTOS_CONFIG.filter((_,i)=>document.getElementById('baja_chk_'+i)?.checked);
+    if(!bajas.length){showToast('Seleccioná al menos un SKU para dar de baja.');return;}
+    showToast('✓ '+bajas.length+' SKU'+(bajas.length>1?'s':'')+' dado'+(bajas.length>1?'s':'')+' de baja.');
+  }
+}
+
 /* ── CONFIGURACIÓN ────────────────────── */
+const MODOS_GASTO=[
+  {v:'PCT_SOBRE_VENTA',  l:'% sobre venta'},
+  {v:'FIJO_POR_UNIDAD',  l:'Fijo por unidad'},
+  {v:'FIJO_POR_ORDEN',   l:'Fijo por orden'},
+  {v:'MANUAL',           l:'Manual'},
+];
+let _gastosData=[...GASTOS_CONFIG.map(g=>({...g}))];
+
 function renderGastosConfig(){
-  document.getElementById('gastosConfigList').innerHTML=GASTOS_CONFIG.map(g=>`
-    <div class="gasto-row-cfg">
-      <input class="config-input" type="text" value="${g.nombre}">
-      <input class="config-input" type="text" value="${g.tipo}">
-      <input class="config-input" type="text" value="${g.valor}">
+  const el=document.getElementById('gastosConfigList');
+  if(!el) return;
+  el.innerHTML=_gastosData.map((g,i)=>`
+    <div class="gasto-row-full" id="gasto_row_${i}">
+      <input class="config-input" type="text" value="${g.nombre}" style="font-size:12px" oninput="_gastosData[${i}].nombre=this.value">
+      <select class="config-input" style="font-size:12px;padding:5px 8px" onchange="_gastosData[${i}].modo=this.value">
+        ${MODOS_GASTO.map(m=>`<option value="${m.v}"${(g.modo||g.tipo)===m.v?' selected':''}>${m.l}</option>`).join('')}
+      </select>
+      <input class="config-input" type="text" value="${g.valor}" style="font-size:12px;text-align:right;font-family:'DM Mono',monospace" oninput="_gastosData[${i}].valor=this.value">
+      <button class="gasto-remove-btn" onclick="removeGasto(${i})">×</button>
     </div>`).join('');
+}
+
+function addGasto(){
+  _gastosData.push({nombre:'Nuevo gasto',modo:'PCT_SOBRE_VENTA',valor:'0.00%'});
+  renderGastosConfig();
+  showToast('Gasto agregado. Completá nombre y valor.');
+}
+
+function removeGasto(i){
+  _gastosData.splice(i,1);
+  renderGastosConfig();
+}
+
+function toggleCanal(id,active){
+  const badge=document.querySelector('#canalCard_'+id+' .canal-config-badge');
+  if(badge){badge.textContent=active?'Activo':'Inactivo';badge.style.color=active?'var(--success)':'var(--danger)';badge.style.borderColor=active?'#14532d':'#7f1d1d';badge.style.background=active?'#0a1f0f':'#2d0f0f';}
+  showToast(active?'Canal Tienda Nube activado.':'Canal Tienda Nube desactivado.');
+}
+
+function showAddCanalToast(){
+  showToast('En la versión completa podés agregar Local Físico, Marketplace, WhatsApp, etc.');
+}
+
+function ejecutarMotor(){
+  const overlay=document.getElementById('motorSpinnerOverlay');
+  overlay.classList.add('show');
+  const subs=['Calculando cobertura y márgenes','Clasificando decisiones por SKU','Generando ranking de criticidad','Actualizando tablero de decisiones'];
+  let step=0;
+  const sub=document.getElementById('motorSpinnerSub');
+  const interval=setInterval(()=>{
+    step++;
+    if(step<subs.length) sub.textContent=subs[step];
+    if(step>=subs.length-1){ clearInterval(interval); setTimeout(()=>{ overlay.classList.remove('show'); showToast('✓ Motor ejecutado. Tablero actualizado con las nuevas decisiones.'); },1200); }
+  },900);
 }
 
 function renderProductosTable(){
@@ -803,6 +1435,11 @@ function initApp(){
   renderPautaDist();
   renderGastosConfig();
   renderProductosTable();
+  // Pre-render agregar so it has content
+  renderAgregarForm('variante');
+  // Set initial sub label
+  const sub=document.getElementById('cargaSemSub');
+  if(sub) sub.textContent=SEMANA_LABELS[0].sub;
 }
 </script>
 </body>
