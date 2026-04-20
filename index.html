@@ -11,6 +11,7 @@
     --text:#e8e8f0; --text-muted:#6b6b80; --text-dim:#3a3a50; --accent:#6366f1;
     --success:#86efac; --danger:#fca5a5; --warn:#fcd34d;
     --pausar-bg:#2d0f0f; --pausar-border:#7f1d1d; --pausar-text:#fca5a5;
+    --revisar-bg:#1f1208; --revisar-border:#7c3a00; --revisar-text:#fb923c;
     --quiebre-bg:#2d1a0a; --quiebre-border:#92400e; --quiebre-text:#fcd34d;
     --liquidar-bg:#1a1a0a; --liquidar-border:#713f12; --liquidar-text:#fde68a;
     --empujar-bg:#0a1f0f; --empujar-border:#14532d; --empujar-text:#86efac;
@@ -21,6 +22,7 @@
     --bg:#f5f5f8; --surface:#ffffff; --surface2:#f0f0f5; --border:#dddde8;
     --text:#1a1a2e; --text-muted:#6b6b80; --text-dim:#aaaabc; --accent:#6366f1;
     --pausar-bg:#fee2e2; --pausar-border:#fca5a5; --pausar-text:#991b1b;
+    --revisar-bg:#fff7ed; --revisar-border:#fed7aa; --revisar-text:#9a3412;
     --quiebre-bg:#fef3c7; --quiebre-border:#fcd34d; --quiebre-text:#92400e;
     --liquidar-bg:#fefce8; --liquidar-border:#fde68a; --liquidar-text:#713f12;
     --empujar-bg:#f0fdf4; --empujar-border:#86efac; --empujar-text:#14532d;
@@ -95,6 +97,11 @@
   .badge-ACTIVAR{background:var(--activar-bg);border-color:var(--activar-border);color:var(--activar-text);}
   .badge-MONITOREAR{background:var(--monitorear-bg);border-color:var(--monitorear-border);color:var(--monitorear-text);}
   .badge-PAUSAR{background:var(--pausar-bg);border-color:var(--pausar-border);color:var(--pausar-text);}
+  .badge-REVISAR_PRECIO{background:var(--revisar-bg);border-color:var(--revisar-border);color:var(--revisar-text);}
+  .sit-card-revisar{border-left:4px solid #f97316;}
+  .sit-count-revisar{color:#f97316;}
+  .sbl-dot-revisar{background:#f97316;}
+  .sit-bar-revisar{background:#f97316;}
   .badge-SIN_DATOS{background:var(--surface2);border-color:var(--border);color:var(--text-dim);}
 
   /* Plan cards */
@@ -1059,8 +1066,8 @@ const allData=[
   {rank_cliente_semana:'13',producto:'Short Training',variante:'Gris',canal_nombre:'Local Físico',canal_id:'LF',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Velocidad errática en el local — 3 semanas arriba, 2 semanas abajo, sin patrón claro. El local tiene menor volumen y mayor variabilidad que TN, lo que dificulta el análisis de tendencia.',proximo_paso:'Sin acción urgente. Revisar en 2 semanas si la tendencia se estabiliza. Si hay días con alta demanda, destacarlo en el punto de venta con señalética.',margen_neto_pct:'0.371',cobertura_stock:'5.5',ventas_semanales:'3',precio_actual:'72000',precio_minimo_recomendado:'0',demanda_referencia:'3.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'25000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":288000,"d":0,"p":0},{"s":"2026-03-23","u":2,"b":144000,"d":0,"p":0},{"s":"2026-03-30","u":4,"b":288000,"d":0,"p":0},{"s":"2026-04-06","u":2,"b":144000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 16u | Demanda semanal: 3.0u | Cobertura: 5.5 sem | Variabilidad: alta'},
   {rank_cliente_semana:'14',producto:'Zapatilla Pro Runner',variante:'Azul Eléctrico',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas registradas. Colorway nuevo del Pro Runner para FW\'26 — el Negro y el Blanco tienen demanda comprobada. El Azul está en el catálogo pero no aparece en búsquedas porque no tiene reseñas ni historial.',proximo_paso:'Publicar con fotos de lifestyle de invierno esta semana. No pautar hasta tener 3 ventas orgánicas. Pedir reseñas a los primeros compradores para sumar calificaciones.',margen_neto_pct:'0.309',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'185000',precio_minimo_recomendado:'127000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'75000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 18u | Precio: $185.000 | Margen proyectado: 30.9%'},
   {rank_cliente_semana:'15',producto:'Mochila Trail 25L',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas. Nueva categoría para Zona Sport — primer accesorio en el catálogo. La mochila tiene margen proyectado del 36% y buena visibilidad en búsquedas de "mochila running" en TN, pero sin historial.',proximo_paso:'Publicar en TN y en el local físico esta semana. Testear con tráfico orgánico durante 4 semanas antes de invertir en pauta. Fotografiar con los outfits FW\'26.',margen_neto_pct:'0.361',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'115000',precio_minimo_recomendado:'74000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'42000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 12u | Precio: $115.000 | Margen proyectado: 36.1%'},
-  {rank_cliente_semana:'17',producto:'Remera Básica Lisa',variante:'Blanca',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen neto −9.4% — la tienda está vendiendo a pérdida. El precio de $42.000 parece razonable, pero al sumar comisión TN + Pago Nube + cuotas sin interés + IIBB + Meta Ads (28.5% del precio de venta), cada unidad genera una pérdida de $3.966. Es el error más silencioso: hay movimiento, pero no hay ganancia.',proximo_paso:'Subir precio a $58.000 mínimo para alcanzar 15% de margen real. Si el mercado no lo acepta, retirar de TN y vender solo en el local físico, donde el margen sube al 33% sin costos de plataforma.',margen_neto_pct:'-0.094',cobertura_stock:'4.2',ventas_semanales:'5',precio_actual:'42000',precio_minimo_recomendado:'58000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'34000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":168000,"d":0,"p":5000},{"s":"2026-03-23","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-03-30","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-04-06","u":5,"b":210000,"d":0,"p":6000}]',auditoria_comparativa:'Precio: $42.000 | Costo: $34.000 | Costos TN: 28.5% | Margen real: −9.4% | Margen aparente (sin costos canal): 19%'},
-  {rank_cliente_semana:'18',producto:'Canguro Básico',variante:'Gris',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 3.9% — prácticamente sin ganancia. El precio de $68.000 parece competitivo, pero cuotas sin interés (9.5%) + Meta Ads (12%) + IIBB (3%) + Pago Nube (3%) consumen casi todo el margen. Cada venta genera apenas $2.652 de ganancia sobre un producto que cuesta $46.000 producir.',proximo_paso:'Opción A: eliminar cuotas sin interés — el margen sube a 13.4%. Opción B: subir precio a $82.000 manteniendo cuotas. Opción C: pausar pauta — no tiene sentido invertir en publicidad con retorno casi nulo.',margen_neto_pct:'0.039',cobertura_stock:'5.2',ventas_semanales:'4',precio_actual:'68000',precio_minimo_recomendado:'82000',demanda_referencia:'4.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'46000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":204000,"d":0,"p":8000},{"s":"2026-03-23","u":4,"b":272000,"d":0,"p":8000},{"s":"2026-03-30","u":4,"b":272000,"d":0,"p":9000},{"s":"2026-04-06","u":4,"b":272000,"d":0,"p":9000}]',auditoria_comparativa:'Precio: $68.000 | Costo: $46.000 | Costos TN: 28.5% | Margen real: 3.9% | Margen aparente (sin costos canal): 32%'},
+  {rank_cliente_semana:'17',producto:'Remera Básica Lisa',variante:'Blanca',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'REVISAR_PRECIO',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen neto −9.4% — la tienda está vendiendo a pérdida. El precio de $42.000 parece razonable, pero al sumar comisión TN + Pago Nube + cuotas sin interés + IIBB + Meta Ads (28.5% del precio de venta), cada unidad genera una pérdida de $3.966. Es el error más silencioso: hay movimiento, pero no hay ganancia.',proximo_paso:'Subir precio a $58.000 mínimo para alcanzar 15% de margen real. Si el mercado no lo acepta, retirar de TN y vender solo en el local físico, donde el margen sube al 33% sin costos de plataforma.',margen_neto_pct:'-0.094',cobertura_stock:'4.2',ventas_semanales:'5',precio_actual:'42000',precio_minimo_recomendado:'58000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'34000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":168000,"d":0,"p":5000},{"s":"2026-03-23","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-03-30","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-04-06","u":5,"b":210000,"d":0,"p":6000}]',auditoria_comparativa:'Precio: $42.000 | Costo: $34.000 | Costos TN: 28.5% | Margen real: −9.4% | Margen aparente (sin costos canal): 19%'},
+  {rank_cliente_semana:'18',producto:'Canguro Básico',variante:'Gris',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'REVISAR_PRECIO',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 3.9% — prácticamente sin ganancia. El precio de $68.000 parece competitivo, pero cuotas sin interés (9.5%) + Meta Ads (12%) + IIBB (3%) + Pago Nube (3%) consumen casi todo el margen. Cada venta genera apenas $2.652 de ganancia sobre un producto que cuesta $46.000 producir.',proximo_paso:'Opción A: eliminar cuotas sin interés — el margen sube a 13.4%. Opción B: subir precio a $82.000 manteniendo cuotas. Opción C: pausar pauta — no tiene sentido invertir en publicidad con retorno casi nulo.',margen_neto_pct:'0.039',cobertura_stock:'5.2',ventas_semanales:'4',precio_actual:'68000',precio_minimo_recomendado:'82000',demanda_referencia:'4.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'46000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":204000,"d":0,"p":8000},{"s":"2026-03-23","u":4,"b":272000,"d":0,"p":8000},{"s":"2026-03-30","u":4,"b":272000,"d":0,"p":9000},{"s":"2026-04-06","u":4,"b":272000,"d":0,"p":9000}]',auditoria_comparativa:'Precio: $68.000 | Costo: $46.000 | Costos TN: 28.5% | Margen real: 3.9% | Margen aparente (sin costos canal): 32%'},
   {rank_cliente_semana:'16',producto:'Buzo Con Capucha',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas en TN. El Buzo Gris ya funciona en ML con buen arranque — el Negro todavía no fue publicado en TN. El arranque de la temporada FW\'26 es el momento ideal para lanzarlo.',proximo_paso:'Publicar en TN esta semana. Usar las fotos del Gris adaptadas. Aprovechar la base de clientes del canal que ya conoce la marca para el lanzamiento.',margen_neto_pct:'0.302',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'130000',precio_minimo_recomendado:'90000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'52000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 22u | Precio: $130.000 | Margen proyectado: 30.2%'},
 ];
 
@@ -1223,11 +1230,11 @@ function buildHistorialHTML(r){
 }
 
 function renderSituacion(){
-  const counts={RIESGO_QUIEBRE:0,LIQUIDAR:0,EMPUJAR:0,MONITOREAR:0,ACTIVAR:0};
+  const counts={RIESGO_QUIEBRE:0,LIQUIDAR:0,REVISAR_PRECIO:0,EMPUJAR:0,MONITOREAR:0,ACTIVAR:0};
   allData.forEach(r=>{const a=(r.accion||'').trim();if(counts[a]!==undefined)counts[a]++;});
   const wrap=document.getElementById('situacionContent');
   if(!wrap) return;
-  const urgentes=counts.RIESGO_QUIEBRE+counts.LIQUIDAR;
+  const urgentes=counts.RIESGO_QUIEBRE+counts.LIQUIDAR+counts.REVISAR_PRECIO;
   const total=allData.length;
   const bp=(n)=>n>0?Math.round(n/total*100)+'%':'0%';
   const top=allData.find(r=>r.accion==='RIESGO_QUIEBRE')||allData.find(r=>r.accion==='LIQUIDAR');
@@ -1243,6 +1250,7 @@ function renderSituacion(){
       <div class="sit-bar">
         <div class="sit-bar-seg sit-bar-quiebre" style="width:${bp(counts.RIESGO_QUIEBRE)}"></div>
         <div class="sit-bar-seg sit-bar-liquidar" style="width:${bp(counts.LIQUIDAR)}"></div>
+        <div class="sit-bar-seg sit-bar-revisar" style="width:${bp(counts.REVISAR_PRECIO)}"></div>
         <div class="sit-bar-seg sit-bar-empujar" style="width:${bp(counts.EMPUJAR)}"></div>
         <div class="sit-bar-seg sit-bar-activar" style="width:${bp(counts.ACTIVAR)}"></div>
         <div class="sit-bar-seg sit-bar-monitorear" style="width:${bp(counts.MONITOREAR)}"></div>
@@ -1250,6 +1258,7 @@ function renderSituacion(){
       <div class="sit-bar-legend">
         ${counts.RIESGO_QUIEBRE>0?`<span class="sbl"><span class="sbl-dot sbl-dot-quiebre"></span>${counts.RIESGO_QUIEBRE} quiebre</span>`:''}
         ${counts.LIQUIDAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-liquidar"></span>${counts.LIQUIDAR} liquidar</span>`:''}
+        ${counts.REVISAR_PRECIO>0?`<span class="sbl"><span class="sbl-dot sbl-dot-revisar"></span>${counts.REVISAR_PRECIO} revisar precio</span>`:''}
         ${counts.EMPUJAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-empujar"></span>${counts.EMPUJAR} empujar</span>`:''}
         ${counts.ACTIVAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-activar"></span>${counts.ACTIVAR} activar</span>`:''}
         ${counts.MONITOREAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-monitorear"></span>${counts.MONITOREAR} monitorear</span>`:''}
@@ -1263,6 +1272,10 @@ function renderSituacion(){
       ${counts.LIQUIDAR>0?`<div class="sit-card sit-card-liquidar" onclick="sidebarNav('tablero','plan')">
         <div class="sit-count sit-count-liquidar">${counts.LIQUIDAR}</div>
         <div class="sit-desc"><div class="sit-desc-label">Para liquidar</div><div class="sit-desc-sub">Sobrestock — liberar antes del drop</div></div>
+        <span class="sit-arrow">→</span></div>`:''}
+      ${counts.REVISAR_PRECIO>0?`<div class="sit-card sit-card-revisar" onclick="sidebarNav('tablero','acciones')">
+        <div class="sit-count sit-count-revisar">${counts.REVISAR_PRECIO}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Revisar precio</div><div class="sit-desc-sub">Margen por debajo del umbral</div></div>
         <span class="sit-arrow">→</span></div>`:''}
     </div>
     ${topIdx>=0?`<div class="sit-top-insight" onclick="openDetail(${topIdx})">
@@ -1322,10 +1335,11 @@ function renderTable(){
   document.getElementById('recordCount').textContent=`${filtered.length} registros`;
   const cols=[{key:'rank_cliente_semana',label:'#'},{key:'producto',label:'Producto'},{key:'canal_nombre',label:'Canal'},{key:'accion',label:'Acción'},{key:'motivo',label:'Motivo'},{key:'margen_neto_pct',label:'Margen'},{key:'cobertura_stock',label:'Cobertura'},{key:'proximo_paso',label:'Próximo paso'}];
   const thead=`<thead><tr>${cols.map(c=>`<th class="${sortCol===c.key?'sorted':''}" onclick="sortBy('${c.key}')">${c.label}${sortCol===c.key?(sortDir==='asc'?' ↑':' ↓'):''}</th>`).join('')}</tr></thead>`;
-  const bottomA=['ACTIVAR','MONITOREAR','SIN_DATOS'];
-  const ordenados=[...filtered.filter(r=>!bottomA.includes(r.accion)),...filtered.filter(r=>r.accion==='ACTIVAR'),...filtered.filter(r=>r.accion==='MONITOREAR'),...filtered.filter(r=>r.accion==='SIN_DATOS')];
-  let filas='',sepA=false,sepM=false;
+  const bottomA=['ACTIVAR','MONITOREAR','REVISAR_PRECIO','SIN_DATOS'];
+  const ordenados=[...filtered.filter(r=>!bottomA.includes(r.accion)),...filtered.filter(r=>r.accion==='REVISAR_PRECIO'),...filtered.filter(r=>r.accion==='ACTIVAR'),...filtered.filter(r=>r.accion==='MONITOREAR'),...filtered.filter(r=>r.accion==='SIN_DATOS')];
+  let filas='',sepRP=false,sepA=false,sepM=false;
   ordenados.forEach(r=>{
+    if(!sepRP&&r.accion==='REVISAR_PRECIO'){sepRP=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--revisar-text);text-transform:uppercase;letter-spacing:.1em;background:var(--revisar-bg);border-bottom:1px solid var(--border)">Precio o margen por debajo del umbral — revisar antes de escalar</td></tr>`;}
     if(!sepA&&r.accion==='ACTIVAR'){sepA=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--activar-text);text-transform:uppercase;letter-spacing:.1em;background:var(--activar-bg);border-bottom:1px solid var(--border)">Stock sin movimiento — activar canal</td></tr>`;}
     if(!sepM&&r.accion==='MONITOREAR'){sepM=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--monitorear-text);text-transform:uppercase;letter-spacing:.1em;background:var(--monitorear-bg);border-bottom:1px solid var(--border)">Monitorear — margen bajo o historial insuficiente</td></tr>`;}
     const rank=num(r.rank_cliente_semana),idx=allData.indexOf(r);
