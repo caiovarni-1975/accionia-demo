@@ -408,6 +408,55 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .motor-spinner-txt{font-size:13px;color:var(--text-muted);}
   .motor-spinner-sub{font-size:11px;color:var(--text-dim);margin-top:6px;}
+
+  /* ── SITUACIÓN SCREEN ── */
+  .situacion-wrap{max-width:500px;margin:0 auto;padding:32px 24px;}
+  .situacion-greeting{margin-bottom:28px;}
+  .situacion-brand{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;}
+  .situacion-semana{font-size:13px;color:var(--text-muted);font-family:'DM Mono',monospace;}
+  .sit-section-title{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
+  .sit-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:border-color .15s;}
+  .sit-card:hover{border-color:var(--accent);}
+  .sit-card-quiebre{border-left:4px solid #fca5a5;}
+  .sit-card-liquidar{border-left:4px solid #fcd34d;}
+  .sit-card-empujar{border-left:4px solid #86efac;}
+  .sit-card-monitorear{border-left:4px solid #404040;}
+  .sit-card-activar{border-left:4px solid #3b82f6;}
+  .sit-card-nolink{cursor:default;}
+  .sit-card-nolink:hover{border-color:var(--border);}
+  .sit-count{font-size:38px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;min-width:52px;text-align:center;}
+  .sit-count-quiebre{color:#fca5a5;}
+  .sit-count-liquidar{color:#fcd34d;}
+  .sit-count-empujar{color:#86efac;}
+  .sit-count-monitorear{color:#606060;}
+  .sit-count-activar{color:#60a5fa;}
+  .sit-desc{flex:1;}
+  .sit-desc-label{font-size:15px;font-weight:600;margin-bottom:2px;}
+  .sit-desc-sub{font-size:12px;color:var(--text-muted);}
+  .sit-arrow{font-size:18px;color:var(--text-dim);}
+  .sit-divider{border:none;border-top:1px solid var(--border);margin:22px 0;}
+  .sit-cta{width:100%;background:var(--accent);border:none;border-radius:10px;padding:15px;color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;transition:opacity .15s;display:block;}
+  .sit-cta:hover{opacity:.88;}
+
+  /* ── MOBILE BOTTOM NAV ── */
+  .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:70;padding-bottom:env(safe-area-inset-bottom,0);}
+  .mbn-items{display:flex;justify-content:space-around;}
+  .mbn-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 8px 8px;cursor:pointer;font-size:11px;color:var(--text-muted);border-top:2px solid transparent;transition:all .15s;user-select:none;}
+  .mbn-item.active{color:var(--accent);border-top-color:var(--accent);}
+  .mbn-icon{font-size:20px;line-height:1;}
+
+  @media(max-width:768px){
+    .mobile-bottom-nav{display:block;}
+    #app{padding-bottom:68px;}
+    .sub-nav{display:none !important;}
+    .situacion-wrap{padding:20px 16px;}
+    .sit-count{font-size:30px;min-width:44px;}
+    .sit-desc-label{font-size:14px;}
+    .page-inner{padding:16px;}
+    .plan-card{gap:10px;}
+    td.td-motivo,td.td-paso{display:none;}
+    .carga-fixed-bar{padding:10px 16px;}
+  }
 </style>
 </head>
 <body>
@@ -458,20 +507,25 @@
   <!-- ══════════════════════════════════════════ -->
   <div class="module active" id="mod-tablero">
     <div class="sub-nav">
-      <div class="sub-tab active" id="stab-plan" onclick="showSubTab('tablero','plan')">Plan Semanal</div>
-      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Acciones</div>
+      <div class="sub-tab active" id="stab-situacion" onclick="showSubTab('tablero','situacion')">Situación</div>
+      <div class="sub-tab" id="stab-plan" onclick="showSubTab('tablero','plan')">Urgente</div>
+      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Todos</div>
       <div class="sub-tab" id="stab-params" onclick="showSubTab('tablero','params')">Parámetros</div>
     </div>
 
-    <div class="page active page-inner" id="tpage-plan">
-      <div class="page-title">Plan Semanal</div>
-      <div class="page-subtitle">Top 3 SKUs más críticos — requieren acción esta semana</div>
+    <div class="page active" id="tpage-situacion">
+      <div id="situacionContent"></div>
+    </div>
+
+    <div class="page page-inner" id="tpage-plan">
+      <div class="page-title">Urgente</div>
+      <div class="page-subtitle">SKUs que requieren acción esta semana</div>
       <div class="plan-grid" id="planGrid"></div>
     </div>
 
     <div class="page page-inner" id="tpage-acciones">
-      <div class="page-title">Acciones</div>
-      <div class="page-subtitle">Todas las decisiones por SKU ordenadas por criticidad</div>
+      <div class="page-title">Todos los SKUs</div>
+      <div class="page-subtitle">Decisiones ordenadas por criticidad</div>
       <div class="table-wrap">
         <div class="table-toolbar">
           <input class="search-input" type="text" placeholder="Buscar producto..." id="searchInput" oninput="renderTable()">
@@ -620,6 +674,12 @@
         </label>
       </div>
       <div id="agregarFormContainer"></div>
+    </div>
+
+    <!-- ── BANNER INTEGRACIÓN ── -->
+    <div style="margin:0 32px 80px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:flex-start;gap:10px;">
+      <span style="color:var(--accent);font-size:16px;flex-shrink:0">ⓘ</span>
+      <span style="font-size:12px;color:var(--text-muted);line-height:1.5">En caso de avanzar, analizamos la integración con tu sistema de gestión: Tienda Nube, Mercado Libre, WooCommerce u otros.</span>
     </div>
 
     <!-- ── FIXED BOTTOM BAR (carga) ── -->
@@ -837,6 +897,21 @@
 
 <div class="version-badge" id="vBadge" style="display:none">AccionIA · demo</div>
 
+<!-- MOBILE BOTTOM NAV -->
+<div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none">
+  <div class="mbn-items">
+    <div class="mbn-item active" id="mbn-situacion" onclick="showSubTab('tablero','situacion');showModule('tablero')">
+      <span class="mbn-icon">📊</span><span>Situación</span>
+    </div>
+    <div class="mbn-item" id="mbn-plan" onclick="showSubTab('tablero','plan');showModule('tablero')">
+      <span class="mbn-icon">🔴</span><span>Urgente</span>
+    </div>
+    <div class="mbn-item" id="mbn-acciones" onclick="showSubTab('tablero','acciones');showModule('tablero')">
+      <span class="mbn-icon">📋</span><span>Todos</span>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ── LOGIN ────────────────────────────── */
 function tryLogin(){
@@ -925,7 +1000,7 @@ function showModule(mod){
 
 function showSubTab(mod, tab){
   const prefixes={tablero:'tpage',carga:'cpage',config:'cfgpage'};
-  const stabs={tablero:['plan','acciones','params'],carga:['cierre','publicidad','precios','agregar'],config:['canales','productos']};
+  const stabs={tablero:['situacion','plan','acciones','params'],carga:['cierre','publicidad','precios','agregar'],config:['canales','productos']};
   const prefix=prefixes[mod];
   stabs[mod].forEach(t=>{
     const p=document.getElementById(prefix+'-'+t);
@@ -933,7 +1008,12 @@ function showSubTab(mod, tab){
     if(p) p.classList.toggle('active',t===tab);
     if(s) s.classList.toggle('active',t===tab);
   });
-  // Lazy render for new tabs
+  // Sync mobile bottom nav
+  ['situacion','plan','acciones'].forEach(t=>{
+    const m=document.getElementById('mbn-'+t);
+    if(m) m.classList.toggle('active',t===tab);
+  });
+  // Lazy render
   if(mod==='carga'&&tab==='precios') renderPreciosTable();
   if(mod==='carga'&&tab==='agregar') renderAgregarForm('variante');
 }
@@ -981,11 +1061,44 @@ function buildHistorialHTML(r){
   return hdr+body+`<tr class="historial-total"><td>Total</td><td>${tU} u</td><td>${money(tB)}</td><td>—</td><td>${tP>0?money(tP):'—'}</td></tr></tbody></table>`;
 }
 
+function renderSituacion(){
+  const counts={RIESGO_QUIEBRE:0,LIQUIDAR:0,EMPUJAR:0,MONITOREAR:0,ACTIVAR:0};
+  allData.forEach(r=>{const a=(r.accion||'').trim();if(counts[a]!==undefined)counts[a]++;});
+  const wrap=document.getElementById('situacionContent');
+  if(!wrap) return;
+  wrap.innerHTML=`<div class="situacion-wrap">
+    <div class="situacion-greeting">
+      <div class="situacion-brand">TwoHip</div>
+      <div class="situacion-semana">Semana del 07/04/2026</div>
+    </div>
+    <div class="sit-section-title">Requieren acción ya</div>
+    ${counts.RIESGO_QUIEBRE>0?`<div class="sit-card sit-card-quiebre" onclick="showSubTab('tablero','plan')">
+      <div class="sit-count sit-count-quiebre">${counts.RIESGO_QUIEBRE}</div>
+      <div class="sit-desc"><div class="sit-desc-label">En riesgo de quiebre</div><div class="sit-desc-sub">Stock crítico — actuar esta semana</div></div>
+      <span class="sit-arrow">→</span></div>`:''}
+    ${counts.LIQUIDAR>0?`<div class="sit-card sit-card-liquidar" onclick="showSubTab('tablero','plan')">
+      <div class="sit-count sit-count-liquidar">${counts.LIQUIDAR}</div>
+      <div class="sit-desc"><div class="sit-desc-label">Para liquidar</div><div class="sit-desc-sub">Sobrestock — liberar antes del nuevo drop</div></div>
+      <span class="sit-arrow">→</span></div>`:''}
+    <button class="sit-cta" onclick="showSubTab('tablero','plan')">Ver qué hacer esta semana →</button>
+    <hr class="sit-divider">
+    <div class="sit-section-title">También esta semana</div>
+    ${counts.EMPUJAR>0?`<div class="sit-card sit-card-empujar sit-card-nolink">
+      <div class="sit-count sit-count-empujar">${counts.EMPUJAR}</div>
+      <div class="sit-desc"><div class="sit-desc-label">Para empujar</div><div class="sit-desc-sub">Margen OK — escalar pauta</div></div></div>`:''}
+    ${counts.MONITOREAR>0?`<div class="sit-card sit-card-monitorear sit-card-nolink">
+      <div class="sit-count sit-count-monitorear">${counts.MONITOREAR}</div>
+      <div class="sit-desc"><div class="sit-desc-label">Monitorear</div><div class="sit-desc-sub">Sin acción urgente — revisar próxima semana</div></div></div>`:''}
+    ${counts.ACTIVAR>0?`<div class="sit-card sit-card-activar sit-card-nolink">
+      <div class="sit-count sit-count-activar">${counts.ACTIVAR}</div>
+      <div class="sit-desc"><div class="sit-desc-label">Sin ventas — activar</div><div class="sit-desc-sub">Stock disponible, aún sin movimiento</div></div></div>`:''}
+  </div>`;
+}
+
 function renderPlan(){
-  const conDatos=allData.filter(r=>r.accion!=='SIN_DATOS'&&(num(r.precio_actual)>0||num(r.ventas_semanales)>0));
-  const top3=conDatos.slice(0,3);
-  const rc=['rank-1','rank-2','rank-3'];
-  document.getElementById('planGrid').innerHTML=top3.map((r,i)=>`
+  const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='LIQUIDAR');
+  const rc=['rank-1','rank-2','rank-3','rank-3','rank-3'];
+  document.getElementById('planGrid').innerHTML=urgentes.map((r,i)=>`
     <div class="plan-card ${rc[i]}" onclick="openDetail(${allData.indexOf(r)})">
       <div class="plan-rank">#${num(r.rank_cliente_semana)}</div>
       <div>
@@ -1429,6 +1542,7 @@ function renderProductosTable(){
 
 /* ── INIT ─────────────────────────────── */
 function initApp(){
+  renderSituacion();
   renderPlan();
   renderTable();
   renderParametros();
@@ -1436,11 +1550,12 @@ function initApp(){
   renderPautaDist();
   renderGastosConfig();
   renderProductosTable();
-  // Pre-render agregar so it has content
   renderAgregarForm('variante');
-  // Set initial sub label
   const sub=document.getElementById('cargaSemSub');
   if(sub) sub.textContent=SEMANA_LABELS[0].sub;
+  // Show mobile nav
+  const nav=document.getElementById('mobileBottomNav');
+  if(nav) nav.style.display='block';
 }
 </script>
 </body>
