@@ -410,33 +410,51 @@
   .motor-spinner-sub{font-size:11px;color:var(--text-dim);margin-top:6px;}
 
   /* ── SITUACIÓN SCREEN ── */
-  .situacion-wrap{max-width:500px;margin:0 auto;padding:32px 24px;}
-  .situacion-greeting{margin-bottom:28px;}
-  .situacion-brand{font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:4px;}
-  .situacion-semana{font-size:13px;color:var(--text-muted);font-family:'DM Mono',monospace;}
-  .sit-section-title{font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px;}
-  .sit-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 20px;margin-bottom:10px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:border-color .15s;}
+  /* ── SITUACION HERO ── */
+  .situacion-wrap{max-width:660px;margin:0 auto;padding:0;}
+  .sit-hero{padding:32px 32px 4px;}
+  .sit-headline{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;}
+  .sit-num{font-size:64px;font-weight:800;line-height:1;color:#ef4444;font-family:'DM Mono',monospace;}
+  .sit-num-label{font-size:20px;font-weight:500;color:var(--text);}
+  .sit-semana{font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace;margin-bottom:20px;}
+  .sit-bar{height:6px;border-radius:3px;overflow:hidden;display:flex;background:var(--surface2);margin-bottom:8px;}
+  .sit-bar-seg{height:100%;}
+  .sit-bar-quiebre{background:#ef4444;}.sit-bar-liquidar{background:#f59e0b;}
+  .sit-bar-empujar{background:#22c55e;}.sit-bar-activar{background:#6366f1;}.sit-bar-monitorear{background:#6b7280;}
+  .sit-bar-legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
+  .sbl{font-size:11px;color:var(--text-muted);display:flex;align-items:center;gap:5px;}
+  .sbl-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+  .sbl-dot-quiebre{background:#ef4444;}.sbl-dot-liquidar{background:#f59e0b;}
+  .sbl-dot-empujar{background:#22c55e;}.sbl-dot-activar{background:#6366f1;}.sbl-dot-monitorear{background:#6b7280;}
+  .sit-cards-row{display:flex;gap:10px;flex-wrap:wrap;padding:0 32px 16px;}
+  .sit-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:border-color .15s;flex:1;min-width:180px;}
   .sit-card:hover{border-color:var(--accent);}
-  .sit-card-quiebre{border-left:4px solid #fca5a5;}
-  .sit-card-liquidar{border-left:4px solid #fcd34d;}
-  .sit-card-empujar{border-left:4px solid #86efac;}
-  .sit-card-monitorear{border-left:4px solid #404040;}
-  .sit-card-activar{border-left:4px solid #3b82f6;}
-  .sit-card-nolink{cursor:default;}
+  .sit-card-quiebre{border-left:4px solid #ef4444;}
+  .sit-card-liquidar{border-left:4px solid #f59e0b;}
+  .sit-card-empujar{border-left:4px solid #22c55e;}
+  .sit-card-monitorear{border-left:4px solid #6b7280;}
+  .sit-card-activar{border-left:4px solid #6366f1;}
+  .sit-card-nolink{cursor:default;flex:1;min-width:140px;}
   .sit-card-nolink:hover{border-color:var(--border);}
-  .sit-count{font-size:38px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;min-width:52px;text-align:center;}
-  .sit-count-quiebre{color:#fca5a5;}
-  .sit-count-liquidar{color:#fcd34d;}
-  .sit-count-empujar{color:#86efac;}
-  .sit-count-monitorear{color:#606060;}
-  .sit-count-activar{color:#60a5fa;}
+  .sit-count{font-size:36px;font-weight:700;font-family:'DM Mono',monospace;line-height:1;min-width:46px;text-align:center;}
+  .sit-count-quiebre{color:#ef4444;}.sit-count-liquidar{color:#f59e0b;}
+  .sit-count-empujar{color:#22c55e;}.sit-count-monitorear{color:#6b7280;}.sit-count-activar{color:#818cf8;}
   .sit-desc{flex:1;}
-  .sit-desc-label{font-size:15px;font-weight:600;margin-bottom:2px;}
+  .sit-desc-label{font-size:14px;font-weight:600;margin-bottom:2px;}
   .sit-desc-sub{font-size:12px;color:var(--text-muted);}
-  .sit-arrow{font-size:18px;color:var(--text-dim);}
-  .sit-divider{border:none;border-top:1px solid var(--border);margin:22px 0;}
-  .sit-cta{width:100%;background:var(--accent);border:none;border-radius:10px;padding:15px;color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:8px;transition:opacity .15s;display:block;}
+  .sit-arrow{font-size:16px;color:var(--text-dim);flex-shrink:0;}
+  .sit-top-insight{margin:0 32px 16px;padding:16px 18px;background:var(--surface2);border:1px solid var(--border);border-left:3px solid #ef4444;border-radius:8px;cursor:pointer;transition:opacity .15s;}
+  .sit-top-insight:hover{opacity:.82;}
+  .sit-insight-eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#ef4444;margin-bottom:7px;}
+  .sit-insight-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;}
+  .sit-insight-text{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:8px;}
+  .sit-insight-step{font-size:13px;color:var(--accent);font-weight:500;}
+  .sit-cta-wrap{padding:0 32px 16px;}
+  .sit-cta{width:100%;background:var(--accent);border:none;border-radius:10px;padding:14px;color:white;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .15s;display:block;}
   .sit-cta:hover{opacity:.88;}
+  .sit-divider{border:none;border-top:1px solid var(--border);margin:0 32px 16px;}
+  .sit-secondary{padding:0 32px 32px;display:flex;gap:10px;flex-wrap:wrap;}
+  .sit-section-title{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;padding:0 32px;margin-bottom:10px;}
 
   /* ── MOBILE BOTTOM NAV ── */
   .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:70;padding-bottom:env(safe-area-inset-bottom,0);}
@@ -449,7 +467,11 @@
     .mobile-bottom-nav{display:block;}
     #app{padding-bottom:68px;}
     .sub-nav{display:none !important;}
-    .situacion-wrap{padding:20px 16px;}
+    .sit-hero{padding:20px 16px 4px;}
+    .sit-num{font-size:44px;}
+    .sit-num-label{font-size:16px;}
+    .sit-cards-row,.sit-cta-wrap,.sit-secondary,.sit-section-title{padding-left:16px;padding-right:16px;}
+    .sit-top-insight,.sit-divider{margin-left:16px;margin-right:16px;}
     .sit-count{font-size:30px;min-width:44px;}
     .sit-desc-label{font-size:14px;}
     .page-inner{padding:16px;}
@@ -593,12 +615,6 @@
   <!-- MODULE: TABLERO                           -->
   <!-- ══════════════════════════════════════════ -->
   <div class="module active" id="mod-tablero">
-    <div class="sub-nav">
-      <div class="sub-tab active" id="stab-situacion" onclick="showSubTab('tablero','situacion')">Situación</div>
-      <div class="sub-tab" id="stab-plan" onclick="showSubTab('tablero','plan')">Urgente</div>
-      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Todos los SKUs</div>
-      <div class="sub-tab" id="stab-params" onclick="showSubTab('tablero','params')">Parámetros</div>
-    </div>
 
     <div class="page active" id="tpage-situacion">
       <div id="situacionContent"></div>
@@ -715,7 +731,7 @@
           <span class="pauta-label">Total pauta Meta (TN)</span>
           <input class="pauta-input" type="text" value="$165.000" id="pautaInput" oninput="renderPautaDist()">
         </div>
-        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 16 productos activos.</div>
+        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 18 productos activos.</div>
         <div class="pauta-dist-title">Distribución por SKU (igual)</div>
         <div id="pautaDistList"></div>
       </div>
@@ -1043,6 +1059,8 @@ const allData=[
   {rank_cliente_semana:'13',producto:'Short Training',variante:'Gris',canal_nombre:'Local Físico',canal_id:'LF',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Velocidad errática en el local — 3 semanas arriba, 2 semanas abajo, sin patrón claro. El local tiene menor volumen y mayor variabilidad que TN, lo que dificulta el análisis de tendencia.',proximo_paso:'Sin acción urgente. Revisar en 2 semanas si la tendencia se estabiliza. Si hay días con alta demanda, destacarlo en el punto de venta con señalética.',margen_neto_pct:'0.371',cobertura_stock:'5.5',ventas_semanales:'3',precio_actual:'72000',precio_minimo_recomendado:'0',demanda_referencia:'3.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'25000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":288000,"d":0,"p":0},{"s":"2026-03-23","u":2,"b":144000,"d":0,"p":0},{"s":"2026-03-30","u":4,"b":288000,"d":0,"p":0},{"s":"2026-04-06","u":2,"b":144000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 16u | Demanda semanal: 3.0u | Cobertura: 5.5 sem | Variabilidad: alta'},
   {rank_cliente_semana:'14',producto:'Zapatilla Pro Runner',variante:'Azul Eléctrico',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas registradas. Colorway nuevo del Pro Runner para FW\'26 — el Negro y el Blanco tienen demanda comprobada. El Azul está en el catálogo pero no aparece en búsquedas porque no tiene reseñas ni historial.',proximo_paso:'Publicar con fotos de lifestyle de invierno esta semana. No pautar hasta tener 3 ventas orgánicas. Pedir reseñas a los primeros compradores para sumar calificaciones.',margen_neto_pct:'0.309',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'185000',precio_minimo_recomendado:'127000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'75000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 18u | Precio: $185.000 | Margen proyectado: 30.9%'},
   {rank_cliente_semana:'15',producto:'Mochila Trail 25L',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas. Nueva categoría para Zona Sport — primer accesorio en el catálogo. La mochila tiene margen proyectado del 36% y buena visibilidad en búsquedas de "mochila running" en TN, pero sin historial.',proximo_paso:'Publicar en TN y en el local físico esta semana. Testear con tráfico orgánico durante 4 semanas antes de invertir en pauta. Fotografiar con los outfits FW\'26.',margen_neto_pct:'0.361',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'115000',precio_minimo_recomendado:'74000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'42000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 12u | Precio: $115.000 | Margen proyectado: 36.1%'},
+  {rank_cliente_semana:'17',producto:'Remera Básica Lisa',variante:'Blanca',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen neto −9.4% — la tienda está vendiendo a pérdida. El precio de $42.000 parece razonable, pero al sumar comisión TN + Pago Nube + cuotas sin interés + IIBB + Meta Ads (28.5% del precio de venta), cada unidad genera una pérdida de $3.966. Es el error más silencioso: hay movimiento, pero no hay ganancia.',proximo_paso:'Subir precio a $58.000 mínimo para alcanzar 15% de margen real. Si el mercado no lo acepta, retirar de TN y vender solo en el local físico, donde el margen sube al 33% sin costos de plataforma.',margen_neto_pct:'-0.094',cobertura_stock:'4.2',ventas_semanales:'5',precio_actual:'42000',precio_minimo_recomendado:'58000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'34000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":168000,"d":0,"p":5000},{"s":"2026-03-23","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-03-30","u":5,"b":210000,"d":0,"p":6000},{"s":"2026-04-06","u":5,"b":210000,"d":0,"p":6000}]',auditoria_comparativa:'Precio: $42.000 | Costo: $34.000 | Costos TN: 28.5% | Margen real: −9.4% | Margen aparente (sin costos canal): 19%'},
+  {rank_cliente_semana:'18',producto:'Canguro Básico',variante:'Gris',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 3.9% — prácticamente sin ganancia. El precio de $68.000 parece competitivo, pero cuotas sin interés (9.5%) + Meta Ads (12%) + IIBB (3%) + Pago Nube (3%) consumen casi todo el margen. Cada venta genera apenas $2.652 de ganancia sobre un producto que cuesta $46.000 producir.',proximo_paso:'Opción A: eliminar cuotas sin interés — el margen sube a 13.4%. Opción B: subir precio a $82.000 manteniendo cuotas. Opción C: pausar pauta — no tiene sentido invertir en publicidad con retorno casi nulo.',margen_neto_pct:'0.039',cobertura_stock:'5.2',ventas_semanales:'4',precio_actual:'68000',precio_minimo_recomendado:'82000',demanda_referencia:'4.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'46000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":204000,"d":0,"p":8000},{"s":"2026-03-23","u":4,"b":272000,"d":0,"p":8000},{"s":"2026-03-30","u":4,"b":272000,"d":0,"p":9000},{"s":"2026-04-06","u":4,"b":272000,"d":0,"p":9000}]',auditoria_comparativa:'Precio: $68.000 | Costo: $46.000 | Costos TN: 28.5% | Margen real: 3.9% | Margen aparente (sin costos canal): 32%'},
   {rank_cliente_semana:'16',producto:'Buzo Con Capucha',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas en TN. El Buzo Gris ya funciona en ML con buen arranque — el Negro todavía no fue publicado en TN. El arranque de la temporada FW\'26 es el momento ideal para lanzarlo.',proximo_paso:'Publicar en TN esta semana. Usar las fotos del Gris adaptadas. Aprovechar la base de clientes del canal que ya conoce la marca para el lanzamiento.',margen_neto_pct:'0.302',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'130000',precio_minimo_recomendado:'90000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'52000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 22u | Precio: $130.000 | Margen proyectado: 30.2%'},
 ];
 
@@ -1057,6 +1075,8 @@ const CARGA_DATA=[
   {sku:'Zapatilla Pro Runner',    v:'Azul Eléctrico', canal:'TN', sa:20, vtn:0,  rep:0},
   {sku:'Mochila Trail 25L',       v:'Gris Carbón',    canal:'TN', sa:15, vtn:0,  rep:0},
   {sku:'Buzo Con Capucha',        v:'Negro',          canal:'TN', sa:12, vtn:0,  rep:0},
+  {sku:'Remera Básica Lisa',      v:'Blanca',         canal:'TN', sa:21, vtn:5,  rep:0},
+  {sku:'Canguro Básico',          v:'Gris',           canal:'TN', sa:27, vtn:4,  rep:0},
   // ML
   {sku:'Pantalón Running Slim',   v:'Gris',           canal:'ML', sa:5,  vtn:2,  rep:0},
   {sku:'Short Training',          v:'Negro',          canal:'ML', sa:51, vtn:5,  rep:0},
@@ -1098,6 +1118,8 @@ const PRODUCTOS_CONFIG=[
   {sku:'Zapatilla Pro Runner',     v:'Azul Eléctrico', canal:'TN', precio:89000,  costo:38000, cuotas:6},
   {sku:'Mochila Trail 25L',        v:'Gris Carbón',    canal:'TN', precio:78000,  costo:32000, cuotas:6},
   {sku:'Buzo Con Capucha',         v:'Negro',          canal:'TN', precio:95000,  costo:40000, cuotas:6},
+  {sku:'Remera Básica Lisa',       v:'Blanca',         canal:'TN', precio:42000,  costo:34000, cuotas:3},
+  {sku:'Canguro Básico',           v:'Gris',           canal:'TN', precio:68000,  costo:46000, cuotas:6},
   // ML
   {sku:'Pantalón Running Slim',    v:'Gris',           canal:'ML', precio:72000,  costo:30000, cuotas:6},
   {sku:'Short Training',           v:'Negro',          canal:'ML', precio:38000,  costo:14000, cuotas:3},
@@ -1205,32 +1227,64 @@ function renderSituacion(){
   allData.forEach(r=>{const a=(r.accion||'').trim();if(counts[a]!==undefined)counts[a]++;});
   const wrap=document.getElementById('situacionContent');
   if(!wrap) return;
+  const urgentes=counts.RIESGO_QUIEBRE+counts.LIQUIDAR;
+  const total=allData.length;
+  const bp=(n)=>n>0?Math.round(n/total*100)+'%':'0%';
+  const top=allData.find(r=>r.accion==='RIESGO_QUIEBRE')||allData.find(r=>r.accion==='LIQUIDAR');
+  const topIdx=top?allData.indexOf(top):-1;
+  const firstSentence=(s)=>s?s.split('.')[0]+'.':'';
   wrap.innerHTML=`<div class="situacion-wrap">
-    <div class="situacion-greeting">
-      <div class="situacion-brand">Zona Sport</div>
-      <div class="situacion-semana">Semana del 07/04/2026</div>
+    <div class="sit-hero">
+      <div class="sit-headline">
+        <span class="sit-num">${urgentes}</span>
+        <span class="sit-num-label">SKUs urgentes esta semana</span>
+      </div>
+      <div class="sit-semana">Zona Sport · Semana del 07/04/2026</div>
+      <div class="sit-bar">
+        <div class="sit-bar-seg sit-bar-quiebre" style="width:${bp(counts.RIESGO_QUIEBRE)}"></div>
+        <div class="sit-bar-seg sit-bar-liquidar" style="width:${bp(counts.LIQUIDAR)}"></div>
+        <div class="sit-bar-seg sit-bar-empujar" style="width:${bp(counts.EMPUJAR)}"></div>
+        <div class="sit-bar-seg sit-bar-activar" style="width:${bp(counts.ACTIVAR)}"></div>
+        <div class="sit-bar-seg sit-bar-monitorear" style="width:${bp(counts.MONITOREAR)}"></div>
+      </div>
+      <div class="sit-bar-legend">
+        ${counts.RIESGO_QUIEBRE>0?`<span class="sbl"><span class="sbl-dot sbl-dot-quiebre"></span>${counts.RIESGO_QUIEBRE} quiebre</span>`:''}
+        ${counts.LIQUIDAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-liquidar"></span>${counts.LIQUIDAR} liquidar</span>`:''}
+        ${counts.EMPUJAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-empujar"></span>${counts.EMPUJAR} empujar</span>`:''}
+        ${counts.ACTIVAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-activar"></span>${counts.ACTIVAR} activar</span>`:''}
+        ${counts.MONITOREAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-monitorear"></span>${counts.MONITOREAR} monitorear</span>`:''}
+      </div>
     </div>
-    <div class="sit-section-title">Requieren acción ya</div>
-    ${counts.RIESGO_QUIEBRE>0?`<div class="sit-card sit-card-quiebre" onclick="showSubTab('tablero','plan')">
-      <div class="sit-count sit-count-quiebre">${counts.RIESGO_QUIEBRE}</div>
-      <div class="sit-desc"><div class="sit-desc-label">En riesgo de quiebre</div><div class="sit-desc-sub">Stock crítico — actuar esta semana</div></div>
-      <span class="sit-arrow">→</span></div>`:''}
-    ${counts.LIQUIDAR>0?`<div class="sit-card sit-card-liquidar" onclick="showSubTab('tablero','plan')">
-      <div class="sit-count sit-count-liquidar">${counts.LIQUIDAR}</div>
-      <div class="sit-desc"><div class="sit-desc-label">Para liquidar</div><div class="sit-desc-sub">Sobrestock — liberar antes del nuevo drop</div></div>
-      <span class="sit-arrow">→</span></div>`:''}
-    <button class="sit-cta" onclick="showSubTab('tablero','plan')">Ver qué hacer esta semana →</button>
+    <div class="sit-cards-row">
+      ${counts.RIESGO_QUIEBRE>0?`<div class="sit-card sit-card-quiebre" onclick="sidebarNav('tablero','plan')">
+        <div class="sit-count sit-count-quiebre">${counts.RIESGO_QUIEBRE}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Riesgo de quiebre</div><div class="sit-desc-sub">Stock crítico — actuar esta semana</div></div>
+        <span class="sit-arrow">→</span></div>`:''}
+      ${counts.LIQUIDAR>0?`<div class="sit-card sit-card-liquidar" onclick="sidebarNav('tablero','plan')">
+        <div class="sit-count sit-count-liquidar">${counts.LIQUIDAR}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Para liquidar</div><div class="sit-desc-sub">Sobrestock — liberar antes del drop</div></div>
+        <span class="sit-arrow">→</span></div>`:''}
+    </div>
+    ${topIdx>=0?`<div class="sit-top-insight" onclick="openDetail(${topIdx})">
+      <div class="sit-insight-eyebrow">Acción más urgente</div>
+      <div class="sit-insight-name">#${top.rank_cliente_semana} · ${top.producto} ${top.variante} · ${top.canal_nombre}</div>
+      <div class="sit-insight-text">${firstSentence(top.motivo)}</div>
+      <div class="sit-insight-step">→ ${firstSentence(top.proximo_paso)}</div>
+    </div>`:''}
+    <div class="sit-cta-wrap"><button class="sit-cta" onclick="sidebarNav('tablero','plan')">Ver plan completo de la semana →</button></div>
     <hr class="sit-divider">
     <div class="sit-section-title">También esta semana</div>
-    ${counts.EMPUJAR>0?`<div class="sit-card sit-card-empujar sit-card-nolink">
-      <div class="sit-count sit-count-empujar">${counts.EMPUJAR}</div>
-      <div class="sit-desc"><div class="sit-desc-label">Para empujar</div><div class="sit-desc-sub">Margen OK — escalar pauta</div></div></div>`:''}
-    ${counts.MONITOREAR>0?`<div class="sit-card sit-card-monitorear sit-card-nolink">
-      <div class="sit-count sit-count-monitorear">${counts.MONITOREAR}</div>
-      <div class="sit-desc"><div class="sit-desc-label">Monitorear</div><div class="sit-desc-sub">Sin acción urgente — revisar próxima semana</div></div></div>`:''}
-    ${counts.ACTIVAR>0?`<div class="sit-card sit-card-activar sit-card-nolink">
-      <div class="sit-count sit-count-activar">${counts.ACTIVAR}</div>
-      <div class="sit-desc"><div class="sit-desc-label">Sin ventas — activar</div><div class="sit-desc-sub">Stock disponible, aún sin movimiento</div></div></div>`:''}
+    <div class="sit-secondary">
+      ${counts.EMPUJAR>0?`<div class="sit-card sit-card-empujar sit-card-nolink">
+        <div class="sit-count sit-count-empujar">${counts.EMPUJAR}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Para empujar</div><div class="sit-desc-sub">Margen OK — escalar pauta</div></div></div>`:''}
+      ${counts.MONITOREAR>0?`<div class="sit-card sit-card-monitorear sit-card-nolink">
+        <div class="sit-count sit-count-monitorear">${counts.MONITOREAR}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Monitorear</div><div class="sit-desc-sub">Margen bajo o historial corto</div></div></div>`:''}
+      ${counts.ACTIVAR>0?`<div class="sit-card sit-card-activar sit-card-nolink">
+        <div class="sit-count sit-count-activar">${counts.ACTIVAR}</div>
+        <div class="sit-desc"><div class="sit-desc-label">Activar</div><div class="sit-desc-sub">Stock sin movimiento</div></div></div>`:''}
+    </div>
   </div>`;
 }
 
@@ -1273,7 +1327,7 @@ function renderTable(){
   let filas='',sepA=false,sepM=false;
   ordenados.forEach(r=>{
     if(!sepA&&r.accion==='ACTIVAR'){sepA=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--activar-text);text-transform:uppercase;letter-spacing:.1em;background:var(--activar-bg);border-bottom:1px solid var(--border)">Stock sin movimiento — activar canal</td></tr>`;}
-    if(!sepM&&r.accion==='MONITOREAR'){sepM=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--monitorear-text);text-transform:uppercase;letter-spacing:.1em;background:var(--monitorear-bg);border-bottom:1px solid var(--border)">Monitorear — historial insuficiente para acción fuerte</td></tr>`;}
+    if(!sepM&&r.accion==='MONITOREAR'){sepM=true;filas+=`<tr style="cursor:default"><td colspan="8" style="padding:10px 14px;font-size:10px;font-weight:700;color:var(--monitorear-text);text-transform:uppercase;letter-spacing:.1em;background:var(--monitorear-bg);border-bottom:1px solid var(--border)">Monitorear — margen bajo o historial insuficiente</td></tr>`;}
     const rank=num(r.rank_cliente_semana),idx=allData.indexOf(r);
     const cobD=(r.accion==='ACTIVAR'||num(r.cobertura_stock)>=999)?'—':num(r.cobertura_stock).toFixed(1)+' sem';
     filas+=`<tr onclick="openDetail(${idx})"><td class="td-rank ${rank<=3?'top3':''}">${rank}</td><td><div class="td-producto">${r.producto}</div><div class="td-variante">${r.variante}</div></td><td class="td-canal">${r.canal_nombre}</td><td>${badge(r.accion)}</td><td class="td-motivo">${r.motivo}</td><td class="${pctClass(r.margen_neto_pct)}">${pct(r.margen_neto_pct)}</td><td class="${cobClass(r.cobertura_stock)}">${cobD}</td><td class="td-paso">${r.proximo_paso}</td></tr>`;
@@ -1482,7 +1536,7 @@ function guardarConfig(){showToast('✓ Configuración guardada.');}
 function renderPautaDist(){
   const raw=document.getElementById('pautaInput').value.replace(/\./g,'').replace('$','').replace(',','.');
   const total=parseFloat(raw)||165000;
-  const porSKU=Math.round(total/16);
+  const porSKU=Math.round(total/18);
   document.getElementById('pautaDistList').innerHTML=CARGA_DATA.map(d=>
     `<div class="pauta-dist-row"><span class="pauta-dist-sku">${d.sku} ${d.v}</span><span class="pauta-dist-val">${money(porSKU)}</span></div>`
   ).join('');
