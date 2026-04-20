@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -457,6 +457,44 @@
     td.td-motivo,td.td-paso{display:none;}
     .carga-fixed-bar{padding:10px 16px;}
   }
+
+  /* ── SIDEBAR LAYOUT ── */
+  .app-layout{display:flex;min-height:100vh;}
+  .sidebar{width:220px;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;z-index:60;transition:background .2s,border-color .2s;}
+  .sidebar-logo{padding:18px 16px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+  .sidebar-logo-icon{flex-shrink:0;color:var(--accent);}
+  .sidebar-logo-text{display:flex;flex-direction:column;gap:1px;}
+  .sidebar-logo-brand{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text);}
+  .sidebar-logo-sub{font-size:9px;color:var(--text-muted);letter-spacing:.06em;text-transform:uppercase;}
+  .sidebar-client{margin:12px 10px 4px;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;gap:8px;}
+  .sidebar-client-dot{width:7px;height:7px;background:var(--success);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+  .sidebar-client-name{font-size:12px;font-weight:600;color:var(--text);}
+  .sidebar-week{margin:0 10px 10px;font-family:'DM Mono',monospace;font-size:10px;color:var(--text-muted);}
+  .sidebar-section{padding:12px 18px 4px;font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;}
+  .sidebar-item{display:flex;align-items:center;gap:9px;padding:8px 12px;margin:1px 8px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-muted);transition:all .15s;user-select:none;}
+  .sidebar-item:hover{background:var(--surface2);color:var(--text);}
+  .sidebar-item.active{background:rgba(99,102,241,.12);color:var(--accent);}
+  .sidebar-item-icon{width:20px;display:flex;align-items:center;justify-content:center;flex-shrink:0;opacity:.85;}
+  .sidebar-bottom{margin-top:auto;padding:12px 14px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+  .main-content{flex:1;min-width:0;overflow-x:hidden;}
+
+  /* ── MOBILE TOPBAR ── */
+  .mobile-topbar{display:none;position:sticky;top:0;z-index:65;background:var(--surface);border-bottom:1px solid var(--border);padding:10px 16px;align-items:center;justify-content:space-between;transition:background .2s;}
+  .mobile-topbar-brand{display:flex;align-items:center;gap:8px;}
+  .mobile-topbar-name{font-size:15px;font-weight:700;letter-spacing:-.01em;color:var(--text);}
+  .mobile-topbar-client{font-size:11px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);padding:2px 7px;border-radius:4px;font-family:'DM Mono',monospace;}
+
+  @media(min-width:769px){
+    .header{display:none;}
+    .mobile-bottom-nav{display:none !important;}
+    .mobile-topbar{display:none !important;}
+  }
+  @media(max-width:768px){
+    .sidebar{display:none;}
+    .mobile-topbar{display:flex;}
+    .header{display:none;}
+    .app-layout{display:block;}
+  }
 </style>
 </head>
 <body>
@@ -475,32 +513,81 @@
 
 <!-- APP -->
 <div id="app">
-  <!-- HEADER -->
-  <div class="header">
-    <div class="header-top">
-      <div class="brand">
-        <div class="brand-dot"></div>
-        <span class="brand-name">AccionIA</span>
-        <span class="client-tag">TwoHip</span>
-      </div>
-      <div class="header-right">
-        <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
-        <span class="week-label">Semana: 07/04/2026</span>
+
+  <!-- MOBILE TOPBAR -->
+  <div class="mobile-topbar">
+    <div class="mobile-topbar-brand">
+      <svg viewBox="60 120 460 520" width="22" height="24" fill="currentColor" style="color:var(--accent);flex-shrink:0" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(-47.656111,-15.88537)"><g transform="translate(-18.532932,7.9426851)">
+          <path d="m 505.83552,309.6269 c 1.3637,-0.62135 3.0042,-2.39665 3.6456,-3.94513 1.4596,-3.52379 -0.2131,-8.98877 -6.5564,-21.42028 -7.7397,-15.168 -14.6532,-22.98118 -26.5205,-29.97166 -15.13,-8.91237 -40.9574,-22.02416 -52.7463,-26.77765 -11.8073,-4.7609 -13.3101,-5.1246 -21.2078,-5.13257 -9.3948,-0.009 -26.5484,3.9881 -30.9369,7.20972 -3.1513,2.31335 -4.4092,6.12661 -3.1306,9.48968 0.8068,2.12193 4.8648,4.54786 21.1631,12.65148 19.9498,9.91919 20.242,10.02613 27.3989,10.02613 7.1369,0 7.4741,0.12204 25.1198,9.09265 9.8372,5.00095 18.9058,10.0365 20.1526,11.19011 1.2467,1.15361 2.788,3.92442 3.425,6.15735 0.6371,2.23294 1.581,4.61803 2.0976,5.30021 1.3732,1.81314 17.8846,11.09269 25.5813,14.37686 7.4113,3.16241 8.9488,3.37779 12.5146,1.7531 z"/>
+          <path d="m 212.45592,317.50662 c 0.01,-3.39378 -3.1558,-23.37468 -3.8901,-24.56282 -0.3694,-0.59777 -8.1414,-1.40224 -18.33,-1.89736 -9.7288,-0.47276 -17.9483,-1.11914 -18.2656,-1.43641 -1.9676,-1.9676 14.5058,-37.48684 24.5127,-52.85341 36.2372,-55.6456 97.1388,-94.00013 161.0702,-101.43879 52.2956,-6.08477 103.3152,6.14898 146.8279,35.20713 16.8777,11.27107 24.5945,17.58322 37.6677,30.81141 29.211,29.55724 49.7286,67.13196 58.8301,107.73779 l 2.2823,10.18246 13.6445,0.27822 13.6445,0.27822 v -2.5452 c 0,-3.47904 -4.3154,-23.04042 -7.5031,-34.01124 -15.245,-52.46601 -52.4565,-102.72129 -100.4969,-135.72398 -73.7683,-50.677258 -170.8542,-57.001148 -250.4504,-16.31362 -23.6487,12.08857 -42.5259,25.70447 -62.4217,45.02389 -39.556,38.41018 -63.8935,84.65085 -73.5607,139.76371 l -0.6578,3.75 h 38.5453 38.5453 z"/>
+          <path d="m 417.95012,475.94054 c 34.2542,-7.48702 54.5,-26.89165 54.5,-52.2355 0,-9.72719 -2.9338,-17.01268 -9.4917,-23.5706 -4.7088,-4.7088 -11.4572,-8.32216 -73.5962,-39.40618 -97.4486,-48.7471 -98.2402,-49.17964 -106.6008,-58.24982 -11.1368,-12.08202 -14.6463,-27.05612 -16.3282,-69.66892 -0.5742,-14.54591 -1.243,-26.64616 -1.4863,-26.88945 -1.5489,-1.54896 -37.8578,34.19385 -42.1243,41.46765 l -2.4231,4.1311 3.9998,8.01568 c 4.7901,9.59958 8.0161,20.36676 12.1719,40.62599 3.6315,17.70339 6.5762,24.12821 14.4889,31.6117 4.7415,4.48427 14.8622,9.78211 87.715,45.91572 58.8077,29.1675 82.9727,41.6317 84.5151,43.5925 3.0041,3.81907 2.756,8.35333 -0.7196,13.1512 -3.9105,5.39829 -10.2178,7.91604 -24.5311,9.79236 -19.7153,2.58445 -20.8904,2.33597 -36.7431,-7.76999 -12.3001,-7.84121 -26.5199,-14.67266 -44.3463,-21.30473 -11.6867,-4.34789 -13.5708,-5.39494 -18.6509,-10.36456 -5.2787,-5.16389 -5.7632,-6.03996 -7.3549,-13.29836 l -1.7039,-7.77029 -16.9461,-8.47971 c -9.3204,-4.66384 -17.8128,-8.47971 -18.8721,-8.47971 -1.0593,0 -2.6751,1.14328 -3.5906,2.54063 -4.89,7.46309 5.5919,41.50286 15.9653,51.8471 3.0424,3.03381 7.2291,5.44572 15.6532,9.01768 6.325,2.68189 20.5,9.28157 31.5,14.66595 17.9248,8.77396 21.0377,10.68049 30,18.37369 15.0897,12.95281 15.9359,13.5491 20.6376,14.54331 7.7364,1.63588 44.1528,0.42712 54.3624,-1.80444 z"/>
+          <path d="m 425.95012,538.72888 c 26.1101,-5.75714 53.2591,-18.54664 76,-35.80251 18.3461,-13.92099 38.0175,-37.07154 50.8423,-59.83414 8.4983,-15.08353 18.4895,-39.72574 17.3309,-42.74487 -0.2824,-0.73601 -2.2369,-1.64985 -4.3433,-2.03075 -2.1064,-0.3809 -7.5834,-2.49546 -12.1711,-4.69903 -10.7389,-5.15807 -19.2507,-13.43297 -24.0299,-23.36096 -1.8533,-3.85 -4.3161,-8.95421 -5.4728,-11.34268 -1.1567,-2.38847 -3.4663,-5.53847 -5.1323,-7 -1.6661,-1.46153 -30.253,-16.32484 -63.5265,-33.02958 -97.574,-48.98639 -106.4456,-53.69417 -111.0568,-58.93268 -8.3382,-9.47278 -10.1404,-25.31443 -4.3482,-38.22132 4.9378,-11.00274 17.2641,-20.09508 33.4077,-24.64271 5.2944,-1.4914 9.9315,-1.81666 25,-1.75356 16.6306,0.0696 19.4803,0.34044 28.2008,2.67991 12.7097,3.40966 28.8666,10.29256 42.7307,18.20352 25.5537,14.58106 43.1626,31.44022 56.7034,54.2891 3.015,5.0875 5.7653,9.25 6.1119,9.25 1.7623,0 23.2532,-9.58872 23.2532,-10.37506 0,-1.76983 -12.3674,-20.90404 -19.3566,-29.94736 -19.1656,-24.79861 -41.969,-43.28698 -69.8564,-56.6376 -15.3269,-7.33752 -26.6357,-11.173 -43.287,-14.68119 -11.805,-2.48717 -14.9762,-2.74212 -34.5,-2.77374 -22.4745,-0.0364 -29.8035,0.83452 -47,5.5851 -12.8474,3.54914 -49,17.67594 -49,19.14699 0,0.15208 0.9499,4.53043 2.1108,9.72968 1.7837,7.98859 2.161,13.46533 2.4353,35.3495 0.1907,15.21026 0.814,28.00234 1.5106,31 1.7122,7.36856 6.6772,16.21593 11.3732,20.26632 2.4988,2.15529 33.4109,18.1401 80.0701,41.40474 41.8,20.84177 79.2967,39.7369 83.3258,41.98916 21.3191,11.91712 31.9548,33.46699 29.0679,58.89709 -4.2895,37.78692 -35.8444,68.38969 -79.3937,76.99808 -3.3,0.65232 -6.7875,1.41036 -7.75,1.68455 -1.5754,0.44879 -1.75,2.1376 -1.75,16.93113 0,18.99726 -1.3374,17.45596 12.5,14.40487 z"/>
+          <path d="m 435.45012,598.61038 c 48.7497,-10.35264 89.9657,-32.78794 125.5316,-68.33115 19.6641,-19.65155 33.3294,-38.40633 45.92,-63.02261 16.9549,-33.14884 26.5484,-73.14205 26.5484,-110.67368 v -11.82632 h -26.345 c -24.4914,0 -26.4644,-0.13195 -28.0422,-1.87537 -0.9463,-1.04564 -2.7423,-6.90793 -4.0593,-13.25 -4.2276,-20.35761 -8.2604,-34.87463 -9.6879,-34.87463 -1.2652,0 -22.1248,8.88104 -23.0845,9.82833 -0.3955,0.39031 0.3678,4.66 1.6962,9.48822 1.3284,4.82821 3.3636,14.49467 4.5227,21.48101 1.1592,6.98634 3.1625,15.01902 4.4518,17.8504 3.0493,6.69656 9.3403,12.90125 16.4003,16.17548 5.1185,2.37385 7.04,2.65593 20.4992,3.00943 l 14.8513,0.39006 -0.6504,5.63853 c -4.4528,38.59942 -18.2433,72.8341 -42.6547,105.88921 -9.3881,12.71235 -31.5789,34.77765 -45.1411,44.8858 -27.5306,20.519 -58.5573,34.64912 -88.8503,40.46407 -6.2733,1.2042 -11.9686,2.33508 -12.6561,2.51307 -0.9284,0.24037 -1.25,4.09499 -1.25,14.98417 v 14.66055 l 6.25,-0.69355 c 3.4375,-0.38146 10.525,-1.60142 15.75,-2.71102 z"/>
+          <path d="m 388.45012,588.75662 v -15 h -9.788 c -24.2191,0 -55.3886,-6.35952 -78.8095,-16.07955 -30.0278,-12.46194 -52.9108,-28.25592 -76.9872,-53.13691 -32.7152,-33.80846 -53.6546,-76.54577 -59.791,-122.03354 l -1.3153,-9.75 h 13.7746 13.7746 l 1.1386,5.75 c 2.2835,11.53206 7.219,28.96484 10.6876,37.75 24.6879,62.52905 78.6169,108.39019 143.51,122.04089 9.3565,1.96819 30.6114,4.45911 38.0495,4.45911 h 5.7561 v -15.5 c 0,-8.525 0.1125,-15.8375 0.25,-16.25 0.1375,-0.4125 -6.5,-1.04017 -14.75,-1.39482 -61.9787,-2.66435 -115.6429,-37.55098 -142.0161,-92.32339 -8.6873,-18.04208 -12.3825,-31.52645 -18.2319,-66.53179 l -0.752,-4.5 -40.3988,-0.26147 -40.3988,-0.26148 0.6869,15.26148 c 2.4319,54.03214 19.0602,100.94623 50.955,143.76147 8.7037,11.68376 35.1972,38.42174 46.5554,46.98502 26.6494,20.09167 55.2369,34.44805 84.6453,42.50799 16.2044,4.44113 25.2938,6.05419 49.955,8.86535 1.65,0.18809 7.6125,0.4094 13.25,0.49181 l 10.25,0.14983 z"/>
+        </g></g>
+      </svg>
+      <span class="mobile-topbar-name">AccionIA</span>
+      <span class="mobile-topbar-client">Zona Sport</span>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+  </div>
+
+  <div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar" id="appSidebar">
+    <div class="sidebar-logo">
+      <svg class="sidebar-logo-icon" viewBox="60 120 460 520" width="30" height="34" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(-47.656111,-15.88537)">
+          <g transform="translate(-18.532932,7.9426851)">
+            <path d="m 505.83552,309.6269 c 1.3637,-0.62135 3.0042,-2.39665 3.6456,-3.94513 1.4596,-3.52379 -0.2131,-8.98877 -6.5564,-21.42028 -7.7397,-15.168 -14.6532,-22.98118 -26.5205,-29.97166 -15.13,-8.91237 -40.9574,-22.02416 -52.7463,-26.77765 -11.8073,-4.7609 -13.3101,-5.1246 -21.2078,-5.13257 -9.3948,-0.009 -26.5484,3.9881 -30.9369,7.20972 -3.1513,2.31335 -4.4092,6.12661 -3.1306,9.48968 0.8068,2.12193 4.8648,4.54786 21.1631,12.65148 19.9498,9.91919 20.242,10.02613 27.3989,10.02613 7.1369,0 7.4741,0.12204 25.1198,9.09265 9.8372,5.00095 18.9058,10.0365 20.1526,11.19011 1.2467,1.15361 2.788,3.92442 3.425,6.15735 0.6371,2.23294 1.581,4.61803 2.0976,5.30021 1.3732,1.81314 17.8846,11.09269 25.5813,14.37686 7.4113,3.16241 8.9488,3.37779 12.5146,1.7531 z"/>
+            <path d="m 212.45592,317.50662 c 0.01,-3.39378 -3.1558,-23.37468 -3.8901,-24.56282 -0.3694,-0.59777 -8.1414,-1.40224 -18.33,-1.89736 -9.7288,-0.47276 -17.9483,-1.11914 -18.2656,-1.43641 -1.9676,-1.9676 14.5058,-37.48684 24.5127,-52.85341 36.2372,-55.6456 97.1388,-94.00013 161.0702,-101.43879 52.2956,-6.08477 103.3152,6.14898 146.8279,35.20713 16.8777,11.27107 24.5945,17.58322 37.6677,30.81141 29.211,29.55724 49.7286,67.13196 58.8301,107.73779 l 2.2823,10.18246 13.6445,0.27822 13.6445,0.27822 v -2.5452 c 0,-3.47904 -4.3154,-23.04042 -7.5031,-34.01124 -15.245,-52.46601 -52.4565,-102.72129 -100.4969,-135.72398 -73.7683,-50.677258 -170.8542,-57.001148 -250.4504,-16.31362 -23.6487,12.08857 -42.5259,25.70447 -62.4217,45.02389 -39.556,38.41018 -63.8935,84.65085 -73.5607,139.76371 l -0.6578,3.75 h 38.5453 38.5453 z"/>
+            <path d="m 417.95012,475.94054 c 34.2542,-7.48702 54.5,-26.89165 54.5,-52.2355 0,-9.72719 -2.9338,-17.01268 -9.4917,-23.5706 -4.7088,-4.7088 -11.4572,-8.32216 -73.5962,-39.40618 -97.4486,-48.7471 -98.2402,-49.17964 -106.6008,-58.24982 -11.1368,-12.08202 -14.6463,-27.05612 -16.3282,-69.66892 -0.5742,-14.54591 -1.243,-26.64616 -1.4863,-26.88945 -1.5489,-1.54896 -37.8578,34.19385 -42.1243,41.46765 l -2.4231,4.1311 3.9998,8.01568 c 4.7901,9.59958 8.0161,20.36676 12.1719,40.62599 3.6315,17.70339 6.5762,24.12821 14.4889,31.6117 4.7415,4.48427 14.8622,9.78211 87.715,45.91572 58.8077,29.1675 82.9727,41.6317 84.5151,43.5925 3.0041,3.81907 2.756,8.35333 -0.7196,13.1512 -3.9105,5.39829 -10.2178,7.91604 -24.5311,9.79236 -19.7153,2.58445 -20.8904,2.33597 -36.7431,-7.76999 -12.3001,-7.84121 -26.5199,-14.67266 -44.3463,-21.30473 -11.6867,-4.34789 -13.5708,-5.39494 -18.6509,-10.36456 -5.2787,-5.16389 -5.7632,-6.03996 -7.3549,-13.29836 l -1.7039,-7.77029 -16.9461,-8.47971 c -9.3204,-4.66384 -17.8128,-8.47971 -18.8721,-8.47971 -1.0593,0 -2.6751,1.14328 -3.5906,2.54063 -4.89,7.46309 5.5919,41.50286 15.9653,51.8471 3.0424,3.03381 7.2291,5.44572 15.6532,9.01768 6.325,2.68189 20.5,9.28157 31.5,14.66595 17.9248,8.77396 21.0377,10.68049 30,18.37369 15.0897,12.95281 15.9359,13.5491 20.6376,14.54331 7.7364,1.63588 44.1528,0.42712 54.3624,-1.80444 z"/>
+            <path d="m 425.95012,538.72888 c 26.1101,-5.75714 53.2591,-18.54664 76,-35.80251 18.3461,-13.92099 38.0175,-37.07154 50.8423,-59.83414 8.4983,-15.08353 18.4895,-39.72574 17.3309,-42.74487 -0.2824,-0.73601 -2.2369,-1.64985 -4.3433,-2.03075 -2.1064,-0.3809 -7.5834,-2.49546 -12.1711,-4.69903 -10.7389,-5.15807 -19.2507,-13.43297 -24.0299,-23.36096 -1.8533,-3.85 -4.3161,-8.95421 -5.4728,-11.34268 -1.1567,-2.38847 -3.4663,-5.53847 -5.1323,-7 -1.6661,-1.46153 -30.253,-16.32484 -63.5265,-33.02958 -97.574,-48.98639 -106.4456,-53.69417 -111.0568,-58.93268 -8.3382,-9.47278 -10.1404,-25.31443 -4.3482,-38.22132 4.9378,-11.00274 17.2641,-20.09508 33.4077,-24.64271 5.2944,-1.4914 9.9315,-1.81666 25,-1.75356 16.6306,0.0696 19.4803,0.34044 28.2008,2.67991 12.7097,3.40966 28.8666,10.29256 42.7307,18.20352 25.5537,14.58106 43.1626,31.44022 56.7034,54.2891 3.015,5.0875 5.7653,9.25 6.1119,9.25 1.7623,0 23.2532,-9.58872 23.2532,-10.37506 0,-1.76983 -12.3674,-20.90404 -19.3566,-29.94736 -19.1656,-24.79861 -41.969,-43.28698 -69.8564,-56.6376 -15.3269,-7.33752 -26.6357,-11.173 -43.287,-14.68119 -11.805,-2.48717 -14.9762,-2.74212 -34.5,-2.77374 -22.4745,-0.0364 -29.8035,0.83452 -47,5.5851 -12.8474,3.54914 -49,17.67594 -49,19.14699 0,0.15208 0.9499,4.53043 2.1108,9.72968 1.7837,7.98859 2.161,13.46533 2.4353,35.3495 0.1907,15.21026 0.814,28.00234 1.5106,31 1.7122,7.36856 6.6772,16.21593 11.3732,20.26632 2.4988,2.15529 33.4109,18.1401 80.0701,41.40474 41.8,20.84177 79.2967,39.7369 83.3258,41.98916 21.3191,11.91712 31.9548,33.46699 29.0679,58.89709 -4.2895,37.78692 -35.8444,68.38969 -79.3937,76.99808 -3.3,0.65232 -6.7875,1.41036 -7.75,1.68455 -1.5754,0.44879 -1.75,2.1376 -1.75,16.93113 0,18.99726 -1.3374,17.45596 12.5,14.40487 z"/>
+            <path d="m 435.45012,598.61038 c 48.7497,-10.35264 89.9657,-32.78794 125.5316,-68.33115 19.6641,-19.65155 33.3294,-38.40633 45.92,-63.02261 16.9549,-33.14884 26.5484,-73.14205 26.5484,-110.67368 v -11.82632 h -26.345 c -24.4914,0 -26.4644,-0.13195 -28.0422,-1.87537 -0.9463,-1.04564 -2.7423,-6.90793 -4.0593,-13.25 -4.2276,-20.35761 -8.2604,-34.87463 -9.6879,-34.87463 -1.2652,0 -22.1248,8.88104 -23.0845,9.82833 -0.3955,0.39031 0.3678,4.66 1.6962,9.48822 1.3284,4.82821 3.3636,14.49467 4.5227,21.48101 1.1592,6.98634 3.1625,15.01902 4.4518,17.8504 3.0493,6.69656 9.3403,12.90125 16.4003,16.17548 5.1185,2.37385 7.04,2.65593 20.4992,3.00943 l 14.8513,0.39006 -0.6504,5.63853 c -4.4528,38.59942 -18.2433,72.8341 -42.6547,105.88921 -9.3881,12.71235 -31.5789,34.77765 -45.1411,44.8858 -27.5306,20.519 -58.5573,34.64912 -88.8503,40.46407 -6.2733,1.2042 -11.9686,2.33508 -12.6561,2.51307 -0.9284,0.24037 -1.25,4.09499 -1.25,14.98417 v 14.66055 l 6.25,-0.69355 c 3.4375,-0.38146 10.525,-1.60142 15.75,-2.71102 z"/>
+            <path d="m 388.45012,588.75662 v -15 h -9.788 c -24.2191,0 -55.3886,-6.35952 -78.8095,-16.07955 -30.0278,-12.46194 -52.9108,-28.25592 -76.9872,-53.13691 -32.7152,-33.80846 -53.6546,-76.54577 -59.791,-122.03354 l -1.3153,-9.75 h 13.7746 13.7746 l 1.1386,5.75 c 2.2835,11.53206 7.219,28.96484 10.6876,37.75 24.6879,62.52905 78.6169,108.39019 143.51,122.04089 9.3565,1.96819 30.6114,4.45911 38.0495,4.45911 h 5.7561 v -15.5 c 0,-8.525 0.1125,-15.8375 0.25,-16.25 0.1375,-0.4125 -6.5,-1.04017 -14.75,-1.39482 -61.9787,-2.66435 -115.6429,-37.55098 -142.0161,-92.32339 -8.6873,-18.04208 -12.3825,-31.52645 -18.2319,-66.53179 l -0.752,-4.5 -40.3988,-0.26147 -40.3988,-0.26148 0.6869,15.26148 c 2.4319,54.03214 19.0602,100.94623 50.955,143.76147 8.7037,11.68376 35.1972,38.42174 46.5554,46.98502 26.6494,20.09167 55.2369,34.44805 84.6453,42.50799 16.2044,4.44113 25.2938,6.05419 49.955,8.86535 1.65,0.18809 7.6125,0.4094 13.25,0.49181 l 10.25,0.14983 z"/>
+          </g>
+        </g>
+      </svg>
+      <div class="sidebar-logo-text">
+        <div class="sidebar-logo-brand">AccionIA</div>
+        <div class="sidebar-logo-sub">by CaiSyng</div>
       </div>
     </div>
-    <!-- MAIN NAV -->
-    <div class="main-nav">
-      <div class="main-tab active" id="mtab-tablero" onclick="showModule('tablero')">
-        <span class="main-tab-icon">📊</span> Tablero
-      </div>
-      <div class="main-tab" id="mtab-carga" onclick="showModule('carga')">
-        <span class="main-tab-icon">📥</span> Carga Semanal
-      </div>
-      <div class="main-tab" id="mtab-config" onclick="showModule('config')">
-        <span class="main-tab-icon">⚙️</span> Configuración
-      </div>
+    <div class="sidebar-client">
+      <div class="sidebar-client-dot"></div>
+      <span class="sidebar-client-name">Zona Sport</span>
+    </div>
+    <div class="sidebar-week">Semana: 07/04/2026</div>
+    <div class="sidebar-section">Tablero</div>
+    <div class="sidebar-item active" id="snav-situacion" onclick="sidebarNav('tablero','situacion')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> Situación
+    </div>
+    <div class="sidebar-item" id="snav-plan" onclick="sidebarNav('tablero','plan')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span> Urgente
+    </div>
+    <div class="sidebar-item" id="snav-acciones" onclick="sidebarNav('tablero','acciones')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span> Todos los SKUs
+    </div>
+    <div class="sidebar-item" id="snav-params" onclick="sidebarNav('tablero','params')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></span> Parámetros
+    </div>
+    <div class="sidebar-section">Gestión</div>
+    <div class="sidebar-item" id="snav-carga" onclick="sidebarNav('carga','cierre')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span> Carga Semanal
+    </div>
+    <div class="sidebar-item" id="snav-config" onclick="sidebarNav('config','canales')">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Configuración
+    </div>
+    <div class="sidebar-bottom">
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtnSidebar">☀️</button>
+      <span style="font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">v1.0 · demo</span>
     </div>
   </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="main-content">
 
   <!-- ══════════════════════════════════════════ -->
   <!-- MODULE: TABLERO                           -->
@@ -509,7 +596,7 @@
     <div class="sub-nav">
       <div class="sub-tab active" id="stab-situacion" onclick="showSubTab('tablero','situacion')">Situación</div>
       <div class="sub-tab" id="stab-plan" onclick="showSubTab('tablero','plan')">Urgente</div>
-      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Todos</div>
+      <div class="sub-tab" id="stab-acciones" onclick="showSubTab('tablero','acciones')">Todos los SKUs</div>
       <div class="sub-tab" id="stab-params" onclick="showSubTab('tablero','params')">Parámetros</div>
     </div>
 
@@ -559,6 +646,11 @@
       <div class="sub-tab" id="stab-publicidad" onclick="showSubTab('carga','publicidad')">Publicidad</div>
       <div class="sub-tab" id="stab-precios" onclick="showSubTab('carga','precios')">Precios y cuotas</div>
       <div class="sub-tab" id="stab-agregar" onclick="showSubTab('carga','agregar')">+ Agregar</div>
+    </div>
+    <!-- ── BANNER INTEGRACIÓN ── -->
+    <div style="margin:12px 16px;padding:10px 14px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:flex-start;gap:10px;">
+      <span style="color:var(--accent);font-size:16px;flex-shrink:0">ⓘ</span>
+      <span style="font-size:12px;color:var(--text-muted);line-height:1.5">En caso de avanzar, analizamos la integración con tu sistema de gestión: Tienda Nube, Mercado Libre, WooCommerce u otros.</span>
     </div>
 
     <div class="page active page-inner" id="cpage-cierre">
@@ -623,7 +715,7 @@
           <span class="pauta-label">Total pauta Meta (TN)</span>
           <input class="pauta-input" type="text" value="$165.000" id="pautaInput" oninput="renderPautaDist()">
         </div>
-        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 12 productos activos.</div>
+        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 16 productos activos.</div>
         <div class="pauta-dist-title">Distribución por SKU (igual)</div>
         <div id="pautaDistList"></div>
       </div>
@@ -676,12 +768,6 @@
       <div id="agregarFormContainer"></div>
     </div>
 
-    <!-- ── BANNER INTEGRACIÓN ── -->
-    <div style="margin:0 32px 80px;padding:12px 16px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:flex-start;gap:10px;">
-      <span style="color:var(--accent);font-size:16px;flex-shrink:0">ⓘ</span>
-      <span style="font-size:12px;color:var(--text-muted);line-height:1.5">En caso de avanzar, analizamos la integración con tu sistema de gestión: Tienda Nube, Mercado Libre, WooCommerce u otros.</span>
-    </div>
-
     <!-- ── FIXED BOTTOM BAR (carga) ── -->
     <div class="carga-fixed-bar" id="cargaFixedBar" style="display:none">
       <span class="cfb-status" id="cfbStatus">12 SKUs · sin cambios</span>
@@ -701,7 +787,7 @@
     </div>
 
     <div class="page active page-inner" id="cfgpage-canales">
-      <div class="page-title">Configuración</div>
+      <div class="page-title">Canales y costos</div>
       <div class="page-subtitle">Parámetros del cliente, canales activos y estructura de costos</div>
 
       <!-- Datos del cliente -->
@@ -710,11 +796,11 @@
         <div class="dcc-grid">
           <div class="config-field">
             <span class="config-label">Nombre</span>
-            <input class="config-input" type="text" value="TwoHip" id="cfgClienteNombre">
+            <input class="config-input" type="text" value="Zona Sport" id="cfgClienteNombre">
           </div>
           <div class="config-field">
             <span class="config-label">ID cliente</span>
-            <input class="config-input" type="text" value="CLI_TH" id="cfgClienteId">
+            <input class="config-input" type="text" value="CLI_ZS" id="cfgClienteId">
           </div>
           <div class="config-field">
             <span class="config-label">Moneda</span>
@@ -835,6 +921,8 @@
     </div>
   </div>
 </div>
+  </div><!-- /main-content -->
+  </div><!-- /app-layout -->
 
 <!-- DETAIL OVERLAY -->
 <div class="detail-overlay" id="detailOverlay" onclick="closeDetail(event)">
@@ -900,14 +988,20 @@
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none">
   <div class="mbn-items">
-    <div class="mbn-item active" id="mbn-situacion" onclick="showSubTab('tablero','situacion');showModule('tablero')">
-      <span class="mbn-icon">📊</span><span>Situación</span>
+    <div class="mbn-item active" id="mbn-situacion" onclick="sidebarNav('tablero','situacion')">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span>Situación</span>
     </div>
-    <div class="mbn-item" id="mbn-plan" onclick="showSubTab('tablero','plan');showModule('tablero')">
-      <span class="mbn-icon">🔴</span><span>Urgente</span>
+    <div class="mbn-item" id="mbn-plan" onclick="sidebarNav('tablero','plan')">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></span><span>Urgente</span>
     </div>
-    <div class="mbn-item" id="mbn-acciones" onclick="showSubTab('tablero','acciones');showModule('tablero')">
-      <span class="mbn-icon">📋</span><span>Todos</span>
+    <div class="mbn-item" id="mbn-acciones" onclick="sidebarNav('tablero','acciones')">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></span><span>Todos</span>
+    </div>
+    <div class="mbn-item" id="mbn-carga" onclick="sidebarNav('carga','cierre')">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span><span>Carga</span>
+    </div>
+    <div class="mbn-item" id="mbn-config" onclick="sidebarNav('config','canales')">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span><span>Config</span>
     </div>
   </div>
 </div>
@@ -934,56 +1028,85 @@ function tryLogin(){
 
 /* ── DATA ─────────────────────────────── */
 const allData=[
-  {rank_cliente_semana:'1',producto:'Windbreaker Anorak',variante:'Washed Black',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Cobertura crítica: 1.6 semanas. La pieza más vendida del drop FW\'26 — si no reponés antes del viernes, habrá quiebre en pleno pico de demanda otoñal.',proximo_paso:'Reponer mínimo 15u urgente. Contactar taller esta semana. No pausar pauta mientras el stock se confirma.',margen_neto_pct:'0.301',cobertura_stock:'1.6',ventas_semanales:'5',precio_actual:'145000',precio_minimo_recomendado:'99000',demanda_referencia:'5.0',tope_economico_sugerido:'8700',costo_prenda_auditoria:'60000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":435000,"d":0,"p":18000},{"s":"2026-03-23","u":4,"b":580000,"d":0,"p":22000},{"s":"2026-03-30","u":4,"b":580000,"d":0,"p":26000},{"s":"2026-04-06","u":5,"b":725000,"d":0,"p":30000}]',auditoria_comparativa:'Stock actual: 8u | Demanda semanal: 5.0u | Cobertura: 1.6 sem | Umbral quiebre: 2.0 sem | Score: 91 pts'},
-  {rank_cliente_semana:'2',producto:'Windbreaker Anorak',variante:'Washed Red',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Cobertura 2.0 semanas — en el límite. Velocidad creciente: +33% en las últimas 2 semanas. Riesgo real de quiebre si no se actúa.',proximo_paso:'Reponer 12u mínimo. Coordinar producción en paralelo al Black. No bajar pauta.',margen_neto_pct:'0.301',cobertura_stock:'2.0',ventas_semanales:'4',precio_actual:'145000',precio_minimo_recomendado:'99000',demanda_referencia:'4.0',tope_economico_sugerido:'8700',costo_prenda_auditoria:'60000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":2,"b":290000,"d":0,"p":14000},{"s":"2026-03-23","u":3,"b":435000,"d":0,"p":18000},{"s":"2026-03-30","u":3,"b":435000,"d":0,"p":20000},{"s":"2026-04-06","u":4,"b":580000,"d":0,"p":24000}]',auditoria_comparativa:'Stock actual: 8u | Demanda semanal: 4.0u | Cobertura: 2.0 sem | Umbral quiebre: 2.0 sem | Score: 83 pts'},
-  {rank_cliente_semana:'3',producto:'02 Zip-Up',variante:'Electric Blue',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Cobertura 2.0 semanas. El colorway más buscado del Zip-Up — velocidad sostenida 3 semanas consecutivas.',proximo_paso:'Reponer urgente. Si la producción tarda más de 2 semanas, pausar pauta del Electric Blue y redirigir al Dark Grey.',margen_neto_pct:'0.302',cobertura_stock:'2.0',ventas_semanales:'3',precio_actual:'92000',precio_minimo_recomendado:'63000',demanda_referencia:'3.0',tope_economico_sugerido:'5520',costo_prenda_auditoria:'38000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-23","u":2,"b":184000,"d":0,"p":10000},{"s":"2026-03-30","u":3,"b":276000,"d":0,"p":14000},{"s":"2026-04-06","u":3,"b":276000,"d":0,"p":16000}]',auditoria_comparativa:'Stock actual: 6u | Demanda semanal: 3.0u | Cobertura: 2.0 sem | Umbral quiebre: 2.0 sem | Score: 78 pts'},
-  {rank_cliente_semana:'4',producto:'Pattern Pant',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'10.4 semanas de stock. Velocidad cayó de 6u a 5u en las últimas 3 semanas. Con el ingreso de la colección FW\'26, el riesgo de quedar con saldo es alto.',proximo_paso:'Aplicar 20% de descuento esta semana. Activar email a base de clientes. Liquidar antes del nuevo drop.',margen_neto_pct:'0.308',cobertura_stock:'10.4',ventas_semanales:'5',precio_actual:'118000',precio_minimo_recomendado:'79000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'48000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":6,"b":708000,"d":0,"p":10000},{"s":"2026-03-16","u":6,"b":708000,"d":0,"p":8000},{"s":"2026-03-23","u":5,"b":590000,"d":0,"p":7000},{"s":"2026-03-30","u":5,"b":590000,"d":0,"p":6000},{"s":"2026-04-06","u":5,"b":590000,"d":0,"p":6000}]',auditoria_comparativa:'Stock actual: 52u | Demanda semanal: 5.0u | Cobertura: 10.4 sem | Umbral sobrestock: 8.0 sem | Score: 70 pts'},
-  {rank_cliente_semana:'5',producto:'BulletProof Tee',variante:'Camuflado',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'9.0 semanas de stock. Camo perdió demanda 3 semanas seguidas — pasó de 8u a 5u. El Negro sigue fuerte, el Camo no.',proximo_paso:'Descuento 15% o bundle con accesorio. No pautar individualmente. Liberar stock para entrar al invierno sin saldo de verano.',margen_neto_pct:'0.315',cobertura_stock:'9.0',ventas_semanales:'5',precio_actual:'70000',precio_minimo_recomendado:'46000',demanda_referencia:'5.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":8,"b":560000,"d":0,"p":7000},{"s":"2026-03-16","u":7,"b":490000,"d":0,"p":6000},{"s":"2026-03-23","u":5,"b":350000,"d":0,"p":4000},{"s":"2026-03-30","u":5,"b":350000,"d":0,"p":4000},{"s":"2026-04-06","u":5,"b":350000,"d":0,"p":4000}]',auditoria_comparativa:'Stock actual: 45u | Demanda semanal: 5.0u | Cobertura: 9.0 sem | Umbral sobrestock: 8.0 sem | Score: 65 pts'},
-  {rank_cliente_semana:'6',producto:'BulletProof Tee',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Margen 31.5%, cobertura 5.2 sem, 5 unidades semanales sostenidas 4 semanas. El producto más sólido del catálogo activo.',proximo_paso:'Escalar pauta esta semana. El margen permite absorber hasta $9.200 de gasto publicitario por unidad vendida.',margen_neto_pct:'0.315',cobertura_stock:'5.2',ventas_semanales:'5',precio_actual:'70000',precio_minimo_recomendado:'46000',demanda_referencia:'5.0',tope_economico_sugerido:'9200',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":280000,"d":0,"p":14000},{"s":"2026-03-23","u":5,"b":350000,"d":0,"p":16000},{"s":"2026-03-30","u":5,"b":350000,"d":0,"p":18000},{"s":"2026-04-06","u":5,"b":350000,"d":0,"p":20000}]',auditoria_comparativa:'Stock actual: 26u | Demanda semanal: 5.0u | Cobertura: 5.2 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
-  {rank_cliente_semana:'7',producto:'Waffle Tee',variante:'Blanco',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Margen 31.1%, cobertura 4.8 sem. Velocidad creciente semana a semana — de 3u a 5u en 4 semanas.',proximo_paso:'Aumentar pauta. Testear creatividad con el Camo juntos en el mismo conjunto de anuncios.',margen_neto_pct:'0.311',cobertura_stock:'4.8',ventas_semanales:'5',precio_actual:'94000',precio_minimo_recomendado:'63000',demanda_referencia:'5.0',tope_economico_sugerido:'10000',costo_prenda_auditoria:'38000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":282000,"d":0,"p":12000},{"s":"2026-03-23","u":4,"b":376000,"d":0,"p":14000},{"s":"2026-03-30","u":4,"b":376000,"d":0,"p":16000},{"s":"2026-04-06","u":5,"b":470000,"d":0,"p":18000}]',auditoria_comparativa:'Stock actual: 24u | Demanda semanal: 5.0u | Cobertura: 4.8 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
-  {rank_cliente_semana:'8',producto:'02 Zip-Up',variante:'Dark Grey',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Margen 30.2%, cobertura 4.2 sem. Complementario al Electric Blue — con el Blue en riesgo de quiebre, el Grey es la opción para escalar pauta.',proximo_paso:'Redirigir parte del budget del Blue al Grey. Mismo copy, diferente colorway.',margen_neto_pct:'0.302',cobertura_stock:'4.2',ventas_semanales:'5',precio_actual:'92000',precio_minimo_recomendado:'63000',demanda_referencia:'5.0',tope_economico_sugerido:'9380',costo_prenda_auditoria:'38000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":276000,"d":0,"p":12000},{"s":"2026-03-23","u":4,"b":368000,"d":0,"p":14000},{"s":"2026-03-30","u":4,"b":368000,"d":0,"p":16000},{"s":"2026-04-06","u":5,"b":460000,"d":0,"p":18000}]',auditoria_comparativa:'Stock actual: 21u | Demanda semanal: 5.0u | Cobertura: 4.2 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
-  {rank_cliente_semana:'9',producto:'Double Hoodie',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Semana 2 de historial. Drop nuevo con buen arranque (8u la semana pasada), pero aún con 2 datos no hay demanda estadísticamente confiable.',proximo_paso:'No escalar pauta todavía. Dejar correr 2 semanas más con budget mínimo. Si se sostienen las 7-8u, pasará a EMPUJAR.',margen_neto_pct:'0.308',cobertura_stock:'3.8',ventas_semanales:'8',precio_actual:'118000',precio_minimo_recomendado:'79000',demanda_referencia:'8.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'48000',calidad_input:'BAJA_CONFIANZA',historial_json:'[{"s":"2026-03-30","u":6,"b":708000,"d":0,"p":0},{"s":"2026-04-06","u":8,"b":944000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 30u | Demanda semanal: 8.0u | Cobertura: 3.8 sem | Semanas historial: 2 | Confianza: baja'},
-  {rank_cliente_semana:'10',producto:'Box Logo Tee',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Margen 24.4% — por debajo del objetivo del 25%. Ventas constantes pero el margen no alcanza para absorber pauta rentable.',proximo_paso:'No pautar. Evaluar si hay margen para subir el precio $5.000-$8.000. Con precio en $76.000 el margen supera el objetivo.',margen_neto_pct:'0.244',cobertura_stock:'5.3',ventas_semanales:'6',precio_actual:'68000',precio_minimo_recomendado:'53000',demanda_referencia:'6.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'32000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":5,"b":340000,"d":0,"p":8000},{"s":"2026-03-23","u":6,"b":408000,"d":0,"p":10000},{"s":"2026-03-30","u":6,"b":408000,"d":0,"p":10000},{"s":"2026-04-06","u":6,"b":408000,"d":0,"p":10000}]',auditoria_comparativa:'Stock actual: 32u | Demanda semanal: 6.0u | Cobertura: 5.3 sem | Margen obj: 25% | Margen actual: 24.4%'},
-  {rank_cliente_semana:'11',producto:'BulletProof Tee',variante:'Rosa',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Sin ventas registradas en TN. Stock disponible. El Negro tiene demanda probada — el Rosa puede capturar un segmento complementario.',proximo_paso:'Publicar esta semana con fotos propias. Usar misma creatividad que el Negro para testear. No pautar hasta tener 2 semanas de datos.',margen_neto_pct:'0.315',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'70000',precio_minimo_recomendado:'46000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'28000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 20u | Precio: $70.000 | Margen proyectado: 31.5%'},
-  {rank_cliente_semana:'12',producto:'Waffle Tee',variante:'Camuflado',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'TwoHip',motivo:'Sin ventas registradas. Variante nueva del Waffle Tee — el Blanco ya mostró buena velocidad (5u/sem). Potencial alto.',proximo_paso:'Activar en TN esta semana. No pautar hasta confirmar demanda orgánica mínima (2-3 ventas).',margen_neto_pct:'0.311',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'94000',precio_minimo_recomendado:'63000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'38000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 18u | Precio: $94.000 | Margen proyectado: 31.1%'},
+  {rank_cliente_semana:'1',producto:'Zapatilla Pro Runner',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Cobertura crítica: 1.8 semanas. El modelo estrella de la temporada FW\'26 — la demanda de running creció 45% en las últimas 3 semanas con el arranque del otoño. Sin reposición esta semana habrá quiebre en pleno pico de mayo.',proximo_paso:'Reponer mínimo 30u urgente. Contactar proveedor hoy. No pausar pauta mientras el stock no esté confirmado — el quiebre en plena temporada de running tiene costo reputacional alto.',margen_neto_pct:'0.309',cobertura_stock:'1.8',ventas_semanales:'7',precio_actual:'185000',precio_minimo_recomendado:'127000',demanda_referencia:'7.0',tope_economico_sugerido:'16650',costo_prenda_auditoria:'75000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":740000,"d":0,"p":22000},{"s":"2026-03-23","u":5,"b":925000,"d":0,"p":28000},{"s":"2026-03-30","u":6,"b":1110000,"d":0,"p":32000},{"s":"2026-04-06","u":7,"b":1295000,"d":0,"p":38000}]',auditoria_comparativa:'Stock actual: 13u | Demanda semanal: 7.0u | Cobertura: 1.8 sem | Umbral quiebre: 2.0 sem | Score: 93 pts'},
+  {rank_cliente_semana:'2',producto:'Campera Windbreaker',variante:'Navy',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Cobertura 2.0 semanas — en el límite. La Campera Navy es la prenda insignia de la colección FW\'26. El cortaviento acelera en mayo — si no reponés antes del viernes vas a quedar sin stock en pleno pico de temporada.',proximo_paso:'Reponer 20u urgente. Si el lead time supera 2 semanas, pausar pauta del Navy y redirigir al Negro mientras llega la reposición.',margen_neto_pct:'0.327',cobertura_stock:'2.0',ventas_semanales:'4',precio_actual:'145000',precio_minimo_recomendado:'99000',demanda_referencia:'4.0',tope_economico_sugerido:'14500',costo_prenda_auditoria:'60000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-23","u":2,"b":290000,"d":0,"p":12000},{"s":"2026-03-30","u":3,"b":435000,"d":0,"p":16000},{"s":"2026-04-06","u":4,"b":580000,"d":0,"p":20000}]',auditoria_comparativa:'Stock actual: 8u | Demanda semanal: 4.0u | Cobertura: 2.0 sem | Umbral quiebre: 2.0 sem | Score: 85 pts'},
+  {rank_cliente_semana:'3',producto:'Pantalón Running Slim',variante:'Gris',canal_nombre:'Mercado Libre',canal_id:'ML',accion:'RIESGO_QUIEBRE',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Cobertura 1.9 semanas en ML. Es el SKU con mejor posicionamiento en búsquedas de "pantalón running hombre" en ML — perder visibilidad por quiebre te saca del top ranking y cuesta 3-4 semanas recuperarlo.',proximo_paso:'Reponer 15u para ML. En este canal el stock bajo activa el FOMO ("quedan pocas unidades") pero el quiebre total es muy dañino para el ranking orgánico.',margen_neto_pct:'0.258',cobertura_stock:'1.9',ventas_semanales:'5',precio_actual:'95000',precio_minimo_recomendado:'68000',demanda_referencia:'5.0',tope_economico_sugerido:'7600',costo_prenda_auditoria:'38000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-23","u":3,"b":285000,"d":0,"p":8000},{"s":"2026-03-30","u":4,"b":380000,"d":0,"p":10000},{"s":"2026-04-06","u":5,"b":475000,"d":0,"p":12000}]',auditoria_comparativa:'Stock actual: 10u | Demanda semanal: 5.0u | Cobertura: 1.9 sem | Umbral quiebre: 2.0 sem | Score: 81 pts'},
+  {rank_cliente_semana:'4',producto:'Short Training',variante:'Negro',canal_nombre:'Mercado Libre',canal_id:'ML',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'10.2 semanas de stock. Prenda de verano que acumuló saldo — la demanda bajó de 6u a 4u en las últimas 4 semanas con el fin del calor. En ML los shorts de verano entran en caída libre a partir de abril.',proximo_paso:'Descuento del 20% en ML esta semana + activar cupón para compradores frecuentes. Si en 10 días no acelera, bajar a 25% y activar publicidad ML específica para liquidación.',margen_neto_pct:'0.249',cobertura_stock:'10.2',ventas_semanales:'4',precio_actual:'68000',precio_minimo_recomendado:'46000',demanda_referencia:'4.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'25000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":6,"b":408000,"d":0,"p":6000},{"s":"2026-03-16","u":6,"b":408000,"d":0,"p":5000},{"s":"2026-03-23","u":5,"b":340000,"d":0,"p":4000},{"s":"2026-03-30","u":4,"b":272000,"d":0,"p":3500},{"s":"2026-04-06","u":4,"b":272000,"d":0,"p":3000}]',auditoria_comparativa:'Stock actual: 41u | Demanda semanal: 4.0u | Cobertura: 10.2 sem | Umbral sobrestock: 8.0 sem | Score: 72 pts'},
+  {rank_cliente_semana:'5',producto:'Camiseta Training Dry-Fit',variante:'Rojo',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'9.5 semanas de stock. El Rojo no tuvo la salida esperada — mientras el Negro vende 8u/sem, el Rojo apenas llega a 3u. Con la colección FW\'26 priorizando azules y grises, el Rojo queda fuera del catálogo de temporada.',proximo_paso:'Descuento 15% esta semana + bundle "camiseta roja + short negro". Email a la base de clientes como oferta de fin de temporada. Si en 2 semanas no mejora, bajar a 20% antes del cambio de colección.',margen_neto_pct:'0.286',cobertura_stock:'9.5',ventas_semanales:'3',precio_actual:'75000',precio_minimo_recomendado:'52000',demanda_referencia:'3.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":4,"b":300000,"d":0,"p":8000},{"s":"2026-03-16","u":3,"b":225000,"d":0,"p":6000},{"s":"2026-03-23","u":3,"b":225000,"d":0,"p":5000},{"s":"2026-03-30","u":3,"b":225000,"d":0,"p":4000},{"s":"2026-04-06","u":3,"b":225000,"d":0,"p":4000}]',auditoria_comparativa:'Stock actual: 28u | Demanda semanal: 3.0u | Cobertura: 9.5 sem | Umbral sobrestock: 8.0 sem | Score: 68 pts'},
+  {rank_cliente_semana:'6',producto:'Zapatilla Street Casual',variante:'Gris',canal_nombre:'Local Físico',canal_id:'LF',accion:'LIQUIDAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'8.5 semanas de stock en el local. La Street Casual Gris funciona en verano — con el invierno llegando, el cliente del local busca opciones más abrigadas. El local tiene espacio limitado y este modelo ocupa lugar que necesitás para los modelos FW\'26.',proximo_paso:'Vidriera con cartel "Últimas tallas – 20% off". El local permite hacer el descuento visible sin afectar el precio en TN o ML. Liquidar en 3 semanas para liberar espacio.',margen_neto_pct:'0.389',cobertura_stock:'8.5',ventas_semanales:'3',precio_actual:'175000',precio_minimo_recomendado:'112000',demanda_referencia:'3.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'62000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-09","u":4,"b":700000,"d":0,"p":0},{"s":"2026-03-16","u":4,"b":700000,"d":0,"p":0},{"s":"2026-03-23","u":3,"b":525000,"d":0,"p":0},{"s":"2026-03-30","u":3,"b":525000,"d":0,"p":0},{"s":"2026-04-06","u":3,"b":525000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 25u | Demanda semanal: 3.0u | Cobertura: 8.5 sem | Umbral sobrestock: 8.0 sem | Score: 64 pts'},
+  {rank_cliente_semana:'7',producto:'Camiseta Training Dry-Fit',variante:'Negro',canal_nombre:'Local Físico',canal_id:'LF',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 41%, cobertura 5.0 sem. En el local no hay costo de plataforma — cada venta deja margen mucho más alto que en TN o ML. La Camiseta Negra es el producto de mayor rotación y el que más margen deja por unidad en el local.',proximo_paso:'Ubicar en el mostrador y perchero de entrada. Armar combo "camiseta + short" con precio especial. El local permite atención personalizada que multiplica el ticket promedio.',margen_neto_pct:'0.408',cobertura_stock:'5.0',ventas_semanales:'8',precio_actual:'80000',precio_minimo_recomendado:'0',demanda_referencia:'8.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'28000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":7,"b":560000,"d":0,"p":0},{"s":"2026-03-23","u":8,"b":640000,"d":0,"p":0},{"s":"2026-03-30","u":8,"b":640000,"d":0,"p":0},{"s":"2026-04-06","u":8,"b":640000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 40u | Demanda semanal: 8.0u | Cobertura: 5.0 sem | Margen obj: 25% | Score oportunidad: 18 pts'},
+  {rank_cliente_semana:'8',producto:'Zapatilla Pro Runner',variante:'Blanco',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 30.9%, cobertura 4.5 sem, velocidad sostenida 5 semanas. El Blanco captura al corredor urbano que busca una zapatilla que funcione también para el día a día — perfil con alta tasa de recompra.',proximo_paso:'Escalar pauta en TN. El tope económico de $16.650 por unidad permite absorber más gasto. Testear creatividad "antes/después entrenamiento" — el Blanco vende bien con contexto lifestyle.',margen_neto_pct:'0.309',cobertura_stock:'4.5',ventas_semanales:'6',precio_actual:'185000',precio_minimo_recomendado:'127000',demanda_referencia:'6.0',tope_economico_sugerido:'16650',costo_prenda_auditoria:'75000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":5,"b":925000,"d":0,"p":28000},{"s":"2026-03-23","u":5,"b":925000,"d":0,"p":30000},{"s":"2026-03-30","u":6,"b":1110000,"d":0,"p":34000},{"s":"2026-04-06","u":6,"b":1110000,"d":0,"p":36000}]',auditoria_comparativa:'Stock actual: 27u | Demanda semanal: 6.0u | Cobertura: 4.5 sem | Margen obj: 25% | Score oportunidad: 16 pts'},
+  {rank_cliente_semana:'9',producto:'Zapatilla Street Casual',variante:'Blanco',canal_nombre:'Mercado Libre',canal_id:'ML',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 26.5% en ML, cobertura 4.8 sem. La Street Casual Blanca lidera "zapatilla blanca casual" en ML con 4.8 estrellas y 140+ reseñas. El comprador de ML es precio-sensible pero el posicionamiento justifica escalar.',proximo_paso:'Aumentar publicidad ML. Testear anuncio con "Envío gratis" como diferenciador. El margen aguanta absorber el costo de envío sin perder rentabilidad.',margen_neto_pct:'0.265',cobertura_stock:'4.8',ventas_semanales:'6',precio_actual:'165000',precio_minimo_recomendado:'115000',demanda_referencia:'6.0',tope_economico_sugerido:'12375',costo_prenda_auditoria:'62000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":660000,"d":0,"p":8000},{"s":"2026-03-23","u":5,"b":825000,"d":0,"p":10000},{"s":"2026-03-30","u":6,"b":990000,"d":0,"p":12000},{"s":"2026-04-06","u":6,"b":990000,"d":0,"p":12000}]',auditoria_comparativa:'Stock actual: 29u | Demanda semanal: 6.0u | Cobertura: 4.8 sem | Margen obj: 25% | Score oportunidad: 14 pts'},
+  {rank_cliente_semana:'10',producto:'Campera Windbreaker',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'EMPUJAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 32.7%, cobertura 5.5 sem. Con la Navy en riesgo de quiebre, la Negro puede absorber parte de esa demanda. Momento ideal para escalar mientras la reposición del Navy no llega.',proximo_paso:'Aumentar presupuesto de pauta en TN. Crear anuncio que destaque el Negro como "disponible ahora" frente al Navy agotado. Redirigir parte del budget del Navy al Negro.',margen_neto_pct:'0.327',cobertura_stock:'5.5',ventas_semanales:'4',precio_actual:'145000',precio_minimo_recomendado:'99000',demanda_referencia:'4.0',tope_economico_sugerido:'14500',costo_prenda_auditoria:'60000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":3,"b":435000,"d":0,"p":10000},{"s":"2026-03-23","u":3,"b":435000,"d":0,"p":12000},{"s":"2026-03-30","u":4,"b":580000,"d":0,"p":14000},{"s":"2026-04-06","u":4,"b":580000,"d":0,"p":15000}]',auditoria_comparativa:'Stock actual: 22u | Demanda semanal: 4.0u | Cobertura: 5.5 sem | Margen obj: 25% | Score oportunidad: 15 pts'},
+  {rank_cliente_semana:'11',producto:'Medias Compresión',variante:'Pack x3 · Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Margen 14% — muy por debajo del objetivo del 25%. El costo de envío en TN destruye el margen de un producto de bajo precio como las medias. Cada venta deja poco y el cliente igual exige envío gratis.',proximo_paso:'No pautar. Evaluar vender las medias solo en el local físico donde el margen sube al 40%+. En TN, considerar subir el precio un 10% o retirar del catálogo online.',margen_neto_pct:'0.141',cobertura_stock:'5.8',ventas_semanales:'6',precio_actual:'38000',precio_minimo_recomendado:'29000',demanda_referencia:'6.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'14000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":5,"b":190000,"d":0,"p":3000},{"s":"2026-03-23","u":6,"b":228000,"d":0,"p":3500},{"s":"2026-03-30","u":6,"b":228000,"d":0,"p":3500},{"s":"2026-04-06","u":6,"b":228000,"d":0,"p":3000}]',auditoria_comparativa:'Stock actual: 35u | Demanda semanal: 6.0u | Cobertura: 5.8 sem | Margen obj: 25% | Margen actual: 14.1%'},
+  {rank_cliente_semana:'12',producto:'Buzo Con Capucha',variante:'Gris',canal_nombre:'Mercado Libre',canal_id:'ML',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Semana 2 de historial en ML. Lanzamiento FW\'26 con buen arranque (7u/sem), pero 2 semanas no son suficientes para confirmar si la demanda es real o efecto novedad. ML suele inflar el arranque de los productos nuevos.',proximo_paso:'Dejar correr 2 semanas más con budget mínimo. Si se sostiene por encima de 6u/sem en la semana 4, pasará a EMPUJAR. No escalar antes — el efecto novedad puede desinflarse.',margen_neto_pct:'0.272',cobertura_stock:'4.0',ventas_semanales:'7',precio_actual:'125000',precio_minimo_recomendado:'87000',demanda_referencia:'7.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'52000',calidad_input:'BAJA_CONFIANZA',historial_json:'[{"s":"2026-03-30","u":6,"b":750000,"d":0,"p":0},{"s":"2026-04-06","u":7,"b":875000,"d":0,"p":5000}]',auditoria_comparativa:'Stock actual: 28u | Demanda semanal: 7.0u | Cobertura: 4.0 sem | Semanas historial: 2 | Confianza: baja'},
+  {rank_cliente_semana:'13',producto:'Short Training',variante:'Gris',canal_nombre:'Local Físico',canal_id:'LF',accion:'MONITOREAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Velocidad errática en el local — 3 semanas arriba, 2 semanas abajo, sin patrón claro. El local tiene menor volumen y mayor variabilidad que TN, lo que dificulta el análisis de tendencia.',proximo_paso:'Sin acción urgente. Revisar en 2 semanas si la tendencia se estabiliza. Si hay días con alta demanda, destacarlo en el punto de venta con señalética.',margen_neto_pct:'0.371',cobertura_stock:'5.5',ventas_semanales:'3',precio_actual:'72000',precio_minimo_recomendado:'0',demanda_referencia:'3.0',tope_economico_sugerido:'0',costo_prenda_auditoria:'25000',calidad_input:'CONFIABLE',historial_json:'[{"s":"2026-03-16","u":4,"b":288000,"d":0,"p":0},{"s":"2026-03-23","u":2,"b":144000,"d":0,"p":0},{"s":"2026-03-30","u":4,"b":288000,"d":0,"p":0},{"s":"2026-04-06","u":2,"b":144000,"d":0,"p":0}]',auditoria_comparativa:'Stock actual: 16u | Demanda semanal: 3.0u | Cobertura: 5.5 sem | Variabilidad: alta'},
+  {rank_cliente_semana:'14',producto:'Zapatilla Pro Runner',variante:'Azul Eléctrico',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas registradas. Colorway nuevo del Pro Runner para FW\'26 — el Negro y el Blanco tienen demanda comprobada. El Azul está en el catálogo pero no aparece en búsquedas porque no tiene reseñas ni historial.',proximo_paso:'Publicar con fotos de lifestyle de invierno esta semana. No pautar hasta tener 3 ventas orgánicas. Pedir reseñas a los primeros compradores para sumar calificaciones.',margen_neto_pct:'0.309',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'185000',precio_minimo_recomendado:'127000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'75000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 18u | Precio: $185.000 | Margen proyectado: 30.9%'},
+  {rank_cliente_semana:'15',producto:'Mochila Trail 25L',variante:'—',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas. Nueva categoría para Zona Sport — primer accesorio en el catálogo. La mochila tiene margen proyectado del 36% y buena visibilidad en búsquedas de "mochila running" en TN, pero sin historial.',proximo_paso:'Publicar en TN y en el local físico esta semana. Testear con tráfico orgánico durante 4 semanas antes de invertir en pauta. Fotografiar con los outfits FW\'26.',margen_neto_pct:'0.361',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'115000',precio_minimo_recomendado:'74000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'42000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 12u | Precio: $115.000 | Margen proyectado: 36.1%'},
+  {rank_cliente_semana:'16',producto:'Buzo Con Capucha',variante:'Negro',canal_nombre:'Tienda Nube',canal_id:'TN',accion:'ACTIVAR',semana_eval:'2026-04-07',cliente_nombre:'Zona Sport',motivo:'Sin ventas en TN. El Buzo Gris ya funciona en ML con buen arranque — el Negro todavía no fue publicado en TN. El arranque de la temporada FW\'26 es el momento ideal para lanzarlo.',proximo_paso:'Publicar en TN esta semana. Usar las fotos del Gris adaptadas. Aprovechar la base de clientes del canal que ya conoce la marca para el lanzamiento.',margen_neto_pct:'0.302',cobertura_stock:'999',ventas_semanales:'0',precio_actual:'130000',precio_minimo_recomendado:'90000',demanda_referencia:'0',tope_economico_sugerido:'0',costo_prenda_auditoria:'52000',calidad_input:'SIN_DATOS',historial_json:'[]',auditoria_comparativa:'Sin ventas en TN | Stock: 22u | Precio: $130.000 | Margen proyectado: 30.2%'},
 ];
 
 const CARGA_DATA=[
-  {sku:'Windbreaker Anorak', v:'Washed Black',   sa:13, vtn:5, rep:0},
-  {sku:'Windbreaker Anorak', v:'Washed Red',     sa:12, vtn:4, rep:0},
-  {sku:'02 Zip-Up',          v:'Electric Blue',  sa:9,  vtn:3, rep:0},
-  {sku:'Pattern Pant',       v:'—',              sa:57, vtn:5, rep:0},
-  {sku:'BulletProof Tee',    v:'Camuflado',      sa:50, vtn:5, rep:0},
-  {sku:'BulletProof Tee',    v:'Negro',          sa:31, vtn:5, rep:0},
-  {sku:'Waffle Tee',         v:'Blanco',         sa:29, vtn:5, rep:0},
-  {sku:'02 Zip-Up',          v:'Dark Grey',      sa:26, vtn:5, rep:0},
-  {sku:'Double Hoodie',      v:'—',              sa:38, vtn:8, rep:0},
-  {sku:'Box Logo Tee',       v:'—',              sa:38, vtn:6, rep:0},
-  {sku:'BulletProof Tee',    v:'Rosa',           sa:20, vtn:0, rep:0},
-  {sku:'Waffle Tee',         v:'Camuflado',      sa:18, vtn:0, rep:0},
+  // TN
+  {sku:'Zapatilla Pro Runner',    v:'Negro',          canal:'TN', sa:4,  vtn:2,  rep:0},
+  {sku:'Campera Windbreaker',     v:'Navy',           canal:'TN', sa:5,  vtn:2,  rep:0},
+  {sku:'Camiseta Training',       v:'Rojo',           canal:'TN', sa:42, vtn:4,  rep:0},
+  {sku:'Zapatilla Pro Runner',    v:'Blanco',         canal:'TN', sa:9,  vtn:3,  rep:0},
+  {sku:'Campera Windbreaker',     v:'Negro',          canal:'TN', sa:8,  vtn:3,  rep:0},
+  {sku:'Medias Compresión Pack x3',v:'Negro',         canal:'TN', sa:18, vtn:2,  rep:0},
+  {sku:'Zapatilla Pro Runner',    v:'Azul Eléctrico', canal:'TN', sa:20, vtn:0,  rep:0},
+  {sku:'Mochila Trail 25L',       v:'Gris Carbón',    canal:'TN', sa:15, vtn:0,  rep:0},
+  {sku:'Buzo Con Capucha',        v:'Negro',          canal:'TN', sa:12, vtn:0,  rep:0},
+  // ML
+  {sku:'Pantalón Running Slim',   v:'Gris',           canal:'ML', sa:5,  vtn:2,  rep:0},
+  {sku:'Short Training',          v:'Negro',          canal:'ML', sa:51, vtn:5,  rep:0},
+  {sku:'Zapatilla Street Casual', v:'Blanco',         canal:'ML', sa:11, vtn:4,  rep:0},
+  {sku:'Buzo Con Capucha',        v:'Gris',           canal:'ML', sa:7,  vtn:3,  rep:0},
+  // LF
+  {sku:'Camiseta Training',       v:'Negro',          canal:'LF', sa:10, vtn:0,  rep:0},
+  {sku:'Zapatilla Street Casual', v:'Gris',           canal:'LF', sa:43, vtn:0,  rep:0},
+  {sku:'Short Training',          v:'Gris',           canal:'LF', sa:12, vtn:0,  rep:0},
 ];
 
 const GASTOS_CONFIG=[
-  {nombre:'Comisión Tienda Nube (Plan Crecer)', modo:'PCT_SOBRE_VENTA', valor:'1.00%'},
-  {nombre:'Pago Nube (pasarela)',               modo:'PCT_SOBRE_VENTA', valor:'2.99%'},
-  {nombre:'Cuotas sin interés (6 cuotas)',      modo:'PCT_SOBRE_VENTA', valor:'9.50%'},
-  {nombre:'IIBB / Percepciones (Bs. As.)',      modo:'PCT_SOBRE_VENTA', valor:'3.00%'},
-  {nombre:'Meta Ads (estimado s/facturación)',  modo:'PCT_SOBRE_VENTA', valor:'12.00%'},
+  // Tienda Nube
+  {nombre:'Comisión Tienda Nube (Plan Crecer)', canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'1.00%'},
+  {nombre:'Pago Nube (pasarela)',               canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'2.99%'},
+  {nombre:'Cuotas sin interés (6 cuotas)',      canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'9.50%'},
+  {nombre:'IIBB / Percepciones (Bs. As.)',      canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'3.00%'},
+  {nombre:'Meta Ads (estimado s/facturación)',  canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'12.00%'},
+  // Mercado Libre
+  {nombre:'Comisión ML (categoría indumentaria)',canal:'ML', modo:'PCT_SOBRE_VENTA', valor:'13.00%'},
+  {nombre:'Envío gratis obligatorio (ML)',       canal:'ML', modo:'FIJO_POR_ORDEN',  valor:'$2.800'},
+  {nombre:'IIBB / Percepciones (Bs. As.)',       canal:'ML', modo:'PCT_SOBRE_VENTA', valor:'3.00%'},
+  {nombre:'Meta Ads (estimado s/facturación)',   canal:'ML', modo:'PCT_SOBRE_VENTA', valor:'5.00%'},
+  // Local Físico
+  {nombre:'Alquiler local (prorrateo)',          canal:'LF', modo:'PCT_SOBRE_VENTA', valor:'8.00%'},
+  {nombre:'Sueldos ventas (prorrateo)',          canal:'LF', modo:'PCT_SOBRE_VENTA', valor:'12.00%'},
+  {nombre:'IIBB / Percepciones (Bs. As.)',       canal:'LF', modo:'PCT_SOBRE_VENTA', valor:'3.00%'},
+  {nombre:'Meta Ads (estimado s/facturación)',   canal:'LF', modo:'PCT_SOBRE_VENTA', valor:'2.00%'},
 ];
 
 const PRODUCTOS_CONFIG=[
-  {sku:'Windbreaker Anorak', v:'Washed Black',  precio:145000, costo:60000, cuotas:6},
-  {sku:'Windbreaker Anorak', v:'Washed Red',    precio:145000, costo:60000, cuotas:6},
-  {sku:'02 Zip-Up',          v:'Electric Blue', precio:92000,  costo:38000, cuotas:6},
-  {sku:'Pattern Pant',       v:'—',             precio:118000, costo:48000, cuotas:6},
-  {sku:'BulletProof Tee',    v:'Camuflado',     precio:70000,  costo:28000, cuotas:6},
-  {sku:'BulletProof Tee',    v:'Negro',         precio:70000,  costo:28000, cuotas:6},
-  {sku:'Waffle Tee',         v:'Blanco',        precio:94000,  costo:38000, cuotas:6},
-  {sku:'02 Zip-Up',          v:'Dark Grey',     precio:92000,  costo:38000, cuotas:6},
-  {sku:'Double Hoodie',      v:'—',             precio:118000, costo:48000, cuotas:6},
-  {sku:'Box Logo Tee',       v:'—',             precio:68000,  costo:32000, cuotas:6},
-  {sku:'BulletProof Tee',    v:'Rosa',          precio:70000,  costo:28000, cuotas:6},
-  {sku:'Waffle Tee',         v:'Camuflado',     precio:94000,  costo:38000, cuotas:6},
+  // TN
+  {sku:'Zapatilla Pro Runner',     v:'Negro',          canal:'TN', precio:89000,  costo:38000, cuotas:6},
+  {sku:'Campera Windbreaker',      v:'Navy',           canal:'TN', precio:145000, costo:62000, cuotas:6},
+  {sku:'Camiseta Training',        v:'Rojo',           canal:'TN', precio:48000,  costo:18000, cuotas:3},
+  {sku:'Zapatilla Pro Runner',     v:'Blanco',         canal:'TN', precio:89000,  costo:38000, cuotas:6},
+  {sku:'Campera Windbreaker',      v:'Negro',          canal:'TN', precio:145000, costo:62000, cuotas:6},
+  {sku:'Medias Compresión Pack x3',v:'Negro',          canal:'TN', precio:22000,  costo:11000, cuotas:1},
+  {sku:'Zapatilla Pro Runner',     v:'Azul Eléctrico', canal:'TN', precio:89000,  costo:38000, cuotas:6},
+  {sku:'Mochila Trail 25L',        v:'Gris Carbón',    canal:'TN', precio:78000,  costo:32000, cuotas:6},
+  {sku:'Buzo Con Capucha',         v:'Negro',          canal:'TN', precio:95000,  costo:40000, cuotas:6},
+  // ML
+  {sku:'Pantalón Running Slim',    v:'Gris',           canal:'ML', precio:72000,  costo:30000, cuotas:6},
+  {sku:'Short Training',           v:'Negro',          canal:'ML', precio:38000,  costo:14000, cuotas:3},
+  {sku:'Zapatilla Street Casual',  v:'Blanco',         canal:'ML', precio:95000,  costo:42000, cuotas:6},
+  {sku:'Buzo Con Capucha',         v:'Gris',           canal:'ML', precio:95000,  costo:40000, cuotas:6},
+  // LF
+  {sku:'Camiseta Training',        v:'Negro',          canal:'LF', precio:48000,  costo:18000, cuotas:1},
+  {sku:'Zapatilla Street Casual',  v:'Gris',           canal:'LF', precio:95000,  costo:42000, cuotas:1},
+  {sku:'Short Training',           v:'Gris',           canal:'LF', precio:38000,  costo:14000, cuotas:1},
 ];
 
 /* ── NAVIGATION ───────────────────────── */
@@ -991,9 +1114,7 @@ let sortCol='rank_cliente_semana',sortDir='asc',isDark=true;
 
 function showModule(mod){
   document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
-  document.querySelectorAll('.main-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('mod-'+mod).classList.add('active');
-  document.getElementById('mtab-'+mod).classList.add('active');
   const bar=document.getElementById('cargaFixedBar');
   if(bar) bar.style.display=mod==='carga'?'flex':'none';
 }
@@ -1008,20 +1129,38 @@ function showSubTab(mod, tab){
     if(p) p.classList.toggle('active',t===tab);
     if(s) s.classList.toggle('active',t===tab);
   });
-  // Sync mobile bottom nav
-  ['situacion','plan','acciones'].forEach(t=>{
-    const m=document.getElementById('mbn-'+t);
-    if(m) m.classList.toggle('active',t===tab);
-  });
   // Lazy render
   if(mod==='carga'&&tab==='precios') renderPreciosTable();
   if(mod==='carga'&&tab==='agregar') renderAgregarForm('variante');
 }
 
+function sidebarNav(mod, tab){
+  showModule(mod);
+  if(tab) showSubTab(mod, tab);
+  syncSidebarActive(mod, tab||null);
+}
+
+function syncSidebarActive(mod, tab){
+  ['snav-situacion','snav-plan','snav-acciones','snav-params','snav-carga','snav-config'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.classList.remove('active');
+  });
+  ['mbn-situacion','mbn-plan','mbn-acciones','mbn-carga','mbn-config'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.classList.remove('active');
+  });
+  if(mod==='tablero'&&tab){
+    const sn=document.getElementById('snav-'+tab);if(sn)sn.classList.add('active');
+    const mn=document.getElementById('mbn-'+tab);if(mn)mn.classList.add('active');
+  } else {
+    const sn=document.getElementById('snav-'+mod);if(sn)sn.classList.add('active');
+    const mn=document.getElementById('mbn-'+mod);if(mn)mn.classList.add('active');
+  }
+}
+
 function toggleTheme(){
   isDark=!isDark;
   document.body.classList.toggle('light',!isDark);
-  document.getElementById('themeBtn').textContent=isDark?'☀️':'🌙';
+  const icon=isDark?'☀️':'🌙';
+  ['themeBtn','themeBtnSidebar'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=icon;});
 }
 
 /* ── HELPERS ──────────────────────────── */
@@ -1068,7 +1207,7 @@ function renderSituacion(){
   if(!wrap) return;
   wrap.innerHTML=`<div class="situacion-wrap">
     <div class="situacion-greeting">
-      <div class="situacion-brand">TwoHip</div>
+      <div class="situacion-brand">Zona Sport</div>
       <div class="situacion-semana">Semana del 07/04/2026</div>
     </div>
     <div class="sit-section-title">Requieren acción ya</div>
@@ -1097,7 +1236,7 @@ function renderSituacion(){
 
 function renderPlan(){
   const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='LIQUIDAR');
-  const rc=['rank-1','rank-2','rank-3','rank-3','rank-3'];
+  const rc=['rank-1','rank-2','rank-3','rank-3','rank-3','rank-3'];
   document.getElementById('planGrid').innerHTML=urgentes.map((r,i)=>`
     <div class="plan-card ${rc[i]}" onclick="openDetail(${allData.indexOf(r)})">
       <div class="plan-rank">#${num(r.rank_cliente_semana)}</div>
@@ -1146,8 +1285,9 @@ function sortBy(col){if(sortCol===col)sortDir=sortDir==='asc'?'desc':'asc';else{
 function renderParametros(){
   const prow=(l,v)=>`<div class="param-row"><span class="param-label">${l}</span><span class="param-value">${v}</span></div>`;
   const modoLabel={PCT_SOBRE_VENTA:'% s/venta',FIJO_POR_UNIDAD:'Fijo/unidad',FIJO_POR_ORDEN:'Fijo/orden',MANUAL:'Manual'};
+  const canalRows=(canal)=>GASTOS_CONFIG.filter(g=>g.canal===canal).map(g=>`<tr><td>${g.nombre}</td><td style="color:var(--text-muted)">${modoLabel[g.modo]||g.modo}</td><td>${g.valor}</td></tr>`).join('');
   let html=`<div class="params-grid">
-    <div class="param-card"><div class="param-card-title">Cliente</div>${prow('Nombre','TwoHip')}${prow('Canal','Tienda Nube')}${prow('Moneda','ARS')}</div>
+    <div class="param-card"><div class="param-card-title">Cliente</div>${prow('Nombre','Zona Sport')}${prow('Canales','TN · ML · Local Físico')}${prow('Moneda','ARS')}</div>
     <div class="param-card"><div class="param-card-title">Umbrales del motor</div>${prow('Stock bajo','< 2 semanas')}${prow('Sobrestock','> 8 semanas')}${prow('Ventana demanda','4 semanas')}</div>
     <div class="param-card"><div class="param-card-title">Pesos de demanda</div>${prow('Semana 1 (reciente)','40%')}${prow('Semana 2','30%')}${prow('Semana 3','20%')}${prow('Semana 4','10%')}</div>
     <div class="param-card"><div class="param-card-title">Score de criticidad</div>${prow('Margen negativo','100 pts')}${prow('Riesgo quiebre','50 pts')}${prow('Sobrestock','35 pts')}${prow('Margen bajo','25 pts')}${prow('Oportunidad','15 pts')}</div>
@@ -1155,9 +1295,15 @@ function renderParametros(){
   <div class="page-subtitle" style="margin-bottom:16px">Configuración por canal</div>
   <div class="canal-table-wrap">
     <div class="canal-header"><span class="canal-name-lbl">Tienda Nube</span><span class="canal-obj">Objetivo margen: 25% · Plan Crecer</span></div>
-    <table class="gastos-table"><thead><tr><th>Gasto</th><th>Modo</th><th>Valor</th></tr></thead><tbody>
-    ${GASTOS_CONFIG.map(g=>`<tr><td>${g.nombre}</td><td style="color:var(--text-muted)">${modoLabel[g.modo]||g.modo}</td><td>${g.valor}</td></tr>`).join('')}
-    </tbody></table>
+    <table class="gastos-table"><thead><tr><th>Gasto</th><th>Modo</th><th>Valor</th></tr></thead><tbody>${canalRows('TN')}</tbody></table>
+  </div>
+  <div class="canal-table-wrap" style="margin-top:12px">
+    <div class="canal-header"><span class="canal-name-lbl">Mercado Libre</span><span class="canal-obj">Objetivo margen: 20% · Classic</span></div>
+    <table class="gastos-table"><thead><tr><th>Gasto</th><th>Modo</th><th>Valor</th></tr></thead><tbody>${canalRows('ML')}</tbody></table>
+  </div>
+  <div class="canal-table-wrap" style="margin-top:12px">
+    <div class="canal-header"><span class="canal-name-lbl">Local Físico</span><span class="canal-obj">Objetivo margen: 30% · sin comisión digital</span></div>
+    <table class="gastos-table"><thead><tr><th>Gasto</th><th>Modo</th><th>Valor</th></tr></thead><tbody>${canalRows('LF')}</tbody></table>
   </div>`;
   document.getElementById('parametrosContent').innerHTML=html;
 }
@@ -1336,7 +1482,7 @@ function guardarConfig(){showToast('✓ Configuración guardada.');}
 function renderPautaDist(){
   const raw=document.getElementById('pautaInput').value.replace(/\./g,'').replace('$','').replace(',','.');
   const total=parseFloat(raw)||165000;
-  const porSKU=Math.round(total/12);
+  const porSKU=Math.round(total/16);
   document.getElementById('pautaDistList').innerHTML=CARGA_DATA.map(d=>
     `<div class="pauta-dist-row"><span class="pauta-dist-sku">${d.sku} ${d.v}</span><span class="pauta-dist-val">${money(porSKU)}</span></div>`
   ).join('');
@@ -1556,6 +1702,7 @@ function initApp(){
   // Show mobile nav
   const nav=document.getElementById('mobileBottomNav');
   if(nav) nav.style.display='block';
+  syncSidebarActive('tablero','situacion');
 }
 </script>
 </body>
