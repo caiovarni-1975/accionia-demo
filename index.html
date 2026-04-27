@@ -729,9 +729,9 @@
         <table class="carga-table">
           <thead>
             <tr>
-              <th style="text-align:left;min-width:140px">Producto / Variante</th>
+              <th style="text-align:left;min-width:160px">Producto / Variante</th>
               <th>Stock Ant.</th>
-              <th>Ventas TN</th>
+              <th>Ventas</th>
               <th>Repos.</th>
               <th>Stock Act.</th>
               <th>Sem. esp.</th>
@@ -1536,12 +1536,16 @@ function renderCargaTable(){
   document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>{
     const isAt=_atipicaState[i]||false;
     const hasAj=_ajusteState[i];
+    const newStk=d.sa-d.vtn+d.rep;
+    const cob=d.vtn>0?newStk/d.vtn:999;
+    const stkCls=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
+    const canalLabel={TN:'Tienda Nube',ML:'Mercado Libre',LF:'Local Físico'}[d.canal]||d.canal;
     return `<tr>
-      <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v}</div></td>
+      <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v} <span style="color:var(--text-muted);font-size:10px;margin-left:4px">${canalLabel}</span></div></td>
       <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i});markDirty()"></td>
       <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()"></td>
       <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><span class="n-calc" id="stk_${i}">${d.sa - d.vtn + d.rep}</span></td>
+      <td><span class="${stkCls}" id="stk_${i}">${newStk}</span></td>
       <td><button class="atipica-btn${isAt?' on':''}" id="atipica_${i}" onclick="toggleAtipica(${i})">${isAt?'⚠ atípica':'Sem. esp.'}</button></td>
       <td><button class="ajuste-btn${hasAj?' on':''}" id="ajuste_${i}" onclick="openAjuste(${i})">${hasAj?'✓ '+hasAj.cant+'u':'Ajuste'}</button></td>
     </tr>`;
@@ -1552,7 +1556,11 @@ function recalcStock(i){
   const sa=parseInt(document.getElementById('sa_'+i).value)||0;
   const vtn=parseInt(document.getElementById('vtn_'+i).value)||0;
   const rep=parseInt(document.getElementById('rep_'+i).value)||0;
-  document.getElementById('stk_'+i).textContent=sa-vtn+rep;
+  const newStk=sa-vtn+rep;
+  const cob=vtn>0?newStk/vtn:999;
+  const el=document.getElementById('stk_'+i);
+  el.textContent=newStk;
+  el.className=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
 }
 
 function markDirty(){
