@@ -312,9 +312,24 @@
   .cfb-status{font-size:11px;color:var(--text-muted);}
   .cfb-status.dirty{color:var(--warn);}
   .btn-cfb{padding:9px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid;font-family:'DM Sans',sans-serif;transition:all .15s;display:inline-flex;align-items:center;gap:7px;}
-  .btn-cfb-save{background:var(--accent);border-color:var(--accent);color:#fff;}
-  .btn-cfb-save:hover{opacity:.88;}
+  .btn-cfb-save{background:transparent;border-color:var(--border);color:var(--text-muted);}
+  .btn-cfb-save:hover{border-color:var(--text-muted);}
   .btn-cfb-save:disabled{opacity:.35;cursor:not-allowed;}
+  .btn-cfb-recalc{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-cfb-recalc:hover{opacity:.88;}
+  .btn-cfb-recalc:disabled{opacity:.35;cursor:not-allowed;}
+  /* Motor overlay */
+  .motor-overlay{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:0;pointer-events:none;transition:opacity .2s;}
+  .motor-overlay.show{opacity:1;pointer-events:all;}
+  .motor-spinner{width:44px;height:44px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .motor-label{font-size:15px;font-weight:600;color:#fff;letter-spacing:.01em;}
+  .motor-sub{font-size:12px;color:rgba(255,255,255,.5);}
+  .motor-steps{display:flex;flex-direction:column;gap:6px;margin-top:4px;}
+  .motor-step{font-size:11px;color:rgba(255,255,255,.4);display:flex;align-items:center;gap:8px;}
+  .motor-step.done{color:rgba(255,255,255,.75);}
+  .motor-step::before{content:'';width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);flex-shrink:0;}
+  .motor-step.done::before{background:#22c55e;}
 
   /* ── AJUSTE MODAL ── */
   .ajuste-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(3px);}
@@ -793,10 +808,28 @@
 
     <!-- ── FIXED BOTTOM BAR (carga) ── -->
     <div class="carga-fixed-bar" id="cargaFixedBar" style="display:none">
-      <span class="cfb-status" id="cfbStatus">12 SKUs · sin cambios</span>
-      <button class="btn-cfb btn-cfb-save" id="cfbSaveBtn" onclick="guardarSemana()" disabled>
-        💾 Guardar semana
-      </button>
+      <span class="cfb-status" id="cfbStatus">18 SKUs · sin cambios</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-cfb btn-cfb-save" id="cfbSaveBtn" onclick="guardarSemana()" disabled>
+          Guardar
+        </button>
+        <button class="btn-cfb btn-cfb-recalc" id="cfbRecalcBtn" onclick="recalcularMotor()" disabled>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Recalcular tablero
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MOTOR OVERLAY ── -->
+  <div class="motor-overlay" id="motorOverlay">
+    <div class="motor-spinner"></div>
+    <div class="motor-label">Motor calculando…</div>
+    <div class="motor-steps" id="motorSteps">
+      <div class="motor-step" id="mstep-1">Leyendo stock y ventas</div>
+      <div class="motor-step" id="mstep-2">Calculando cobertura por SKU</div>
+      <div class="motor-step" id="mstep-3">Clasificando acciones</div>
+      <div class="motor-step" id="mstep-4">Reordenando por criticidad</div>
     </div>
   </div>
 
@@ -1526,23 +1559,94 @@ function markDirty(){
   _cargaDirty=true;
   const s=document.getElementById('cfbStatus');
   const btn=document.getElementById('cfbSaveBtn');
-  if(s) s.textContent='Cambios sin guardar';
-  if(s) s.className='cfb-status dirty';
+  const btn2=document.getElementById('cfbRecalcBtn');
+  if(s){s.textContent='Cambios sin procesar';s.className='cfb-status dirty';}
   if(btn) btn.disabled=false;
+  if(btn2) btn2.disabled=false;
 }
 function markClean(){
   _cargaDirty=false;
   const s=document.getElementById('cfbStatus');
   const btn=document.getElementById('cfbSaveBtn');
-  if(s) s.textContent='12 SKUs · sin cambios';
-  if(s) s.className='cfb-status';
+  const btn2=document.getElementById('cfbRecalcBtn');
+  if(s){s.textContent='18 SKUs · sin cambios';s.className='cfb-status';}
   if(btn) btn.disabled=true;
+  if(btn2) btn2.disabled=true;
 }
 
 function guardarSemana(){
   if(!_cargaDirty) return;
+  // Persist inputs back to CARGA_DATA
+  CARGA_DATA.forEach((d,i)=>{
+    const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
+    const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
+    const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
+  });
   markClean();
-  showToast('✓ Semana guardada. El motor recalculará el tablero en breve.');
+  showToast('✓ Semana guardada.');
+}
+
+function recalcularMotor(){
+  if(!_cargaDirty) return;
+  // Step animations
+  const steps=['mstep-1','mstep-2','mstep-3','mstep-4'];
+  steps.forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('done');});
+  document.getElementById('motorOverlay').classList.add('show');
+  let si=0;
+  const stepTimer=setInterval(()=>{
+    if(si<steps.length){const el=document.getElementById(steps[si]);if(el)el.classList.add('done');si++;}
+    else clearInterval(stepTimer);
+  },320);
+  setTimeout(()=>{
+    // 1. Read inputs & save
+    CARGA_DATA.forEach((d,i)=>{
+      const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
+      const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
+      const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
+    });
+    // 2. Recalculate cobertura + reclassify
+    const chObj={TN:0.25,ML:0.20,LF:0.30};
+    allData.forEach(r=>{
+      const ci=CARGA_DATA.findIndex(c=>c.sku===r.producto&&c.v===r.variante&&c.canal===r.canal_id);
+      if(ci===-1) return;
+      const d=CARGA_DATA[ci];
+      const newStock=Math.max(0,d.sa-d.vtn+d.rep);
+      const demand=d.vtn>0?d.vtn:num(r.demanda_referencia)||1;
+      const cob=newStock>0?newStock/demand:0;
+      r.cobertura_stock=cob>=999?'999':cob.toFixed(1);
+      r.ventas_semanales=String(d.vtn);
+      const mg=num(r.margen_neto_pct);
+      const obj=chObj[r.canal_id]||0.25;
+      if(d.vtn===0&&newStock>0)      r.accion='ACTIVAR';
+      else if(mg<0)                  r.accion='REVISAR_PRECIO';
+      else if(cob<2)                 r.accion='RIESGO_QUIEBRE';
+      else if(cob>8)                 r.accion='LIQUIDAR';
+      else if(mg<0.08)               r.accion='REVISAR_PRECIO';
+      else if(mg<obj)                r.accion='MONITOREAR';
+      else                           r.accion='EMPUJAR';
+    });
+    // 3. Re-rank
+    const aOrd={RIESGO_QUIEBRE:0,LIQUIDAR:1,REVISAR_PRECIO:2,EMPUJAR:3,MONITOREAR:4,ACTIVAR:5,SIN_DATOS:6};
+    allData.sort((a,b)=>{
+      const oa=aOrd[a.accion]??9,ob=aOrd[b.accion]??9;
+      if(oa!==ob) return oa-ob;
+      if(a.accion==='RIESGO_QUIEBRE') return num(a.cobertura_stock)-num(b.cobertura_stock);
+      if(a.accion==='LIQUIDAR')       return num(b.cobertura_stock)-num(a.cobertura_stock);
+      if(a.accion==='REVISAR_PRECIO') return num(a.margen_neto_pct)-num(b.margen_neto_pct);
+      if(a.accion==='EMPUJAR')        return num(b.margen_neto_pct)-num(a.margen_neto_pct);
+      return 0;
+    });
+    allData.forEach((r,i)=>r.rank_cliente_semana=String(i+1));
+    // 4. Re-render & navigate
+    renderSituacion();
+    renderPlan();
+    renderTable();
+    document.getElementById('motorOverlay').classList.remove('show');
+    markClean();
+    sidebarNav('tablero','situacion');
+    const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='LIQUIDAR'||r.accion==='REVISAR_PRECIO').length;
+    showToast('✓ Tablero actualizado — '+urgentes+' urgentes esta semana');
+  },1500);
 }
 function guardarPublicidad(){showToast('✓ Pauta guardada correctamente.');}
 function guardarConfig(){showToast('✓ Configuración guardada.');}
