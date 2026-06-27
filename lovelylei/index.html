@@ -836,9 +836,23 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
 #tourSkip{font-size:11px;color:var(--text-dim);cursor:pointer;text-decoration:underline;text-underline-offset:2px;}
 .tour-btn-sidebar{width:100%;margin-top:10px;background:rgba(129,140,248,.1);border:1px solid rgba(129,140,248,.3);border-radius:7px;padding:7px 0;font-size:12px;font-weight:600;color:#818cf8;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.01em;transition:background .15s;}
 .tour-btn-sidebar:hover{background:rgba(129,140,248,.2);}
+
+    /* Mobile wall */
+    .mobile-wall{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:#0d0d0f;z-index:99999;flex-direction:column;align-items:center;justify-content:center;padding:40px 32px;text-align:center;}
+    @media(max-width:768px){.mobile-wall{display:flex;}}
 </style>
 </head>
 <body>
+  <div class="mobile-wall">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:24px;opacity:.6">
+      <rect x="8" y="12" width="48" height="32" rx="3" stroke="white" stroke-width="2.5" fill="none"/>
+      <path d="M4 48h56" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      <path d="M24 48l2 6h12l2-6" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div style="font-family:'DM Sans',sans-serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:12px;">Esta demo es para escritorio</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,255,255,.45);line-height:1.6;max-width:260px;">Abrila desde tu computadora o tablet para ver la experiencia completa.</div>
+    <div style="margin-top:36px;font-family:'DM Sans',sans-serif;font-size:12px;color:rgba(255,255,255,.2);letter-spacing:.03em;">demo.caisyng.com.ar/lovelylei</div>
+  </div>
 
 <!-- DEMO BANNER -->
 <div class="demo-banner">DEMO<span>Datos ficticios</span></div>
