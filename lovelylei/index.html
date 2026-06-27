@@ -812,8 +812,10 @@
 #tourHighlight.vis{opacity:1;}
 #tourCard{position:fixed;background:var(--surface);border:1px solid rgba(129,140,248,.35);border-radius:14px;padding:18px 20px 16px;width:300px;z-index:9999;box-shadow:0 10px 44px rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .25s,top .35s cubic-bezier(.4,0,.2,1),left .35s cubic-bezier(.4,0,.2,1);user-select:none;}
 #tourCard.vis{opacity:1;pointer-events:all;}
+#tourCard{cursor:grab;}
 #tourCard.dragging{transition:opacity .25s!important;cursor:grabbing;}
-#tourDragHandle{text-align:center;letter-spacing:3px;color:var(--text-muted);opacity:.35;font-size:11px;margin-bottom:8px;cursor:grab;line-height:1;}
+#tourCard button,#tourCard #tourSkip{cursor:pointer;}
+#tourDragHandle{text-align:center;letter-spacing:3px;color:var(--text-muted);opacity:.35;font-size:11px;margin-bottom:8px;line-height:1;}
 #tourDragHandle:hover{opacity:.6;}
 
 /* Fixed tour start button */
@@ -2635,7 +2637,7 @@ function tourUpdateCard(sel){
   const el=document.querySelector(sel);
   const card=document.getElementById('tourCard');
   if(!el) return;
-  el.scrollIntoView({behavior:'smooth',block:'nearest'});
+  el.scrollIntoView({behavior:'smooth',block:'center'});
   if(_tourDragged) return;
   setTimeout(()=>{
     const r=el.getBoundingClientRect();
@@ -2647,7 +2649,7 @@ function tourUpdateCard(sel){
     left=Math.max(12,Math.min(left,window.innerWidth-cw-12));
     card.style.top=top+'px';
     card.style.left=left+'px';
-  },80);
+  },400);
 }
 function tourTrackLoop(){
   if(_tourIdx<0){_tourRaf=null;return;}
@@ -2687,10 +2689,10 @@ function tourTrackLoop(){
 <script>
 (function(){
   const card=document.getElementById('tourCard');
-  const handle=document.getElementById('tourDragHandle');
-  if(!handle||!card) return;
-  handle.addEventListener('mousedown',function(e){
+  if(!card) return;
+  card.addEventListener('mousedown',function(e){
     if(!card.classList.contains('vis')) return;
+    if(e.target.closest('button,#tourSkip')) return;
     _tourDragActive=true;
     _tourDragged=true;
     const rect=card.getBoundingClientRect();
