@@ -805,6 +805,10 @@
     .mobile-topbar{display:flex;}
     .header{display:none;}
     .app-layout{display:block;}
+    #tourStartFixed{left:16px;top:66px;}
+    #tourCard{width:calc(100vw - 32px);max-width:calc(100vw - 32px);}
+    .detail-overlay{align-items:flex-end;}
+    .detail-panel{width:100%;max-width:100%;max-height:85vh;border-radius:14px 14px 0 0;padding:20px 16px 90px;}
   }
 
 /* ── TOUR ──────────────────────────── */
@@ -1354,7 +1358,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
 <div class="version-badge" id="vBadge" style="display:none">AccionIA · LovelyLei Shoes</div>
 
 <!-- MOBILE BOTTOM NAV -->
-<div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none">
+<div class="mobile-bottom-nav" id="mobileBottomNav">
   <div class="mbn-items">
     <div class="mbn-item active" id="mbn-situacion" onclick="sidebarNav('tablero','situacion')">
       <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span>Situación</span>
@@ -2641,7 +2645,7 @@ function tourUpdateCard(sel){
   if(_tourDragged) return;
   setTimeout(()=>{
     const r=el.getBoundingClientRect();
-    const p=8,cw=300,cm=14;
+    const p=8,cw=card.offsetWidth||300,cm=14;
     let top=r.bottom+p+cm;
     if(top+180>window.innerHeight) top=r.top-p-200-cm;
     top=Math.max(12,top);
@@ -2711,6 +2715,32 @@ function tourTrackLoop(){
     card.style.top=y+'px';
   });
   document.addEventListener('mouseup',function(){
+    if(_tourDragActive){_tourDragActive=false;card.classList.remove('dragging');}
+  });
+  card.addEventListener('touchstart',function(e){
+    if(!card.classList.contains('vis')) return;
+    if(e.target.closest('button,#tourSkip')) return;
+    const t=e.touches[0];
+    _tourDragActive=true;
+    _tourDragged=true;
+    const rect=card.getBoundingClientRect();
+    _tourDragOff.x=t.clientX-rect.left;
+    _tourDragOff.y=t.clientY-rect.top;
+    card.classList.add('dragging');
+    e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchmove',function(e){
+    if(!_tourDragActive) return;
+    const t=e.touches[0];
+    let x=t.clientX-_tourDragOff.x;
+    let y=t.clientY-_tourDragOff.y;
+    x=Math.max(0,Math.min(x,window.innerWidth-card.offsetWidth));
+    y=Math.max(0,Math.min(y,window.innerHeight-card.offsetHeight));
+    card.style.left=x+'px';
+    card.style.top=y+'px';
+    e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',function(){
     if(_tourDragActive){_tourDragActive=false;card.classList.remove('dragging');}
   });
 })();
