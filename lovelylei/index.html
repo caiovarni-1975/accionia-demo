@@ -842,7 +842,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
     @media(max-width:768px){.mobile-wall{display:flex;}}
 </style>
 </head>
-<body>
+<body class="light">
   <div class="mobile-wall">
     <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:24px;opacity:.6">
       <rect x="8" y="12" width="48" height="32" rx="3" stroke="white" stroke-width="2.5" fill="none"/>
@@ -885,7 +885,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
       <span class="mobile-topbar-name">LovelyLei Shoes</span>
       <span class="mobile-topbar-client">AccionIA</span>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
+    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">🌙</button>
   </div>
 
   <div class="app-layout">
@@ -925,7 +925,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
       <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Configuración
     </div>
     <div class="sidebar-bottom">
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtnSidebar">☀️</button>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtnSidebar">🌙</button>
       <a href="https://caisyng.com.ar" target="_blank" rel="noopener" class="sidebar-accionia-link">
         <div style="display:flex;align-items:center;gap:7px">
           <span style="font-size:12px;color:var(--text-secondary);font-family:'DM Sans',sans-serif;letter-spacing:.01em;font-weight:500">AccionIA by</span>
@@ -1468,7 +1468,7 @@ const PRODUCTOS_CONFIG=[
 ];
 
 /* ── NAVIGATION ───────────────────────── */
-let sortCol='rank_cliente_semana',sortDir='asc',isDark=true;
+let sortCol='rank_cliente_semana',sortDir='asc',isDark=false;
 
 function showModule(mod){
   document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
