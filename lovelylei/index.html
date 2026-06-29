@@ -2362,6 +2362,7 @@ function renderNegocio(){
     </div>
 
     <div class="neg-accionia-card">
+      <div id="neg-accionia-top">
       <div class="neg-card-title">Cómo funciona AccionIA</div>
       <div class="neg-accionia-intro">La idea central es que cada semana tengas claro qué hacer con cada producto — sin planillas, sin interpretación propia. Para eso, el sistema tomaría tres datos simples: lo que vendiste, el stock actual y cuánto invertiste en pauta. Con eso, y con los parámetros que configurarías una sola vez, calcularía cobertura, margen real por canal y adónde convendría mover la inversión. El resultado: decisiones ordenadas por urgencia — sobrestock a liquidar, productos a empujar, alertas de quiebre...</div>
 
@@ -2392,6 +2393,7 @@ function renderNegocio(){
           <div class="neg-accion-desc">Todo en orden. Stock, margen y velocidad dentro de los parámetros. Solo seguimiento.</div>
         </div>
       </div>
+      </div><!-- /#neg-accionia-top -->
 
       <div class="neg-inputs-section">
         <div class="neg-met-title">¿Con qué datos trabajaría el sistema?</div>
@@ -2583,7 +2585,8 @@ function initApp(){
 /* ── TOUR ──────────────────────────── */
 const TOUR_STEPS=[
   {nav:['negocio',null],     sel:'.neg-catalog-card',        title:'Mi Negocio',                       text:'Esto es LovelyLei Shoes — no es una plantilla genérica. Acá estarían los datos reales de tu tienda: catálogo activo, condiciones comerciales y estructura de costos por canal.'},
-  {nav:['negocio',null],     sel:'.neg-accionia-card',       title:'Cómo funcionaría AccionIA',        text:'Cada semana cargás tres datos simples — ventas, stock y pauta — y el sistema calcularía qué hacer con cada producto. Abajo de esta card vas a ver también con qué datos exactos trabajaría: qué se configura una sola vez y qué se actualiza cada semana.'},
+  {nav:['negocio',null],     sel:'#neg-accionia-top',        title:'Cómo funcionaría AccionIA',        text:'Cada semana cargás tres datos simples — ventas, stock y pauta — y el sistema calcularía qué hacer con cada producto. El resultado: una de estas 6 acciones para cada SKU, ordenadas por urgencia.'},
+  {nav:['negocio',null],     sel:'.neg-inputs-section',      title:'¿Con qué datos trabajaría?',       text:'Hay dos tipos de datos: los que configurarías una sola vez con Caio (costos, márgenes, canales) y los que cargarías cada semana (ventas, stock y pauta). En total, menos de 10 minutos por semana.'},
   {nav:['negocio',null],     sel:'#neg-calcula-section',     title:'Además, cada semana calcula',      text:'Además de asignar una acción a cada SKU, el sistema calcularía tres cosas: cómo distribuir la pauta según lo que conviene empujar, el margen real si decidís bajar el precio para liquidar, y cuánto tiempo queda antes de que el stock no rote antes del cambio de colección.'},
   {nav:['tablero','situacion'], sel:'.new-hero',             title:'Lo que calcularía cada semana',    text:'El primer número que verías cada lunes: cuánto capital está en juego según cómo actúes en cada SKU. Ese monto se actualizaría con cada nueva carga.'},
   {nav:['tablero','plan'],   sel:'#planGrid',                title:'Esta semana — las urgencias',      text:'Las decisiones urgentes ordenadas por criticidad — motivo y próximo paso para cada SKU. Tocá cualquier card para ver el análisis completo.'},
