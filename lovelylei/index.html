@@ -1402,6 +1402,7 @@ let _prevTotalJuego=4500000;
 function tryLogin(){
   const inp=document.getElementById('loginInput');
   if(inp.value==='lovelylei'){
+    fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({demo:'LovelyLei',referrer:document.referrer})}).catch(()=>{});
     const ov=document.getElementById('loginOverlay');
     ov.style.animation='loginFadeOut .4s ease forwards';
     setTimeout(()=>{
