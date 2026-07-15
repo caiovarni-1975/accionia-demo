@@ -2077,8 +2077,8 @@ function renderPautaDist(){
   const raw=document.getElementById('pautaInput')?.value.replace(/\./g,'').replace('$','').replace(',','.')||'';
   const total=parseFloat(raw)||60000;
   // Distribución inteligente
-  const weights={EMPUJAR:5,LIQUIDAR:3,ACTIVAR:2,RIESGO_QUIEBRE:0,MONITOREAR:0,REVISAR_PRECIO:0};
-  const reasons={EMPUJAR:'Mejor margen y stock — escalar',LIQUIDAR:'Acelerar rotación',ACTIVAR:'Poner en movimiento',RIESGO_QUIEBRE:'Sin stock — no pautar',MONITOREAR:'En orden — sin pauta extra',REVISAR_PRECIO:'Margen insuficiente'};
+  const weights={EMPUJAR:5,LIQUIDAR:1,ACTIVAR:2,RIESGO_QUIEBRE:0,MONITOREAR:0,REVISAR_PRECIO:0};
+  const reasons={EMPUJAR:'Mejor margen y stock — escalar',LIQUIDAR:'Apoyo mínimo — el precio hace el trabajo',ACTIVAR:'Poner en movimiento',RIESGO_QUIEBRE:'Sin stock — no pautar',MONITOREAR:'En orden — sin pauta extra',REVISAR_PRECIO:'Margen insuficiente'};
   const smart=CARGA_DATA.map(d=>{
     const row=allData.find(r=>r.producto===d.sku&&r.canal_id==='TN');
     const accion=(row?.accion||'MONITOREAR').trim();
