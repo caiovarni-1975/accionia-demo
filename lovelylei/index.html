@@ -390,6 +390,11 @@
   .pauta-smart-val.zero{color:var(--text-dim);}
   .pauta-smart-box{background:rgba(134,239,172,.05);border:1px solid rgba(134,239,172,.15);border-radius:10px;padding:14px 16px;margin-top:8px;}
   .pauta-smart-total{display:flex;justify-content:space-between;border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-size:12px;font-weight:600;color:var(--text-primary);}
+  .pauta-row-clickable{cursor:pointer;border-radius:6px;transition:background .15s;margin:0 -8px;padding:7px 8px;}
+  .pauta-row-clickable:hover{background:rgba(99,102,241,.07);}
+  .pauta-row-clickable:hover .pauta-smart-sku{color:var(--accent);}
+  .pauta-row-arrow{font-size:11px;color:var(--text-dim);margin-left:4px;transition:transform .15s;}
+  .pauta-row-clickable:hover .pauta-row-arrow{color:var(--accent);transform:translateX(2px);}
   /* ── RECUPERO DE CAPITAL ── */
   .recupero-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-top:20px;}
   .recupero-card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
@@ -1739,7 +1744,7 @@ function renderParametros(){
   document.getElementById('parametrosContent').innerHTML=html;
 }
 
-function openDetail(idx){
+function openDetail(idx, pautaAsignada){
   const r=allData[idx];if(!r)return;
   const isA=(r.accion||'').trim()==='ACTIVAR';
   const cobV=(isA||num(r.cobertura_stock)>=999)?'—':num(r.cobertura_stock).toFixed(1)+' sem';
@@ -1764,6 +1769,7 @@ function openDetail(idx){
       ${(r.accion||'').trim()!=='LIQUIDAR'?`<div class="detail-metric-card"><div class="detail-metric-label">Precio mínimo</div><div class="detail-metric-value">${r.precio_minimo_recomendado?money(r.precio_minimo_recomendado):'N/A'}</div></div>`:''}
       <div class="detail-metric-card"><div class="detail-metric-label">Tope pauta</div><div class="detail-metric-value">${(r.accion||'').trim()==='EMPUJAR'&&num(r.tope_economico_sugerido)>0?money(r.tope_economico_sugerido)+'/u':'N/A'}</div></div>
       <div class="detail-metric-card"><div class="detail-metric-label">Costo prenda</div><div class="detail-metric-value">${money(r.costo_prenda_auditoria)}</div></div>
+      ${pautaAsignada!=null?`<div class="detail-metric-card"><div class="detail-metric-label">Pauta asignada</div><div class="detail-metric-value" style="color:var(--accent)">${money(pautaAsignada)}</div></div>`:''}
     </div>
     <div class="detail-section"><div class="detail-section-title">Historial de ventas</div>${buildHistorialHTML(r)}</div>`;
   document.getElementById('detailOverlay').classList.add('open');
@@ -2093,13 +2099,16 @@ function renderPautaDist(){
   if(lastPositive) lastPositive.amount+=diff;
   const listEl=document.getElementById('pautaSmartList');
   const totalEl=document.getElementById('pautaSmartTotal');
-  if(listEl) listEl.innerHTML=smart.map(a=>`
-    <div class="pauta-dist-row-smart">
-      <span class="pauta-smart-sku">${a.sku}</span>
+  if(listEl) listEl.innerHTML=smart.map(a=>{
+    const idx=allData.findIndex(r=>r.producto===a.sku&&r.canal_id==='TN');
+    const clickable=idx>=0;
+    return `<div class="pauta-dist-row-smart${clickable?' pauta-row-clickable':''}"${clickable?` onclick="openDetail(${idx},${a.amount})"`:''}>
+      <span class="pauta-smart-sku">${a.sku}${clickable?'<span class="pauta-row-arrow">→</span>':''}</span>
       <span class="badge badge-${a.accion}" style="font-size:9px">${a.accion}</span>
       <span class="pauta-smart-reason">${a.reason}</span>
       <span class="pauta-smart-val${a.amount===0?' zero':''}">${a.amount===0?'$0':money(a.amount)}</span>
-    </div>`).join('');
+    </div>`;
+  }).join('');
   if(totalEl) totalEl.textContent=money(total);
 }
 
@@ -2358,8 +2367,8 @@ function renderSidebarResumen(){
   const empujar=allData.filter(r=>r.accion==='EMPUJAR');
   const activar=allData.filter(r=>r.accion==='ACTIVAR');
   const impactoQ=quiebre.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;return s+num(r.demanda_referencia)*num(r.precio_actual)*(1-c);},0);
-  const impactoL=liquidar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);const st=d?d.sa-d.vtn+d.rep:0;return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));},0);
-  const impactoA=activar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);const st=d?d.sa:0;return s+st*num(r.precio_actual)*(1-c);},0);
+  const impactoL=liquidar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));},0);
+  const impactoA=activar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+st*num(r.precio_actual)*(1-c);},0);
   const total=Math.round((impactoQ+impactoL+impactoA)/1000)*1000;
   const topeE=empujar.length?num(empujar[0].tope_economico_sugerido):0;
   const row=(badgeCls,badgeTxt,count,val,valCls)=>`<div class="sb-resumen-row"><span class="sb-resumen-badge ${badgeCls}">${badgeTxt}</span><span class="sb-resumen-count">${count}</span><span class="sb-resumen-val ${valCls}">${val}</span></div>`;
