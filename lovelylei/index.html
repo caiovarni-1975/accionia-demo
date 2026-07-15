@@ -908,7 +908,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
       <div class="sidebar-client-dot"></div>
       <span class="sidebar-client-name">LovelyLei Shoes</span>
     </div>
-    <div class="sidebar-week">Semana: 23/06/2026</div>
+    <div class="sidebar-week">Semana: 14/07/2026</div>
     <div class="sidebar-item active" id="snav-negocio" onclick="sidebarNav('negocio',null)">
       <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Mi Negocio
     </div>
@@ -1033,13 +1033,13 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
       <div class="carga-semana-hero">
         <span class="csh-label">Cargando semana</span>
         <select class="csh-sel" id="cargaSemSel" onchange="onCargaSemanaChange(this.value)">
-          <option value="0">23/06 al 29/06/2026</option>
+          <option value="0">14/07 al 20/07/2026</option>
           <option value="1">16/06 al 22/06/2026</option>
           <option value="2">09/06 al 15/06/2026</option>
           <option value="3">02/06 al 08/06/2026</option>
           <option value="4">26/05 al 01/06/2026</option>
         </select>
-        <span class="csh-sub" id="cargaSemSub">lun 7 abr → dom 13 abr</span>
+        <span class="csh-sub" id="cargaSemSub">lun 14 jul → dom 20 jul</span>
       </div>
 
       <!-- Semana especial global -->
@@ -1107,7 +1107,7 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
     <!-- ── PRECIOS Y CUOTAS ── -->
     <div class="page page-inner" id="cpage-precios">
       <div class="page-title">Precios y cuotas</div>
-      <div class="page-subtitle">Precio de venta activo por canal y condiciones de financiación — semana 23/06/2026</div>
+      <div class="page-subtitle">Precio de venta activo por canal y condiciones de financiación — semana 14/07/2026</div>
 
       <div class="precios-table-wrap">
         <table class="precios-table">
@@ -1628,7 +1628,7 @@ function renderSituacion(){
         <div class="new-hero-sub">según cómo actúes en cada SKU</div>
       </div>
       <div style="text-align:right">
-        <div class="sit-semana">LovelyLei Shoes · Semana del 23/06/2026</div>
+        <div class="sit-semana">LovelyLei Shoes · Semana del 14/07/2026</div>
         <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${urgentes} SKUs urgentes · ${empujar.length} para empujar · ${activar.length} para activar</div>
       </div>
     </div>
@@ -1780,11 +1780,11 @@ let _currentSemIdx=0;
 let _cargaDirty=false;
 
 const SEMANA_LABELS=[
-  {label:'24/06 al 30/06/2026',sub:'mar 24 jun → lun 30 jun'},
-  {label:'17/06 al 23/06/2026',sub:'mar 17 jun → lun 23 jun'},
-  {label:'10/06 al 16/06/2026',sub:'mar 10 jun → lun 16 jun'},
-  {label:'03/06 al 09/06/2026',sub:'mar 3 jun → lun 9 jun'},
-  {label:'27/05 al 02/06/2026',sub:'mar 27 may → lun 2 jun'},
+  {label:'14/07 al 20/07/2026',sub:'lun 14 jul → dom 20 jul'},
+  {label:'07/07 al 13/07/2026',sub:'lun 7 jul → dom 13 jul'},
+  {label:'30/06 al 06/07/2026',sub:'lun 30 jun → dom 6 jul'},
+  {label:'23/06 al 29/06/2026',sub:'lun 23 jun → dom 29 jun'},
+  {label:'16/06 al 22/06/2026',sub:'lun 16 jun → dom 22 jun'},
 ];
 
 function onCargaSemanaChange(idx){
