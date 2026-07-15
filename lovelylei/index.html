@@ -2887,6 +2887,39 @@ function tourTrackLoop(){
     if(_tourDragActive){_tourDragActive=false;card.classList.remove('dragging');}
   });
 })();
+
+/* ── TOUR START BUTTON DRAG ── */
+(function(){
+  const btn=document.getElementById('tourStartFixed');
+  if(!btn) return;
+  let dragging=false,moved=false,ox=0,oy=0;
+  btn.addEventListener('mousedown',function(e){
+    if(e.button!==0) return;
+    const r=btn.getBoundingClientRect();
+    ox=e.clientX-r.left; oy=e.clientY-r.top;
+    dragging=true; moved=false;
+    btn.style.cursor='grabbing';
+    btn.style.transition='none';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!dragging) return;
+    moved=true;
+    const nx=Math.max(0,Math.min(e.clientX-ox,window.innerWidth-btn.offsetWidth));
+    const ny=Math.max(0,Math.min(e.clientY-oy,window.innerHeight-btn.offsetHeight));
+    btn.style.left=nx+'px';
+    btn.style.top=ny+'px';
+  });
+  document.addEventListener('mouseup',function(){
+    if(!dragging) return;
+    dragging=false;
+    btn.style.cursor='';
+    btn.style.transition='';
+  });
+  btn.addEventListener('click',function(e){
+    if(moved){e.stopImmediatePropagation();e.preventDefault();moved=false;}
+  });
+})();
 </script>
 </body>
 </html>
