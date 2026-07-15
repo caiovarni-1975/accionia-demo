@@ -2893,6 +2893,12 @@ function tourTrackLoop(){
   const btn=document.getElementById('tourStartFixed');
   if(!btn) return;
   let dragging=false,moved=false,ox=0,oy=0;
+  // Tomar control del click: el onclick inline dispara antes que addEventListener
+  btn.onclick=null;
+  btn.addEventListener('click',function(){
+    if(moved){moved=false;return;}
+    tourStart();
+  });
   btn.addEventListener('mousedown',function(e){
     if(e.button!==0) return;
     const r=btn.getBoundingClientRect();
@@ -2915,9 +2921,6 @@ function tourTrackLoop(){
     dragging=false;
     btn.style.cursor='';
     btn.style.transition='';
-  });
-  btn.addEventListener('click',function(e){
-    if(moved){e.stopImmediatePropagation();e.preventDefault();moved=false;}
   });
 })();
 </script>
