@@ -763,7 +763,10 @@
   @media(max-width:768px){
     .mobile-bottom-nav{display:block;}
     #app{padding-bottom:68px;}
-    .sub-nav{display:none !important;}
+    /* Sub-nav: scrollable horizontal en lugar de oculto */
+    .sub-nav{display:flex !important;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:0;}
+    .sub-nav::-webkit-scrollbar{display:none;}
+    .sub-tab{white-space:nowrap;flex-shrink:0;padding:10px 14px;min-height:44px;display:flex;align-items:center;}
     .sit-hero{padding:20px 16px 4px;}
     .sit-num{font-size:44px;}
     .sit-num-label{font-size:16px;}
@@ -774,7 +777,23 @@
     .page-inner{padding:16px;}
     .plan-card{gap:10px;}
     td.td-motivo,td.td-paso{display:none;}
-    .carga-fixed-bar{padding:10px 16px;}
+    /* Carga fixed bar: encima del bottom nav */
+    .carga-fixed-bar{padding:10px 16px;bottom:68px;z-index:80;}
+    /* Tablas: scroll horizontal */
+    .table-wrap,.carga-table-wrap,.productos-table-wrap,.precios-table-wrap{overflow-x:auto;}
+    /* Login box: no overflow en pantallas angostas */
+    .login-box{width:calc(100vw - 32px);padding:36px 24px;}
+    /* Publicidad: input apilado */
+    .pauta-row{flex-direction:column;align-items:flex-start;}
+    .pauta-label{min-width:0;}
+    .pauta-input{width:100%;}
+    /* Agregar: form de una columna */
+    .form-grid{grid-template-columns:1fr;}
+    /* Config datos cliente: 2 cols en lugar de 3 */
+    .dcc-grid{grid-template-columns:1fr 1fr;}
+    /* Touch targets mínimos */
+    .detail-close{width:44px;height:44px;}
+    .atipica-btn,.ajuste-btn{min-height:36px;padding:5px 10px;}
   }
 
   /* ── SIDEBAR LAYOUT ── */
