@@ -200,6 +200,13 @@
   .carga-table tbody tr:hover td{background:rgba(99,102,241,.04);}
   .carga-table td{padding:8px 10px;vertical-align:middle;text-align:center;}
   .carga-table td:first-child{text-align:left;padding-left:16px;}
+  .th-sub{font-size:8px;font-weight:500;color:var(--text-muted);display:block;margin-top:2px;letter-spacing:.04em;text-transform:uppercase;}
+  .th-enter{color:inherit;}
+  .n-readonly{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);padding:3px 0;display:inline-block;}
+  .carga-tr-sub td{padding:4px 10px;border-top:none;}
+  .n-input.input-warn{border-color:var(--danger);background:rgba(252,165,165,.08);}
+  .carga-warn-row td{background:rgba(252,165,165,.05);}
+  .carga-warn-msg{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--danger);font-weight:600;}
   .sku-name{font-size:13px;font-weight:600;color:var(--text);}
   .sku-var{font-size:11px;color:var(--text-muted);}
   .n-input{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:5px 7px;color:var(--text);font-size:13px;font-family:'DM Mono',monospace;outline:none;width:68px;text-align:center;transition:border-color .15s;}
@@ -1055,13 +1062,15 @@ body.light #tourStartFixed{box-shadow:0 4px 18px rgba(99,102,241,.3);}
         <table class="carga-table">
           <thead>
             <tr>
-              <th style="text-align:left;min-width:160px">Producto / Variante</th>
-              <th>Stock Ant.</th>
-              <th>Ventas</th>
-              <th>Repos.</th>
-              <th>Stock Act.</th>
-              <th>Sem. esp.</th>
-              <th>Ajuste</th>
+              <th style="text-align:left;min-width:150px">Variante</th>
+              <th>Costo $<span class="th-sub">pre-cargado</span></th>
+              <th style="color:var(--accent)">Tienda Nube<span class="th-sub th-enter">↓ vendido</span></th>
+              <th style="color:var(--accent)">Local Físico<span class="th-sub th-enter">↓ vendido</span></th>
+              <th>St. anterior<span class="th-sub">automático</span></th>
+              <th style="color:var(--success)">Repos.<span class="th-sub th-enter">↓ si reponés</span></th>
+              <th style="color:var(--success)">Stock actual</th>
+              <th style="color:var(--warn)">Sem. esp.<span class="th-sub">si fue rara</span></th>
+              <th style="color:var(--accent)">Ajuste<span class="th-sub">inv. manual</span></th>
             </tr>
           </thead>
           <tbody id="cargaTableBody"></tbody>
@@ -1434,23 +1443,24 @@ const allData=[
 ];
 
 const CARGA_DATA=[
-  // TN
-  {sku:'Fletcher Negro',    v:'cuero',          canal:'TN', sa:5,  vtn:3, rep:0},
-  {sku:'Enyra Negro',       v:'cuero',          canal:'TN', sa:5,  vtn:2, rep:0},
-  {sku:'Forest Visón',      v:'cuero gamuzado', canal:'TN', sa:13, vtn:1, rep:0},
-  {sku:'Throne Negro',      v:'cuero',          canal:'TN', sa:10, vtn:2, rep:0},
-  {sku:'Throne Chocolate',  v:'cuero',          canal:'TN', sa:12, vtn:2, rep:0},
-  {sku:'Jhazal Negro',      v:'cuero gamuzado', canal:'TN', sa:10, vtn:2, rep:0},
-  {sku:'Praga Negro',       v:'cuero',          canal:'TN', sa:6,  vtn:1, rep:0},
-  {sku:'Kaleb Negro',       v:'cuero',          canal:'TN', sa:7,  vtn:1, rep:0},
-  {sku:'Eliam Negro',       v:'cuero',          canal:'TN', sa:0,  vtn:0, rep:0},
+  {sku:'Fletcher Negro',    v:'cuero',          sa:5,  vtn:3, vlf:1, rep:0, costo:128000},
+  {sku:'Enyra Negro',       v:'cuero',          sa:5,  vtn:2, vlf:1, rep:0, costo:120000},
+  {sku:'Forest Visón',      v:'cuero gamuzado', sa:13, vtn:1, vlf:2, rep:0, costo:130000},
+  {sku:'Throne Negro',      v:'cuero',          sa:10, vtn:2, vlf:1, rep:0, costo:128000},
+  {sku:'Throne Chocolate',  v:'cuero',          sa:12, vtn:2, vlf:2, rep:0, costo:128000},
+  {sku:'Jhazal Negro',      v:'cuero gamuzado', sa:10, vtn:2, vlf:1, rep:0, costo:110000},
+  {sku:'Praga Negro',       v:'cuero',          sa:6,  vtn:1, vlf:1, rep:0, costo:108000},
+  {sku:'Kaleb Negro',       v:'cuero',          sa:7,  vtn:1, vlf:1, rep:0, costo: 98000},
+  {sku:'Eliam Negro',       v:'cuero',          sa:0,  vtn:0, vlf:0, rep:0, costo: 80000},
 ];
 
+// Costo adicional que absorbe el negocio por ofrecer cuotas sin interés (MP Argentina)
+const CUOTAS_COSTO={1:0, 3:0.055, 6:0.095, 9:0.16, 12:0.185, 18:0.24};
+
 const GASTOS_CONFIG=[
-  // Tienda Nube
+  // Tienda Nube — NO incluye cuotas (varía por producto)
   {nombre:'Comisión Tienda Nube (Plan Evolución)',   canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'2.00%'},
   {nombre:'Mercado Pago (pasarela)',                 canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'5.99%'},
-  {nombre:'Cuotas sin interés (9 cuotas)',           canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'16.00%'},
   {nombre:'Envío gratis (prorrateo estimado)',       canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'1.50%'},
   {nombre:'IIBB / Percepciones (Bs. As.)',           canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'3.00%'},
   {nombre:'Meta Ads (estimado s/facturación)',       canal:'TN', modo:'PCT_SOBRE_VENTA', valor:'10.00%'},
@@ -1491,6 +1501,7 @@ function showSubTab(mod, tab){
   });
   // Lazy render
   if(mod==='carga'&&tab==='precios') renderPreciosTable();
+  if(mod==='carga'&&tab==='publicidad') renderPautaDist();
   if(mod==='carga'&&tab==='agregar') renderAgregarForm('variante');
 }
 
@@ -1575,13 +1586,13 @@ function renderSituacion(){
   },0);
   const impactoL=liquidar.reduce((s,r)=>{
     const c=costoCanal[r.canal_id]||0.385;
-    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);
-    const st=d?d.sa-d.vtn+d.rep:0;
+    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);
+    const tv=d?d.vtn+(d.vlf||0):0; const st=d?d.sa-tv+d.rep:0;
     return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));
   },0);
   const impactoA=activar.reduce((s,r)=>{
     const c=costoCanal[r.canal_id]||0.385;
-    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);
+    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);
     const st=d?d.sa:0;
     return s+st*num(r.precio_actual)*(1-c);
   },0);
@@ -1597,8 +1608,8 @@ function renderSituacion(){
   }).join('');
   const skuRowsL=liquidar.map(r=>{
     const c=costoCanal[r.canal_id]||0.385;
-    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);
-    const st=d?d.sa-d.vtn+d.rep:0;
+    const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);
+    const tv=d?d.vtn+(d.vlf||0):0; const st=d?d.sa-tv+d.rep:0;
     const v=Math.round(Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria))/1000)*1000;
     return `<div class="new-sku-row"><span class="new-sku-name">${r.producto}<span style="font-size:11px;color:var(--text-muted);margin-left:4px">· ${st}u</span></span><span class="new-sku-val">+${money(v)}</span></div>`;
   }).join('');
@@ -1732,8 +1743,9 @@ function openDetail(idx){
   const isA=(r.accion||'').trim()==='ACTIVAR';
   const cobV=(isA||num(r.cobertura_stock)>=999)?'—':num(r.cobertura_stock).toFixed(1)+' sem';
   const demV=isA?'N/A':num(r.demanda_referencia).toFixed(1)+'/sem';
-  const cd=CARGA_DATA.find(x=>x.sku===r.producto&&x.canal===r.canal_id);
-  const stockActual=cd!=null?Math.max(0,cd.sa-cd.vtn+cd.rep):null;
+  const cd=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);
+  const _tv=cd?cd.vtn+(cd.vlf||0):0;
+  const stockActual=cd!=null?Math.max(0,cd.sa-_tv+cd.rep):null;
   const stockV=stockActual!=null?`${stockActual}u`:'N/A';
   document.getElementById('detailContent').innerHTML=`
     <div class="detail-header"><div class="detail-title-block"><div class="detail-producto">${r.producto}</div>${r.variante?`<div class="detail-variante">${r.variante}</div>`:''}<div class="detail-canal-tag">${r.canal_nombre} · Rank #${num(r.rank_cliente_semana)}</div></div>${badge(r.accion)}</div>
@@ -1810,20 +1822,15 @@ function toggleSEGlobal(){
   const mot=document.getElementById('seGlobalMotivo');
   bar.classList.toggle('active',chk.checked);
   mot.classList.toggle('show',chk.checked);
-  if(chk.checked){
-    // Mark all SKUs
-    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=true; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.add('on');btn.textContent='⚠ atípica';} });
-  } else {
-    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=false; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.remove('on');btn.textContent='Sem. esp.';} });
-  }
+  CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=chk.checked; if(!chk.checked) CARGA_DATA[i].motivo=''; });
+  renderCargaTable();
   markDirty();
 }
 
 function toggleAtipica(i){
   _atipicaState[i]=!_atipicaState[i];
-  const btn=document.getElementById('atipica_'+i);
-  btn.classList.toggle('on',_atipicaState[i]);
-  btn.textContent=_atipicaState[i]?'⚠ atípica':'Sem. esp.';
+  if(!_atipicaState[i]) CARGA_DATA[i].motivo='';
+  renderCargaTable();
   markDirty();
 }
 
@@ -1853,35 +1860,119 @@ function applyAjuste(){
 }
 
 function renderCargaTable(){
-  document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>{
+  const rows=CARGA_DATA.map((d,i)=>{
     const isAt=_atipicaState[i]||false;
-    const hasAj=_ajusteState[i];
-    const newStk=d.sa-d.vtn+d.rep;
-    const cob=d.vtn>0?newStk/d.vtn:999;
-    const stkCls=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
-    const canalLabel={TN:'Tienda Nube',ML:'Mercado Libre',LF:'Local Físico'}[d.canal]||d.canal;
-    return `<tr>
-      <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v} <span style="color:var(--text-muted);font-size:10px;margin-left:4px">${canalLabel}</span></div></td>
-      <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><span class="${stkCls}" id="stk_${i}">${newStk}</span></td>
+    const aj=_ajusteState[i]||null;
+    const ajCant=aj?aj.cant:0;
+    const totalV=d.vtn+(d.vlf||0);
+    const disponible=d.sa+d.rep;
+    const overSold=totalV>disponible;
+    const newStk=Math.max(0,d.sa-totalV+d.rep+ajCant);
+    const cob=totalV>0?newStk/totalV:999;
+    const stkCls=overSold?'n-calc cob-critica':(cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal');
+    const cpStr=d._cp?money(d._cp):'—';
+    const warnCls=overSold?' input-warn':'';
+    const stkCell=overSold
+      ?`<span class="carga-warn-msg" id="stk_${i}">⚠ Vendiste más de lo disponible (${disponible} u)</span>`
+      :`<span class="${stkCls}" id="stk_${i}">${newStk} u</span>`;
+    let html=`<tr${overSold?' class="carga-warn-row"':''}>
+      <td style="padding-left:14px"><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v}</div></td>
+      <td><span class="n-readonly">${money(d.costo)}</span></td>
+      <td><input class="n-input${warnCls}" type="number" min="0" step="1" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()" placeholder="0"></td>
+      <td><input class="n-input${warnCls}" type="number" min="0" step="1" value="${d.vlf||0}" id="vlf_${i}" oninput="recalcStock(${i});markDirty()" placeholder="0"></td>
+      <td><span class="n-readonly">${d.sa} u</span></td>
+      <td><input class="n-input" type="number" min="0" step="1" value="${d.rep}" id="rep_${i}" oninput="onRepChange(${i});markDirty()" placeholder="0"></td>
+      <td>${stkCell}</td>
       <td><button class="atipica-btn${isAt?' on':''}" id="atipica_${i}" onclick="toggleAtipica(${i})">${isAt?'⚠ atípica':'Sem. esp.'}</button></td>
-      <td><button class="ajuste-btn${hasAj?' on':''}" id="ajuste_${i}" onclick="openAjuste(${i})">${hasAj?'✓ '+hasAj.cant+'u':'Ajuste'}</button></td>
+      <td><button class="ajuste-btn${aj?' on':''}" onclick="togAjuste(${i})">${aj?'± '+ajCant+'u':'± Ajustar'}</button></td>
     </tr>`;
+    if(d.rep>0){
+      html+=`<tr class="carga-tr-sub" style="background:var(--surface3)">
+        <td colspan="2" style="text-align:left;padding-left:28px;font-size:11px;color:var(--text-muted)">¿A qué precio compraste el lote?</td>
+        <td colspan="3" style="text-align:center"><input class="n-input" type="number" placeholder="$/u" value="${d._cr||''}" id="cr_${i}" oninput="setCR(${i})" style="width:90px"></td>
+        <td colspan="3" style="font-size:11px;color:var(--text-muted);text-align:left;padding-left:8px">Costo prom. resultante → <strong style="color:var(--warn)" id="cp_${i}">${cpStr}</strong></td>
+      </tr>`;
+    }
+    if(isAt){
+      html+=`<tr class="carga-tr-sub" style="background:rgba(253,230,138,.05)">
+        <td colspan="2" style="text-align:left;padding-left:28px;font-size:11px;color:var(--warn)">⚠ Semana especial · ${d.sku}</td>
+        <td colspan="7" style="padding:4px 8px"><select class="se-mot-sel" style="max-width:180px" onchange="setAtipicaMot(${i},this.value)">${['Feriado','Evento especial','Liquidación','Stockout','Otro'].map(op=>`<option${(d.motivo||'Feriado')===op?' selected':''}>${op}</option>`).join('')}</select></td>
+      </tr>`;
+    }
+    if(aj){
+      html+=`<tr class="carga-tr-sub" style="background:rgba(99,102,241,.06)">
+        <td colspan="2" style="text-align:left;padding-left:28px;font-size:11px;color:var(--accent)">± Ajuste inv. · ${d.sku}</td>
+        <td><select class="se-mot-sel" onchange="setAjTipo(${i},this.value)">${['Merma','Rotura','Error de carga','Otro'].map(op=>`<option${(aj.tipo||'Merma')===op?' selected':''}>${op}</option>`).join('')}</select></td>
+        <td><input class="n-input" type="number" step="1" value="${aj.cant||0}" oninput="setAjCant(${i},this.value)" placeholder="+/−" style="width:64px" title="+ agrega, − quita"></td>
+        <td colspan="5" style="text-align:left;padding-left:8px"><input class="n-input" type="text" style="width:180px" value="${aj.motivo||''}" oninput="setAjMotivo(${i},this.value)" placeholder="Motivo (opcional)"></td>
+      </tr>`;
+    }
+    return html;
   }).join('');
+  document.getElementById('cargaTableBody').innerHTML=rows;
 }
 
 function recalcStock(i){
-  const sa=parseInt(document.getElementById('sa_'+i).value)||0;
-  const vtn=parseInt(document.getElementById('vtn_'+i).value)||0;
-  const rep=parseInt(document.getElementById('rep_'+i).value)||0;
-  const newStk=sa-vtn+rep;
-  const cob=vtn>0?newStk/vtn:999;
+  const sa=CARGA_DATA[i].sa;
+  const vtn=parseInt(document.getElementById('vtn_'+i)?.value)||0;
+  const vlf=parseInt(document.getElementById('vlf_'+i)?.value)||0;
+  const rep=parseInt(document.getElementById('rep_'+i)?.value)||0;
+  const aj=_ajusteState[i];const ajCant=aj?aj.cant:0;
+  const totalV=vtn+vlf;
+  const disponible=sa+rep;
+  const overSold=totalV>disponible;
+  const newStk=Math.max(0,sa-totalV+rep+ajCant);
+  const cob=totalV>0?newStk/totalV:999;
   const el=document.getElementById('stk_'+i);
-  el.textContent=newStk;
-  el.className=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
+  if(el){
+    if(overSold){
+      el.className='carga-warn-msg';
+      el.textContent='⚠ Vendiste más de lo disponible ('+disponible+' u)';
+    }else{
+      el.className=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
+      el.textContent=newStk+' u';
+    }
+  }
+  const vtnEl=document.getElementById('vtn_'+i);
+  const vlfEl=document.getElementById('vlf_'+i);
+  const tr=el?.closest('tr');
+  if(vtnEl)vtnEl.classList.toggle('input-warn',overSold);
+  if(vlfEl)vlfEl.classList.toggle('input-warn',overSold);
+  if(tr)tr.classList.toggle('carga-warn-row',overSold);
 }
+function onRepChange(i){
+  const rep=parseInt(document.getElementById('rep_'+i)?.value)||0;
+  CARGA_DATA[i].rep=rep;
+  if(rep===0){CARGA_DATA[i]._cr=null;CARGA_DATA[i]._cp=null;}
+  if(rep>0&&_ajusteState[i]){delete _ajusteState[i];}
+  recalcStock(i);
+  renderCargaTable();
+}
+function setCR(i){
+  const cr=parseFloat(document.getElementById('cr_'+i)?.value)||0;
+  CARGA_DATA[i]._cr=cr;
+  const d=CARGA_DATA[i];
+  const p=(d.sa+d.rep)>0?Math.round((d.sa*d.costo+d.rep*cr)/(d.sa+d.rep)):d.costo;
+  CARGA_DATA[i]._cp=p;
+  const el=document.getElementById('cp_'+i);
+  if(el) el.textContent=money(p);
+}
+function togAjuste(i){
+  if(_ajusteState[i]){
+    delete _ajusteState[i];
+  } else {
+    _ajusteState[i]={cant:0,tipo:'Merma',motivo:''};
+    if(CARGA_DATA[i].rep>0){
+      CARGA_DATA[i].rep=0;CARGA_DATA[i]._cr=null;CARGA_DATA[i]._cp=null;
+      const el=document.getElementById('rep_'+i);if(el)el.value=0;
+    }
+  }
+  recalcStock(i);renderCargaTable();markDirty();
+}
+function setAjTipo(i,val){if(_ajusteState[i])_ajusteState[i].tipo=val;}
+function setAjCant(i,val){if(!_ajusteState[i])return;_ajusteState[i].cant=parseInt(val)||0;recalcStock(i);}
+function setAjMotivo(i,val){if(_ajusteState[i])_ajusteState[i].motivo=val;}
+function setAtipicaMot(i,val){CARGA_DATA[i].motivo=val;}
 
 function markDirty(){
   _cargaDirty=true;
@@ -1904,10 +1995,9 @@ function markClean(){
 
 function guardarSemana(){
   if(!_cargaDirty) return;
-  // Persist inputs back to CARGA_DATA
   CARGA_DATA.forEach((d,i)=>{
-    const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
     const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
+    const vlf=parseInt(document.getElementById('vlf_'+i)?.value); if(!isNaN(vlf)) d.vlf=vlf;
     const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
   });
   markClean();
@@ -1929,24 +2019,25 @@ function recalcularMotor(){
   setTimeout(()=>{
     // 1. Read inputs & save
     CARGA_DATA.forEach((d,i)=>{
-      const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
       const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
+      const vlf=parseInt(document.getElementById('vlf_'+i)?.value); if(!isNaN(vlf)) d.vlf=vlf;
       const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
     });
     // 2. Recalculate cobertura + reclassify
     const chObj={TN:0.25,ML:0.20,LF:0.30};
     allData.forEach(r=>{
-      const ci=CARGA_DATA.findIndex(c=>c.sku===r.producto&&c.v===r.variante&&c.canal===r.canal_id);
+      const ci=CARGA_DATA.findIndex(c=>c.sku===r.producto&&c.v===r.variante);
       if(ci===-1) return;
       const d=CARGA_DATA[ci];
-      const newStock=Math.max(0,d.sa-d.vtn+d.rep);
-      const demand=d.vtn>0?d.vtn:num(r.demanda_referencia)||1;
+      const totalV=d.vtn+(d.vlf||0);
+      const newStock=Math.max(0,d.sa-totalV+d.rep);
+      const demand=totalV>0?totalV:num(r.demanda_referencia)||1;
       const cob=newStock>0?newStock/demand:0;
       r.cobertura_stock=cob>=999?'999':cob.toFixed(1);
-      r.ventas_semanales=String(d.vtn);
+      r.ventas_semanales=String(totalV);
       const mg=num(r.margen_neto_pct);
       const obj=chObj[r.canal_id]||0.25;
-      if(d.vtn===0&&newStock>0)      r.accion='ACTIVAR';
+      if(totalV===0&&newStock>0)     r.accion='ACTIVAR';
       else if(mg<0)                  r.accion='REVISAR_PRECIO';
       else if(cob<2)                 r.accion='RIESGO_QUIEBRE';
       else if(cob>8)                 r.accion='LIQUIDAR';
@@ -1982,19 +2073,13 @@ function guardarPublicidad(){showToast('✓ Pauta guardada correctamente.');}
 function guardarConfig(){showToast('✓ Configuración guardada.');}
 
 function renderPautaDist(){
-  const raw=document.getElementById('pautaInput').value.replace(/\./g,'').replace('$','').replace(',','.');
+  const raw=document.getElementById('pautaInput')?.value.replace(/\./g,'').replace('$','').replace(',','.')||'';
   const total=parseFloat(raw)||60000;
-  const porSKU=Math.round(total/6);
-  // Distribución igual
-  document.getElementById('pautaDistList').innerHTML=CARGA_DATA.map(d=>
-    `<div class="pauta-dist-row"><span class="pauta-dist-sku">${d.sku}</span><span class="pauta-dist-val">${money(porSKU)}</span></div>`
-  ).join('');
   // Distribución inteligente
   const weights={EMPUJAR:5,LIQUIDAR:3,ACTIVAR:2,RIESGO_QUIEBRE:0,MONITOREAR:0,REVISAR_PRECIO:0};
   const reasons={EMPUJAR:'Mejor margen y stock — escalar',LIQUIDAR:'Acelerar rotación',ACTIVAR:'Poner en movimiento',RIESGO_QUIEBRE:'Sin stock — no pautar',MONITOREAR:'En orden — sin pauta extra',REVISAR_PRECIO:'Margen insuficiente'};
   const smart=CARGA_DATA.map(d=>{
-    if(d.canal==='LF') return{sku:d.sku,accion:'—',weight:0,reason:'Canal físico — no Meta Ads'};
-    const row=allData.find(r=>r.producto===d.sku&&r.canal_id===d.canal);
+    const row=allData.find(r=>r.producto===d.sku&&r.canal_id==='TN');
     const accion=(row?.accion||'MONITOREAR').trim();
     return{sku:d.sku,accion,weight:weights[accion]||0,reason:reasons[accion]||''};
   });
@@ -2010,7 +2095,7 @@ function renderPautaDist(){
   if(listEl) listEl.innerHTML=smart.map(a=>`
     <div class="pauta-dist-row-smart">
       <span class="pauta-smart-sku">${a.sku}</span>
-      ${a.accion!=='—'?`<span class="badge badge-${a.accion}" style="font-size:9px">${a.accion}</span>`:'<span style="font-size:11px;color:var(--text-dim)">LF</span>'}
+      <span class="badge badge-${a.accion}" style="font-size:9px">${a.accion}</span>
       <span class="pauta-smart-reason">${a.reason}</span>
       <span class="pauta-smart-val${a.amount===0?' zero':''}">${a.amount===0?'$0':money(a.amount)}</span>
     </div>`).join('');
@@ -2018,32 +2103,61 @@ function renderPautaDist(){
 }
 
 /* ── PRECIOS Y CUOTAS ─────────────────── */
+function costoBaseCanal(canal){
+  // Suma todos los gastos fijos excepto Meta (se excluye de precio mínimo)
+  return GASTOS_CONFIG.filter(g=>g.canal===canal&&!g.nombre.toLowerCase().includes('meta'))
+    .reduce((s,g)=>s+parseFloat(g.valor)/100,0);
+}
+function costoTotalCanal(canal,cuotas){
+  return costoBaseCanal(canal)+(CUOTAS_COSTO[cuotas]||0);
+}
+function calcMin(costo,canal,cuotas){
+  const ct=costoTotalCanal(canal,cuotas);
+  return Math.ceil(costo/(1-ct)/1000)*1000;
+}
+
 function renderPreciosTable(){
   const tbody=document.getElementById('preciosTableBody');
   if(!tbody) return;
-  function costoFijoCanal(canal){
-    return GASTOS_CONFIG.filter(g=>g.canal===canal&&!g.nombre.toLowerCase().includes('meta'))
-      .reduce((s,g)=>s+parseFloat(g.valor)/100,0);
-  }
   const byCanal={TN:[],LF:[]};
   PRODUCTOS_CONFIG.forEach((p,i)=>{if(byCanal[p.canal])byCanal[p.canal].push({...p,i});});
   let html='';
   [{id:'TN',name:'Tienda Nube'},{id:'LF',name:'Local Físico'}].forEach(({id,name})=>{
     const prods=byCanal[id]||[];if(!prods.length)return;
-    const cf=costoFijoCanal(id);
     html+=`<tr style="cursor:default"><td colspan="5" style="padding:8px 14px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;background:var(--surface2);border-bottom:1px solid var(--border)">${name}</td></tr>`;
     prods.forEach(p=>{
-      const min=Math.ceil(p.costo/(1-cf)/1000)*1000;
+      const min=calcMin(p.costo,p.canal,p.cuotas);
+      const ctPct=Math.round(costoTotalCanal(p.canal,p.cuotas)*100);
       html+=`<tr>
         <td><div class="sku-name">${p.sku}</div><div class="sku-var" style="color:var(--text-muted);font-size:11px">${p.v}</div></td>
-        <td><input class="precio-input" type="text" value="${p.precio.toLocaleString('es-AR')}" id="precio_${p.i}" data-min="${min}" oninput="checkPrecioMinimo(this);markDirty()"><div style="font-size:10px;color:#fca5a5;margin-top:2px;display:none">⚠ Por debajo del mínimo</div></td>
-        <td><select class="cuotas-sel" id="cuotas_${p.i}" onchange="markDirty()">${[1,3,6,12,18].map(c=>`<option value="${c}"${c===p.cuotas?' selected':''}>${c} cuota${c>1?'s':''}</option>`).join('')}</select></td>
+        <td><input class="precio-input" type="text" value="${p.precio.toLocaleString('es-AR')}" id="precio_${p.i}" data-idx="${p.i}" data-min="${min}" oninput="checkPrecioMinimo(this);markDirty()"><div style="font-size:10px;color:#fca5a5;margin-top:2px;display:none">⚠ Por debajo del mínimo</div></td>
+        <td><select class="cuotas-sel" id="cuotas_${p.i}" onchange="onCuotasChange(${p.i})">${[1,3,6,9,12,18].map(c=>`<option value="${c}"${c===p.cuotas?' selected':''}>${c} cuota${c>1?'s':''}</option>`).join('')}</select></td>
         <td style="font-family:'DM Mono',monospace;font-size:13px;color:var(--text-muted)">${money(p.costo)}</td>
-        <td class="precio-minimo">${money(min)}</td>
+        <td class="precio-minimo" id="pmin_${p.i}">
+          ${money(min)}
+          <div style="font-size:10px;color:var(--text-muted);margin-top:2px">costo canal ${ctPct}%</div>
+        </td>
       </tr>`;
     });
   });
   tbody.innerHTML=html;
+}
+
+function onCuotasChange(i){
+  const sel=document.getElementById('cuotas_'+i);
+  if(!sel) return;
+  const cuotas=parseInt(sel.value)||1;
+  PRODUCTOS_CONFIG[i].cuotas=cuotas;
+  const p=PRODUCTOS_CONFIG[i];
+  const min=calcMin(p.costo,p.canal,cuotas);
+  const ctPct=Math.round(costoTotalCanal(p.canal,cuotas)*100);
+  // Actualizar precio mínimo en el DOM
+  const pminEl=document.getElementById('pmin_'+i);
+  if(pminEl) pminEl.innerHTML=`${money(min)}<div style="font-size:10px;color:var(--text-muted);margin-top:2px">costo canal ${ctPct}%</div>`;
+  // Actualizar data-min en el input precio para revalidar
+  const precioInp=document.getElementById('precio_'+i);
+  if(precioInp){ precioInp.dataset.min=min; checkPrecioMinimo(precioInp); }
+  markDirty();
 }
 
 function checkPrecioMinimo(inp){
@@ -2088,7 +2202,7 @@ function renderAgregarForm(mode){
         </div>
         <div class="form-field"><span class="form-label">Cuotas sin interés</span>
           <select class="form-select" id="agr-cuotas">
-            ${[1,3,6,12,18].map(c=>`<option${c===6?' selected':''}>${c}</option>`).join('')}
+            ${[1,3,6,9,12,18].map(c=>`<option value="${c}"${c===6?' selected':''}>${c}</option>`).join('')}
           </select>
         </div>
       </div>
@@ -2117,7 +2231,7 @@ function renderAgregarForm(mode){
         </div>
         <div class="form-field"><span class="form-label">Cuotas sin interés</span>
           <select class="form-select" id="agr-cuotas2">
-            ${[1,3,6,12,18].map(c=>`<option${c===6?' selected':''}>${c}</option>`).join('')}
+            ${[1,3,6,9,12,18].map(c=>`<option value="${c}"${c===6?' selected':''}>${c}</option>`).join('')}
           </select>
         </div>
       </div>
