@@ -2411,7 +2411,7 @@ function renderNegocio(){
   const cbar=(n,c,v)=>'<div class="neg-color-bar"><div class="neg-color-bar-lbl"><span>'+n+'</span><span>'+v+' variantes · '+Math.round(v/410*100)+'%</span></div><div class="neg-color-track"><div class="neg-color-fill" style="width:'+Math.round(v/186*100)+'%;background:'+c+'"></div></div></div>';
   const tbar=(t,v,a)=>'<div class="neg-talle-bar"><span class="neg-talle-num'+(a?' neg-talle-alert':'')+'">'+t+'</span><div class="neg-talle-track"><div class="neg-talle-fill'+(a?' neg-talle-fill-alert':'')+'" style="width:'+Math.round(v/313*100)+'%"></div></div><span class="neg-talle-cnt'+(a?' neg-talle-alert':'')+'">'+v+'</span></div>';
   wrap.innerHTML=`<div class="negocio-wrap">
-    <div class="negocio-greeting"><img src="${document.querySelector('.sidebar-logo img')?.src||''}" class="neg-greeting-logo" alt="Accion.IA"></div>
+    <div class="negocio-greeting"><div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:30px;line-height:1.15;color:var(--text);text-align:center;height:46px;display:flex;align-items:center;justify-content:center;">Accion.IA</div></div>
     <div class="negocio-sub"><span>Onboarding completado · 26/06/2026</span><span class="neg-badge"><span class="neg-status-dot"></span>Sistema activo</span><span class="neg-badge-demo">Datos demo</span></div>
 
     <div class="neg-card neg-catalog-card">
