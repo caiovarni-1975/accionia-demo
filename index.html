@@ -521,6 +521,32 @@
   .sit-secondary{padding:0 32px 32px;display:flex;gap:10px;flex-wrap:wrap;}
   .sit-section-title{font-size:10px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.1em;padding:0 32px;margin-bottom:10px;}
 
+  /* ── SITUACION: dashboard $ en juego ── */
+  .new-hero{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px 24px;margin:24px 32px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  .new-hero-label{font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
+  .new-hero-num{font-size:36px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text);line-height:1.1;}
+  .new-hero-sub{font-size:12px;color:var(--text-muted);margin-top:4px;}
+  .new-acciones-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 32px 16px;}
+  .new-accion-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px 18px;cursor:pointer;transition:border-color .15s;}
+  .new-accion-card:hover{border-color:var(--accent);}
+  .new-card-quiebre{border-left:3px solid #fca5a5;border-radius:0 10px 10px 0;}
+  .new-card-liquidar{border-left:3px solid #fcd34d;border-radius:0 10px 10px 0;}
+  .new-card-empujar{border-left:3px solid #86efac;border-radius:0 10px 10px 0;}
+  .new-card-activar{border-left:3px solid #93c5fd;border-radius:0 10px 10px 0;}
+  .new-accion-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .new-accion-count{font-size:11px;color:var(--text-muted);}
+  .new-impacto-label{font-size:11px;color:var(--text-muted);margin-bottom:4px;line-height:1.4;}
+  .new-impacto-num{font-size:22px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:8px;line-height:1.1;}
+  .new-num-danger{color:#fca5a5;}
+  .new-num-warning{color:#fcd34d;}
+  .new-num-empujar{color:#86efac;}
+  .new-num-activar{color:#93c5fd;}
+  .new-sku-list{border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:5px;}
+  .new-sku-row{display:flex;justify-content:space-between;font-size:12px;}
+  .new-sku-name{color:var(--text-muted);}
+  .new-sku-val{font-family:'DM Mono',monospace;color:var(--text);}
+  @media(max-width:640px){.new-acciones-grid{grid-template-columns:1fr;margin:0 16px 16px;}.new-hero{margin:16px;}}
+
   /* ── MOBILE BOTTOM NAV ── */
   .mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);z-index:70;padding-bottom:env(safe-area-inset-bottom,0);}
   .mbn-items{display:flex;justify-content:space-around;}
@@ -718,7 +744,7 @@
 
   #tourHighlight{position:fixed;border:2px solid var(--accent);border-radius:10px;box-shadow:0 0 0 5px rgba(99,102,241,.12),0 0 30px rgba(99,102,241,.2);pointer-events:none;z-index:9998;transition:opacity .25s;opacity:0;}
 #tourHighlight.vis{opacity:1;}
-#tourCard{position:fixed;background:var(--surface);border:1px solid rgba(99,102,241,.35);border-radius:14px;padding:16px 20px 14px;width:300px;z-index:9999;box-shadow:0 10px 44px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,top .35s cubic-bezier(.4,0,.2,1),left .35s cubic-bezier(.4,0,.2,1);user-select:none;cursor:grab;}
+#tourCard{position:fixed;right:24px;bottom:24px;background:var(--surface);border:1px solid rgba(99,102,241,.35);border-radius:14px;padding:16px 20px 14px;width:300px;z-index:9999;box-shadow:0 10px 44px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s;user-select:none;cursor:grab;}
 #tourCard.vis{opacity:1;pointer-events:all;}
 #tourCard.dragging{transition:opacity .25s!important;cursor:grabbing;}
 #tourCard button,#tourCard #tourSkip{cursor:pointer;}
@@ -757,7 +783,7 @@
 <!-- APP -->
 <div id="app">
 
-  <button id="tourStartFixed" onclick="tourStart()">
+  <button id="tourStartFixed">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
     Tour guiado
   </button>
@@ -778,7 +804,6 @@
       <span class="mobile-topbar-name">AccionIA</span>
       <span class="mobile-topbar-client">Zona Sport</span>
     </div>
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️</button>
   </div>
 
   <div class="app-layout">
@@ -834,7 +859,6 @@
       <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Configuración
     </div>
     <div class="sidebar-bottom">
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtnSidebar">☀️</button>
       <span style="font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace">v1.0 · demo</span>
     </div>
   </div>
@@ -1397,6 +1421,7 @@ const PRODUCTOS_CONFIG=[
 
 /* ── NAVIGATION ───────────────────────── */
 let sortCol='rank_cliente_semana',sortDir='asc',isDark=true;
+let _lastTotalJuego=0,_prevTotalJuego=8950000;
 
 function showModule(mod){
   document.querySelectorAll('.module').forEach(m=>m.classList.remove('active'));
@@ -1418,6 +1443,7 @@ function showSubTab(mod, tab){
   // Lazy render
   if(mod==='carga'&&tab==='precios') renderPreciosTable();
   if(mod==='carga'&&tab==='agregar') renderAgregarForm('variante');
+  if(mod==='carga'&&tab==='publicidad'&&typeof renderPautaDist==='function') renderPautaDist();
 }
 
 function sidebarNav(mod, tab){
@@ -1440,13 +1466,6 @@ function syncSidebarActive(mod, tab){
     const sn=document.getElementById('snav-'+mod);if(sn)sn.classList.add('active');
     const mn=document.getElementById('mbn-'+mod);if(mn)mn.classList.add('active');
   }
-}
-
-function toggleTheme(){
-  isDark=!isDark;
-  document.body.classList.toggle('light',!isDark);
-  const icon=isDark?'☀️':'🌙';
-  ['themeBtn','themeBtnSidebar'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=icon;});
 }
 
 /* ── HELPERS ──────────────────────────── */
@@ -1487,53 +1506,85 @@ function buildHistorialHTML(r){
 }
 
 function renderSituacion(){
-  const counts={RIESGO_QUIEBRE:0,LIQUIDAR:0,REVISAR_PRECIO:0,EMPUJAR:0,MONITOREAR:0,ACTIVAR:0};
-  allData.forEach(r=>{const a=(r.accion||'').trim();if(counts[a]!==undefined)counts[a]++;});
   const wrap=document.getElementById('situacionContent');
   if(!wrap) return;
-  const urgentes=counts.RIESGO_QUIEBRE+counts.LIQUIDAR+counts.REVISAR_PRECIO;
-  const total=allData.length;
-  const bp=(n)=>n>0?Math.round(n/total*100)+'%':'0%';
-  const top=allData.find(r=>r.accion==='RIESGO_QUIEBRE')||allData.find(r=>r.accion==='LIQUIDAR');
+  const costoCanal={TN:0.385,LF:0.23,ML:0.25};
+  const quiebre=allData.filter(r=>r.accion==='RIESGO_QUIEBRE');
+  const liquidar=allData.filter(r=>r.accion==='LIQUIDAR');
+  const empujar=allData.filter(r=>r.accion==='EMPUJAR');
+  const activar=allData.filter(r=>r.accion==='ACTIVAR');
+  const revisar=allData.filter(r=>r.accion==='REVISAR_PRECIO');
+  const urgentes=quiebre.length+liquidar.length+revisar.length;
+  const cargaFor=(r)=>CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante&&x.canal===r.canal_id);
+  const impactoQ=quiebre.reduce((s,r)=>s+num(r.demanda_referencia)*num(r.precio_actual)*(1-(costoCanal[r.canal_id]||0.385)),0);
+  const impactoL=liquidar.reduce((s,r)=>{
+    const c=costoCanal[r.canal_id]||0.385;
+    const d=cargaFor(r); const st=d?Math.max(0,d.sa-d.vtn+d.rep):0;
+    return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));
+  },0);
+  const impactoA=activar.reduce((s,r)=>{
+    const c=costoCanal[r.canal_id]||0.385;
+    const d=cargaFor(r); const st=d?d.sa:0;
+    return s+st*num(r.precio_actual)*(1-c);
+  },0);
+  const totalJuego=impactoQ+impactoL+impactoA;
+  _lastTotalJuego=totalJuego;
+  const top=quiebre[0]||liquidar[0];
   const topIdx=top?allData.indexOf(top):-1;
   const firstSentence=(s)=>s?s.split('.')[0]+'.':'';
+  const skuRowsQ=quiebre.map(r=>{
+    const v=Math.round(num(r.demanda_referencia)*num(r.precio_actual)*(1-(costoCanal[r.canal_id]||0.385))/1000)*1000;
+    return `<div class="new-sku-row"><span class="new-sku-name">${r.producto}</span><span class="new-sku-val">−${money(v)}/sem</span></div>`;
+  }).join('');
+  const skuRowsL=liquidar.map(r=>{
+    const c=costoCanal[r.canal_id]||0.385;
+    const d=cargaFor(r); const st=d?Math.max(0,d.sa-d.vtn+d.rep):0;
+    const v=Math.round(Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria))/1000)*1000;
+    return `<div class="new-sku-row"><span class="new-sku-name">${r.producto}<span style="font-size:11px;color:var(--text-muted);margin-left:4px">· ${st}u</span></span><span class="new-sku-val">+${money(v)}</span></div>`;
+  }).join('');
+  const skuRowsE=empujar.map(r=>`<div class="new-sku-row"><span class="new-sku-name">${r.producto}</span><span class="new-sku-val">margen ${pct(r.margen_neto_pct)}</span></div>`).join('');
+  const skuRowsA=activar.map(r=>`<div class="new-sku-row"><span class="new-sku-name">${r.producto}</span><span class="new-sku-val">sin ventas</span></div>`).join('');
+  const delta=totalJuego-_prevTotalJuego;
+  const trendHTML=`<div style="font-size:11px;${delta>=0?'color:#fca5a5':'color:#86efac'};margin-top:3px">${delta>=0?'↑ +':'↓ −'}${money(Math.round(Math.abs(delta)/1000)*1000)} vs sem. anterior</div>`;
+  const semLabel=(typeof SEMANA_LABELS!=='undefined'&&SEMANA_LABELS[0])?SEMANA_LABELS[0].label:'01/09/2026';
   wrap.innerHTML=`<div class="situacion-wrap">
-    <div class="sit-hero">
-      <div class="sit-headline">
-        <span class="sit-num">${urgentes}</span>
-        <span class="sit-num-label">SKUs urgentes esta semana</span>
+    <div class="new-hero">
+      <div>
+        <div class="new-hero-label">Esta semana hay en juego</div>
+        <div class="new-hero-num">${money(Math.round(totalJuego/1000)*1000)}</div>
+        ${trendHTML}
+        <div class="new-hero-sub">según cómo actúes en cada producto</div>
       </div>
-      <div class="sit-semana">Zona Sport · Semana del 01/09/2026</div>
-      <div class="sit-bar">
-        <div class="sit-bar-seg sit-bar-quiebre" style="width:${bp(counts.RIESGO_QUIEBRE)}"></div>
-        <div class="sit-bar-seg sit-bar-liquidar" style="width:${bp(counts.LIQUIDAR)}"></div>
-        <div class="sit-bar-seg sit-bar-revisar" style="width:${bp(counts.REVISAR_PRECIO)}"></div>
-        <div class="sit-bar-seg sit-bar-empujar" style="width:${bp(counts.EMPUJAR)}"></div>
-        <div class="sit-bar-seg sit-bar-activar" style="width:${bp(counts.ACTIVAR)}"></div>
-        <div class="sit-bar-seg sit-bar-monitorear" style="width:${bp(counts.MONITOREAR)}"></div>
-      </div>
-      <div class="sit-bar-legend">
-        ${counts.RIESGO_QUIEBRE>0?`<span class="sbl"><span class="sbl-dot sbl-dot-quiebre"></span>${counts.RIESGO_QUIEBRE} quiebre</span>`:''}
-        ${counts.LIQUIDAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-liquidar"></span>${counts.LIQUIDAR} liquidar</span>`:''}
-        ${counts.REVISAR_PRECIO>0?`<span class="sbl"><span class="sbl-dot sbl-dot-revisar"></span>${counts.REVISAR_PRECIO} revisar precio</span>`:''}
-        ${counts.EMPUJAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-empujar"></span>${counts.EMPUJAR} empujar</span>`:''}
-        ${counts.ACTIVAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-activar"></span>${counts.ACTIVAR} activar</span>`:''}
-        ${counts.MONITOREAR>0?`<span class="sbl"><span class="sbl-dot sbl-dot-monitorear"></span>${counts.MONITOREAR} monitorear</span>`:''}
+      <div style="text-align:right">
+        <div class="sit-semana">Zona Sport · Semana del ${semLabel}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${urgentes} SKUs urgentes · ${empujar.length} para empujar · ${activar.length} para activar</div>
       </div>
     </div>
-    <div class="sit-cards-row">
-      ${counts.RIESGO_QUIEBRE>0?`<div class="sit-card sit-card-quiebre" onclick="sidebarNav('tablero','plan')">
-        <div class="sit-count sit-count-quiebre">${counts.RIESGO_QUIEBRE}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Riesgo de quiebre</div><div class="sit-desc-sub">Stock crítico — actuar esta semana</div></div>
-        <span class="sit-arrow">→</span></div>`:''}
-      ${counts.LIQUIDAR>0?`<div class="sit-card sit-card-liquidar" onclick="sidebarNav('tablero','plan')">
-        <div class="sit-count sit-count-liquidar">${counts.LIQUIDAR}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Para liquidar</div><div class="sit-desc-sub">Sobrestock — liberar antes del drop</div></div>
-        <span class="sit-arrow">→</span></div>`:''}
-      ${counts.REVISAR_PRECIO>0?`<div class="sit-card sit-card-revisar" onclick="sidebarNav('tablero','acciones')">
-        <div class="sit-count sit-count-revisar">${counts.REVISAR_PRECIO}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Revisar precio</div><div class="sit-desc-sub">Margen por debajo del umbral</div></div>
-        <span class="sit-arrow">→</span></div>`:''}
+    <div class="new-acciones-grid">
+      ${quiebre.length>0?`<div class="new-accion-card new-card-quiebre" onclick="sidebarNav('tablero','plan')">
+        <div class="new-accion-header">${badge('RIESGO_QUIEBRE')}<span class="new-accion-count">${quiebre.length} SKU${quiebre.length>1?'s':''}</span></div>
+        <div class="new-impacto-label">Ventas que no van a entrar esta semana si no reponés</div>
+        <div class="new-impacto-num new-num-danger">−${money(Math.round(impactoQ/1000)*1000)}/sem</div>
+        <div class="new-sku-list">${skuRowsQ}</div>
+      </div>`:''}
+      ${liquidar.length>0?`<div class="new-accion-card new-card-liquidar" onclick="sidebarNav('tablero','plan')">
+        <div class="new-accion-header">${badge('LIQUIDAR')}<span class="new-accion-count">${liquidar.length} SKU${liquidar.length>1?'s':''}</span></div>
+        <div class="new-impacto-label">Capital inmovilizado que recuperás si los vendés</div>
+        <div class="new-impacto-num new-num-warning">+${money(Math.round(impactoL/1000)*1000)}</div>
+        <div class="new-sku-list">${skuRowsL}</div>
+      </div>`:''}
+      ${empujar.length>0?`<div class="new-accion-card new-card-empujar" onclick="sidebarNav('tablero','plan')">
+        <div class="new-accion-header">${badge('EMPUJAR')}<span class="new-accion-count">${empujar.length} SKU${empujar.length>1?'s':''}</span></div>
+        <div class="new-impacto-label">Margen OK — hay lugar para escalar pauta</div>
+        <div class="new-impacto-num new-num-empujar">${empujar.length} listos</div>
+        <div class="new-sku-list">${skuRowsE}</div>
+      </div>`:''}
+      ${activar.length>0?`<div class="new-accion-card new-card-activar" onclick="sidebarNav('tablero','plan')">
+        <div class="new-accion-header">${badge('ACTIVAR')}<span class="new-accion-count">${activar.length} SKU${activar.length>1?'s':''}</span></div>
+        <div class="new-impacto-label">Plata dormida esperando la primera venta</div>
+        <div class="new-impacto-num new-num-activar">${money(Math.round(impactoA/1000)*1000)}</div>
+        <div class="new-sku-list">${skuRowsA}</div>
+      </div>`:''}
     </div>
     ${topIdx>=0?`<div class="sit-top-insight" onclick="openDetail(${topIdx})">
       <div class="sit-insight-eyebrow">Acción más urgente</div>
@@ -1542,19 +1593,6 @@ function renderSituacion(){
       <div class="sit-insight-step">→ ${firstSentence(top.proximo_paso)}</div>
     </div>`:''}
     <div class="sit-cta-wrap"><button class="sit-cta" onclick="sidebarNav('tablero','plan')">Ver plan completo de la semana →</button></div>
-    <hr class="sit-divider">
-    <div class="sit-section-title">También esta semana</div>
-    <div class="sit-secondary">
-      ${counts.EMPUJAR>0?`<div class="sit-card sit-card-empujar sit-card-nolink">
-        <div class="sit-count sit-count-empujar">${counts.EMPUJAR}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Para empujar</div><div class="sit-desc-sub">Margen OK — escalar pauta</div></div></div>`:''}
-      ${counts.MONITOREAR>0?`<div class="sit-card sit-card-monitorear sit-card-nolink">
-        <div class="sit-count sit-count-monitorear">${counts.MONITOREAR}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Monitorear</div><div class="sit-desc-sub">Margen bajo o historial corto</div></div></div>`:''}
-      ${counts.ACTIVAR>0?`<div class="sit-card sit-card-activar sit-card-nolink">
-        <div class="sit-count sit-count-activar">${counts.ACTIVAR}</div>
-        <div class="sit-desc"><div class="sit-desc-label">Activar</div><div class="sit-desc-sub">Stock sin movimiento</div></div></div>`:''}
-    </div>
   </div>`;
 }
 
@@ -2211,23 +2249,24 @@ function renderProductosTable(){
 function renderSidebarResumen(){
   const el=document.getElementById('sidebarResumen');
   if(!el) return;
-  const costoCanal={TN:0.285,LF:0.25,ML:0.21};
+  const costoCanal={TN:0.385,LF:0.23,ML:0.25};
   const quiebre=allData.filter(r=>r.accion==='RIESGO_QUIEBRE');
   const liquidar=allData.filter(r=>r.accion==='LIQUIDAR');
   const empujar=allData.filter(r=>r.accion==='EMPUJAR');
   const activar=allData.filter(r=>r.accion==='ACTIVAR');
-  const impactoQ=quiebre.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;return s+num(r.demanda_referencia)*num(r.precio_actual)*(1-c);},0);
-  const impactoL=liquidar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));},0);
-  const impactoA=activar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+st*num(r.precio_actual)*(1-c);},0);
+  const cargaFor=(r)=>CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante&&x.canal===r.canal_id);
+  const impactoQ=quiebre.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;return s+num(r.demanda_referencia)*num(r.precio_actual)*(1-c);},0);
+  const impactoL=liquidar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=cargaFor(r);const st=d?Math.max(0,d.sa-d.vtn+d.rep):0;return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));},0);
+  const impactoA=activar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.385;const d=cargaFor(r);const st=d?d.sa:0;return s+st*num(r.precio_actual)*(1-c);},0);
   const total=Math.round((impactoQ+impactoL+impactoA)/1000)*1000;
-  const topeE=empujar.length?num(empujar[0].tope_economico_sugerido):0;
+  const margenProm=empujar.length?empujar.reduce((s,r)=>s+num(r.margen_neto_pct),0)/empujar.length:0;
   const row=(badgeCls,badgeTxt,count,val,valCls)=>`<div class="sb-resumen-row"><span class="sb-resumen-badge ${badgeCls}">${badgeTxt}</span><span class="sb-resumen-count">${count}</span><span class="sb-resumen-val ${valCls}">${val}</span></div>`;
   el.innerHTML=`<div class="sb-resumen">
     <div class="sb-resumen-label">Esta semana en juego</div>
     <div class="sb-resumen-total">${money(total)}</div>
     ${quiebre.length?row('badge-RIESGO_QUIEBRE','QUIEBRE',quiebre.length,'−'+money(Math.round(impactoQ/1000)*1000)+'/sem','negative'):''}
     ${liquidar.length?row('badge-LIQUIDAR','LIQUIDAR',liquidar.length,'+'+money(Math.round(impactoL/1000)*1000),'positive'):''}
-    ${empujar.length?row('badge-EMPUJAR','EMPUJAR',empujar.length,'tope '+money(topeE),'positive'):''}
+    ${empujar.length?row('badge-EMPUJAR','EMPUJAR',empujar.length,'margen '+pct(margenProm),'positive'):''}
     ${activar.length?row('badge-ACTIVAR','ACTIVAR',activar.length,money(Math.round(impactoA/1000)*1000)+' dorm.','warning'):''}
   </div>`;
 }
@@ -2433,57 +2472,80 @@ function initApp(){
 </div>
 <script>
 const TOUR_STEPS=[
-  {nav:['tablero','situacion'],sel:'.sit-hero',title:'La foto de la semana',text:'Un número arriba de todo: cuántos productos necesitan una decisión esta semana. No es un tablero para interpretar — es el titular.'},
-  {nav:['tablero','situacion'],sel:'.sit-card-liquidar',title:'El motor agrupa por acción',text:'Cada tarjeta es un tipo de decisión: reponer para no quebrar, liquidar sobrestock, revisar precio. El sistema ya clasificó cada SKU.'},
-  {nav:['tablero','plan'],sel:'#planGrid',title:'El plan, rankeado',text:'Las urgencias ordenadas por criticidad: primero lo que vende a pérdida, después el riesgo de quiebre, después el capital inmovilizado.'},
-  {nav:['carga','cierre'],sel:'.carga-semana-hero',title:'10 minutos por semana',text:'Todo esto se alimenta de una carga simple: ventas y stock de la semana. Sin integración, sin planilla nueva.'}
+  {nav:['tablero','situacion'],sel:'.new-hero',title:'La foto de la semana',text:'Un número arriba de todo: cuánta plata está en juego esta semana según cómo actúes. No es un tablero para interpretar — es el titular.'},
+  {nav:['tablero','situacion'],sel:'.new-acciones-grid',title:'El motor agrupa por acción',text:'Cada tarjeta es un tipo de decisión: reponer para no quebrar, liquidar sobrestock, empujar, activar. El sistema ya clasificó cada producto y le puso número.'},
+  {nav:['tablero','plan'],sel:'#planGrid',title:'Lo urgente, rankeado',text:'Las urgencias ordenadas por criticidad: primero lo que vende a pérdida, después el riesgo de quiebre, después el capital inmovilizado.'},
+  {nav:['carga','publicidad'],sel:'.pauta-dist-section',title:'La pauta, repartida sola',text:'Ponés cuánto vas a invertir en publicidad y el motor te dice cómo repartirlo entre productos según margen y stock disponible.'},
+  {nav:['carga','cierre'],sel:'.carga-semana-hero',title:'10 minutos por semana',text:'Todo esto se alimenta de una carga simple de ventas y stock. Si avanzás, lo conectamos a tu Tienda Nube o Mercado Libre y se actualiza solo.'}
 ];
-let _tourIdx=-1,_tourRaf=null,_tourDragged=false,_tourDragActive=false,_tourDragOff={x:0,y:0};
-function tourStart(){_tourIdx=0;const b=document.getElementById('tourStartFixed');if(b)b.style.display='none';document.getElementById('tourHighlight').classList.add('vis');document.getElementById('tourCard').classList.add('vis');tourRender();tourTrackLoop();}
+let _tourIdx=-1;
+function _tourHl(){return document.getElementById('tourHighlight');}
+function _tourCard(){return document.getElementById('tourCard');}
+function tourStart(){_tourIdx=0;const b=document.getElementById('tourStartFixed');if(b)b.style.display='none';_tourCard().classList.add('vis');window.addEventListener('scroll',tourReposition,true);window.addEventListener('resize',tourReposition);tourRender();}
 function tourNext(){_tourIdx++;if(_tourIdx>=TOUR_STEPS.length){tourEnd();return;}tourRender();}
 function tourPrev(){if(_tourIdx<=0)return;_tourIdx--;tourRender();}
-function tourEnd(){_tourIdx=-1;if(_tourRaf)cancelAnimationFrame(_tourRaf);_tourRaf=null;const hl=document.getElementById('tourHighlight');hl.classList.remove('vis');hl.style.opacity='0';document.getElementById('tourCard').classList.remove('vis');const b=document.getElementById('tourStartFixed');if(b)b.style.display='flex';}
+function tourEnd(){
+  _tourIdx=-1;
+  window.removeEventListener('scroll',tourReposition,true);
+  window.removeEventListener('resize',tourReposition);
+  const hl=_tourHl();
+  hl.classList.remove('vis');hl.style.opacity='0';hl.style.display='none';
+  hl.style.left=hl.style.top=hl.style.width=hl.style.height='';
+  _tourCard().classList.remove('vis');
+  const b=document.getElementById('tourStartFixed');if(b)b.style.display='flex';
+}
 function tourRender(){
   const s=TOUR_STEPS[_tourIdx];
-  _tourDragged=false;
   document.getElementById('tourStepNum').textContent=`Paso ${_tourIdx+1} de ${TOUR_STEPS.length}`;
   document.getElementById('tourTitle').textContent=s.title;
   document.getElementById('tourText').textContent=s.text;
   document.getElementById('tourNextBtn').textContent=_tourIdx===TOUR_STEPS.length-1?'Finalizar':'Siguiente →';
   document.getElementById('tourPrevBtn').style.display=_tourIdx===0?'none':'inline-block';
   if(typeof sidebarNav==='function')sidebarNav(s.nav[0],s.nav[1]);
-  setTimeout(()=>tourPositionCard(s.sel),260);
-}
-function tourPositionCard(sel){
-  const t=document.querySelector(sel),card=document.getElementById('tourCard'),hl=document.getElementById('tourHighlight');
-  if(!t){hl.style.opacity='0';return;}
-  hl.style.opacity='1';
-  t.scrollIntoView({behavior:'smooth',block:'center'});
+  const hl=_tourHl();hl.style.display='block';hl.classList.add('vis');hl.style.opacity='0';
   setTimeout(()=>{
-    if(_tourDragged)return;
-    const r=t.getBoundingClientRect(),cw=card.offsetWidth,ch=card.offsetHeight;
-    let left=r.left+r.width/2-cw/2;
-    left=Math.max(12,Math.min(left,window.innerWidth-cw-12));
-    let top=r.bottom+14;
-    if(top+ch>window.innerHeight-12)top=Math.max(12,r.top-ch-14);
-    card.style.left=left+'px';card.style.top=top+'px';
-  },340);
+    const t=document.querySelector(s.sel);
+    if(t)t.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(tourReposition,360);
+  },240);
 }
-function tourTrackLoop(){
-  const s=TOUR_STEPS[_tourIdx];
-  if(_tourIdx<0){return;}
-  const t=s&&document.querySelector(s.sel),hl=document.getElementById('tourHighlight');
-  if(t){const r=t.getBoundingClientRect();hl.style.left=(r.left-6)+'px';hl.style.top=(r.top-6)+'px';hl.style.width=(r.width+12)+'px';hl.style.height=(r.height+12)+'px';hl.style.opacity=(r.width>0?'1':'0');}
-  _tourRaf=requestAnimationFrame(tourTrackLoop);
+function tourReposition(){
+  if(_tourIdx<0)return;
+  const s=TOUR_STEPS[_tourIdx],t=document.querySelector(s.sel),hl=_tourHl();
+  if(!t){hl.style.opacity='0';return;}
+  const r=t.getBoundingClientRect();
+  if(r.width<=0){hl.style.opacity='0';return;}
+  hl.style.left=(r.left-6)+'px';hl.style.top=(r.top-6)+'px';
+  hl.style.width=(r.width+12)+'px';hl.style.height=(r.height+12)+'px';
+  hl.style.opacity='1';
 }
-(function(){
-  const card=document.getElementById('tourCard');
-  function down(e){if(e.target.closest('button,#tourSkip'))return;_tourDragActive=true;card.classList.add('dragging');const p=e.touches?e.touches[0]:e,r=card.getBoundingClientRect();_tourDragOff.x=p.clientX-r.left;_tourDragOff.y=p.clientY-r.top;}
-  function move(e){if(!_tourDragActive)return;const p=e.touches?e.touches[0]:e;_tourDragged=true;card.style.left=(p.clientX-_tourDragOff.x)+'px';card.style.top=(p.clientY-_tourDragOff.y)+'px';if(e.cancelable)e.preventDefault();}
-  function up(){_tourDragActive=false;card.classList.remove('dragging');}
-  card.addEventListener('mousedown',down);document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
-  card.addEventListener('touchstart',down,{passive:true});document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',up);
-})();
+function _makeDraggable(el,onClick){
+  let active=false,moved=false,off={x:0,y:0},sx=0,sy=0;
+  function down(e){
+    const nested=e.target.closest('button,#tourSkip');
+    if(nested&&nested!==el)return;
+    active=true;moved=false;el.classList.add('dragging');
+    const p=e.touches?e.touches[0]:e,r=el.getBoundingClientRect();
+    sx=p.clientX;sy=p.clientY;off.x=p.clientX-r.left;off.y=p.clientY-r.top;
+  }
+  function move(e){
+    if(!active)return;
+    const p=e.touches?e.touches[0]:e;
+    if(Math.abs(p.clientX-sx)>4||Math.abs(p.clientY-sy)>4)moved=true;
+    if(!moved)return;
+    el.style.left=(p.clientX-off.x)+'px';el.style.top=(p.clientY-off.y)+'px';
+    el.style.right='auto';el.style.bottom='auto';
+    if(e.cancelable)e.preventDefault();
+  }
+  function up(){
+    if(active&&!moved&&typeof onClick==='function')onClick();
+    active=false;el.classList.remove('dragging');
+  }
+  el.addEventListener('mousedown',down);document.addEventListener('mousemove',move);document.addEventListener('mouseup',up);
+  el.addEventListener('touchstart',down,{passive:true});document.addEventListener('touchmove',move,{passive:false});document.addEventListener('touchend',up);
+}
+_makeDraggable(document.getElementById('tourCard'),null);
+_makeDraggable(document.getElementById('tourStartFixed'),tourStart);
 </script>
 </body>
 </html>
