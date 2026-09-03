@@ -212,6 +212,45 @@
   .pauta-dist-sku{color:var(--text-muted);}
   .pauta-dist-val{font-family:'DM Mono',monospace;color:var(--text);}
 
+  /* ── CARGA SEMANAL · tema claro (isla) ── */
+  #mod-carga{
+    --bg:#f5f5f8;--surface:#ffffff;--surface2:#f0f0f5;--surface3:#e8e8f0;--border:#dddde8;
+    --text:#1a1a2e;--text-primary:#1a1a2e;--text-secondary:#4a4a5e;--text-muted:#6b6b80;--text-dim:#9a9aad;
+    --success:#16a34a;--danger:#dc2626;--warn:#d97706;
+    --pausar-bg:#fee2e2;--pausar-border:#fca5a5;--pausar-text:#991b1b;
+    --revisar-bg:#fff7ed;--revisar-border:#fed7aa;--revisar-text:#9a3412;
+    --quiebre-bg:#fef3c7;--quiebre-border:#fcd34d;--quiebre-text:#92400e;
+    --liquidar-bg:#fefce8;--liquidar-border:#fde68a;--liquidar-text:#713f12;
+    --empujar-bg:#f0fdf4;--empujar-border:#86efac;--empujar-text:#14532d;
+    --activar-bg:#eff6ff;--activar-border:#93c5fd;--activar-text:#1d4ed8;
+    --monitorear-bg:#f5f5f5;--monitorear-border:#d4d4d4;--monitorear-text:#737373;
+    background:var(--bg);min-height:calc(100vh - 52px);
+  }
+  #mod-carga .page-inner{background:var(--bg);}
+  .th-sub{font-size:8px;font-weight:500;color:var(--text-muted);display:block;margin-top:2px;letter-spacing:.04em;text-transform:uppercase;}
+  .th-enter{color:inherit;}
+  .n-readonly{font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);padding:3px 0;display:inline-block;}
+  .carga-tr-sub td{padding:4px 10px;border-top:none;}
+  .n-input.input-warn{border-color:var(--danger);background:rgba(220,38,38,.07);}
+  .carga-warn-row td{background:rgba(220,38,38,.05);}
+  .carga-warn-msg{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--danger);font-weight:600;}
+  .pauta-dist-section{margin-top:16px;}
+  .pauta-dist-section-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+  .pauta-dist-section-title.smart{color:#15803d;}
+  .pauta-dist-row-smart{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border);}
+  .pauta-dist-row-smart:last-child{border-bottom:none;}
+  .pauta-smart-sku{flex:1;font-size:13px;color:var(--text);}
+  .pauta-smart-reason{font-size:11px;color:var(--text-muted);flex:1;}
+  .pauta-smart-val{font-size:13px;font-weight:600;color:var(--text);min-width:72px;text-align:right;font-family:'DM Mono',monospace;}
+  .pauta-smart-val.zero{color:var(--text-dim);}
+  .pauta-smart-box{background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.2);border-radius:10px;padding:14px 16px;margin-top:8px;}
+  .pauta-smart-total{display:flex;justify-content:space-between;border-top:1px solid var(--border);margin-top:8px;padding-top:8px;font-size:12px;font-weight:600;color:var(--text);}
+  .pauta-row-clickable{cursor:pointer;border-radius:6px;transition:background .15s;margin:0 -8px;padding:7px 8px;}
+  .pauta-row-clickable:hover{background:rgba(99,102,241,.07);}
+  .pauta-row-clickable:hover .pauta-smart-sku{color:var(--accent);}
+  .pauta-row-arrow{font-size:11px;color:var(--text-dim);margin-left:4px;transition:transform .15s;}
+  .pauta-row-clickable:hover .pauta-row-arrow{color:var(--accent);transform:translateX(2px);}
+
   /* Configuración */
   .config-section{margin-bottom:24px;}
   .config-section-title{font-size:15px;font-weight:600;margin-bottom:4px;}
@@ -545,7 +584,139 @@
   }
 
 /* ── TOUR GUIADO ─────────────────────── */
-#tourHighlight{position:fixed;border:2px solid var(--accent);border-radius:10px;box-shadow:0 0 0 5px rgba(99,102,241,.12),0 0 30px rgba(99,102,241,.2);pointer-events:none;z-index:9998;transition:opacity .25s;opacity:0;}
+/* ── MI NEGOCIO ── */
+  .negocio-wrap{max-width:720px;margin:0 auto;padding:24px 32px 40px;}
+  .negocio-greeting{font-size:22px;font-weight:700;color:var(--text-primary);margin-bottom:4px;}
+  .negocio-sub{font-size:13px;color:var(--text-muted);margin-bottom:28px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .neg-badge-demo{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(251,191,36,.12);color:#fbbf24;border:1px solid rgba(251,191,36,.25);}
+  body.light .neg-badge-demo{background:rgba(180,83,9,.08);color:#b45309;border-color:rgba(180,83,9,.2);}
+  .neg-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+  .neg-card-title{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:14px;}
+  .neg-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;background:#1e3a2f;color:#86efac;}
+  body.light .neg-badge{background:#dcfce7;color:#166534;}
+  .neg-status-dot{width:8px;height:8px;border-radius:50%;background:#86efac;display:inline-block;margin-right:6px;animation:pulse 2s infinite;}
+  .neg-chip{display:inline-block;padding:1px 7px;border-radius:20px;font-size:10px;font-weight:600;background:#1e3a2f;color:#86efac;margin-left:6px;letter-spacing:.04em;text-transform:none;}
+  body.light .neg-chip{background:#dcfce7;color:#166534;}
+  .neg-section-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin:28px 0 12px;}
+  .neg-accionia-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-top:16px;}
+  .neg-accionia-intro{font-size:13px;color:var(--text-secondary);line-height:1.6;margin-bottom:18px;}
+  .neg-accionia-sub-title{display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:16px 0 10px;}
+  .neg-acciones-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .neg-accion-item{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);}
+  .neg-accion-badge{margin-bottom:6px;}
+  .neg-accion-desc{font-size:11px;color:var(--text-muted);line-height:1.5;}
+  @media(max-width:640px){.neg-acciones-grid{grid-template-columns:1fr 1fr;}}
+  .neg-inputs-section{margin-top:20px;border-top:1px solid var(--border);padding-top:20px;}
+  .neg-met-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+  .neg-inputs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px;}
+  .neg-input-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+  .neg-input-card-weekly{border-color:rgba(134,239,172,.25);background:rgba(134,239,172,.03);}
+  .neg-input-card-header{margin-bottom:12px;}
+  .neg-input-freq{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:#1e2a3a;color:#93c5fd;margin-bottom:6px;}
+  .neg-input-freq.weekly{background:#1e3a2f;color:#86efac;}
+  .neg-input-card-title{display:block;font-size:13px;font-weight:600;color:var(--text-primary);}
+  .neg-input-list{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+  .neg-input-row{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--text-secondary);line-height:1.5;}
+  .neg-input-dot{width:6px;height:6px;border-radius:50%;background:#4b5563;flex-shrink:0;margin-top:5px;}
+  .neg-input-dot.weekly{background:#86efac;}
+  .neg-input-note{font-size:11px;color:var(--text-muted);padding:8px 10px;background:var(--surface2);border-radius:6px;line-height:1.5;}
+  .neg-input-note.weekly{color:#86efac;background:rgba(134,239,172,.06);}
+  body.light .neg-input-dot.weekly{background:#15803d;}
+  body.light .neg-input-note.weekly{color:#15803d;background:rgba(21,128,61,.07);}
+  body.light .neg-input-card-weekly{border-color:rgba(21,128,61,.3);background:rgba(21,128,61,.03);}
+  @media(max-width:640px){.neg-inputs-grid{grid-template-columns:1fr;}}
+  .neg-stat-hero-val{font-size:26px;font-weight:700;color:var(--text-primary);font-family:'DM Mono',monospace;line-height:1;}
+  .neg-stats-hero{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:24px;}
+  .neg-stat-hero-item{background:var(--surface);padding:18px 12px;text-align:center;}
+  .neg-stat-hero-val span{font-size:16px;color:var(--text-muted);}
+  .neg-stat-hero-lbl{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-top:5px;}
+  @media(max-width:640px){.neg-stats-hero{grid-template-columns:repeat(2,1fr);}.neg-stat-hero-val{font-size:22px;}}
+  .neg-acc{border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:8px;cursor:pointer;transition:border-color .15s;}
+  .neg-acc:hover{border-color:rgba(99,102,241,.4);}
+  .neg-acc-alert{border-color:#7c3b3b;}
+  .neg-acc-alert:hover{border-color:#ef4444;}
+  .neg-acc-hdr{display:flex;align-items:center;gap:10px;padding:14px 18px;user-select:none;}
+  .neg-acc.open .neg-acc-hdr{border-bottom:1px solid var(--border);}
+  .neg-acc-left{flex:1;min-width:0;}
+  .neg-acc-title{font-size:13px;font-weight:600;color:var(--text-primary);}
+  .neg-acc-meta{font-size:11px;color:var(--text-muted);margin-top:2px;}
+  .neg-acc-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+  .neg-acc-val{text-align:right;}
+  .neg-acc-val-num{display:block;font-size:13px;font-weight:700;color:var(--text-primary);white-space:nowrap;font-family:'DM Mono',monospace;}
+  .neg-acc-val-sub{display:block;font-size:10px;color:var(--text-muted);}
+  .neg-acc-arrow{width:14px;height:14px;color:var(--text-muted);transition:transform .2s;flex-shrink:0;}
+  .neg-acc.open .neg-acc-arrow{transform:rotate(180deg);}
+  .neg-acc-body{display:none;padding:16px 18px;background:var(--surface2);}
+  .neg-acc.open .neg-acc-body{display:block;}
+  .neg-color-bar{margin-bottom:9px;}
+  .neg-color-bar-lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--text-secondary);margin-bottom:3px;}
+  .neg-color-bar-lbl span:last-child{color:var(--text-muted);font-size:11px;}
+  .neg-color-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .neg-color-fill{height:100%;border-radius:3px;}
+  .neg-talle-bar{display:grid;grid-template-columns:32px 1fr 44px;align-items:center;gap:8px;margin-bottom:7px;}
+  .neg-talle-num{font-size:12px;font-weight:600;color:var(--text-primary);font-family:'DM Mono',monospace;}
+  .neg-talle-num.neg-talle-alert{color:#ef4444;}
+  .neg-talle-track{height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+  .neg-talle-fill{height:100%;border-radius:3px;background:#6366f1;}
+  .neg-talle-fill.neg-talle-fill-alert{background:#ef4444;}
+  .neg-talle-cnt{font-size:11px;color:var(--text-muted);text-align:right;font-family:'DM Mono',monospace;}
+  .neg-talle-cnt.neg-talle-alert{color:#ef4444;}
+  .neg-canal-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;color:var(--text-secondary);}
+  .neg-canal-row:last-of-type{border-bottom:none;}
+  .neg-canal-row.neg-canal-row-hl{background:rgba(245,158,11,.04);margin:0 -6px;padding:7px 6px;border-radius:4px;}
+  .neg-canal-num{font-weight:700;color:var(--text-primary);font-family:'DM Mono',monospace;}
+  .neg-canal-hl{color:#f59e0b!important;}
+  .neg-canal-total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 14px;background:rgba(99,102,241,.07);border-radius:8px;font-size:13px;font-weight:700;color:var(--text-primary);}
+  .neg-canal-total span:last-child{color:#6366f1;font-family:'DM Mono',monospace;font-size:16px;}
+  .neg-tier{display:grid;grid-template-columns:70px 130px 1fr;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;}
+  .neg-tier-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);}
+  .neg-tier-range{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--text-primary);}
+  .neg-tier-ex{color:var(--text-muted);font-size:11px;}
+  .neg-channel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .neg-channel-item{padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--surface);}
+  .neg-channel-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:4px;}
+  .neg-channel-name{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:6px;}
+  .neg-channel-detail{font-size:11px;color:var(--text-muted);line-height:1.6;}
+  @media(max-width:640px){.neg-channel-grid{grid-template-columns:1fr;}}
+  .neg-insight{margin-top:14px;font-size:12px;color:var(--text-muted);line-height:1.6;padding:10px 12px;background:rgba(99,102,241,.04);border-radius:8px;border-left:3px solid rgba(99,102,241,.25);}
+  .neg-catalog-card{padding:0!important;overflow:hidden;margin-top:0;}
+  .neg-catalog-card .neg-stats-hero{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--border);background:rgba(99,102,241,.04);gap:0;}
+  .neg-catalog-card .neg-stat-hero-item{border-right:1px solid var(--border);}
+  .neg-catalog-card .neg-stat-hero-item:last-child{border-right:none;}
+  .neg-catalog-card .neg-stat-hero-val{color:#a5b4fc;}
+  .neg-catalog-card .neg-stat-hero-val span{color:rgba(165,180,252,.55);}
+  .neg-catalog-card .neg-stat-hero-lbl{color:rgba(165,180,252,.6);}
+  body.light .neg-catalog-card .neg-stat-hero-val{color:#4f46e5;}
+  body.light .neg-catalog-card .neg-stat-hero-val span{color:rgba(79,70,229,.5);}
+  body.light .neg-catalog-card .neg-stat-hero-lbl{color:rgba(79,70,229,.6);}
+  .neg-catalog-card-hdr{padding:14px 20px 12px;border-bottom:1px solid rgba(99,102,241,.2);text-align:center;background:linear-gradient(135deg,rgba(99,102,241,.13) 0%,rgba(139,92,246,.08) 100%);}
+  .neg-catalog-card-hdr .neg-card-title{font-size:11px;font-weight:700;letter-spacing:.14em;color:#a5b4fc;margin-bottom:0;}
+  body.light .neg-catalog-card-hdr{background:linear-gradient(135deg,rgba(99,102,241,.07) 0%,rgba(139,92,246,.04) 100%);border-bottom-color:rgba(99,102,241,.15);}
+  body.light .neg-catalog-card-hdr .neg-card-title{color:#4f46e5;}
+  .neg-catalog-card .neg-acc{border:none;border-radius:0;margin-bottom:0;border-bottom:1px solid var(--border);}
+  .neg-catalog-card .neg-acc:last-child{border-bottom:none;}
+  .neg-catalog-card .neg-acc:hover{border-color:transparent;}
+  .neg-catalog-card .neg-acc-body{border-radius:0;}
+  .neg-catalog-card .neg-acc-hdr{background:rgba(0,0,0,.035);}
+  body.light .neg-catalog-card .neg-acc-hdr{background:rgba(0,0,0,.03);}
+  .neg-catalog-card .neg-acc.open .neg-acc-hdr{background:var(--surface);}
+  .neg-catalog-card .neg-acc-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .neg-catalog-card .neg-acc-meta{font-size:11px;color:var(--text-muted);opacity:.65;margin-top:2px;}
+  .neg-catalog-card .neg-acc-val-num{font-size:14px;font-weight:700;color:var(--text-primary);}
+  .neg-catalog-card .neg-acc-val-sub{font-size:10px;color:var(--text-muted);}
+  @media(max-width:640px){.negocio-wrap{padding:16px;}}
+  /* ── SIDEBAR RESUMEN ── */
+  .sb-resumen{margin:8px 8px 4px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
+  .sb-resumen-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:5px;}
+  .sb-resumen-total{font-size:18px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text);margin-bottom:8px;line-height:1;}
+  .sb-resumen-row{display:flex;align-items:center;gap:5px;padding:3px 0;border-bottom:1px solid var(--border);}
+  .sb-resumen-row:last-child{border-bottom:none;}
+  .sb-resumen-badge{font-size:8px;font-family:'DM Mono',monospace;font-weight:700;padding:1px 4px;border-radius:3px;flex-shrink:0;letter-spacing:.02em;}
+  .sb-resumen-count{font-size:10px;color:var(--text-muted);min-width:12px;}
+  .sb-resumen-val{font-size:10px;font-family:'DM Mono',monospace;margin-left:auto;}
+  .sb-resumen-val.negative{color:#ef4444;}.sb-resumen-val.positive{color:#22c55e;}.sb-resumen-val.warning{color:#f59e0b;}
+
+  #tourHighlight{position:fixed;border:2px solid var(--accent);border-radius:10px;box-shadow:0 0 0 5px rgba(99,102,241,.12),0 0 30px rgba(99,102,241,.2);pointer-events:none;z-index:9998;transition:opacity .25s;opacity:0;}
 #tourHighlight.vis{opacity:1;}
 #tourCard{position:fixed;background:var(--surface);border:1px solid rgba(99,102,241,.35);border-radius:14px;padding:16px 20px 14px;width:300px;z-index:9999;box-shadow:0 10px 44px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .25s,top .35s cubic-bezier(.4,0,.2,1),left .35s cubic-bezier(.4,0,.2,1);user-select:none;cursor:grab;}
 #tourCard.vis{opacity:1;pointer-events:all;}
@@ -636,9 +807,14 @@
       <div class="sidebar-client-dot"></div>
       <span class="sidebar-client-name">Zona Sport</span>
     </div>
-    <div class="sidebar-week">Semana: 01/09/2026</div>
+    <div class="sidebar-week" id="sidebarWeek">Semana: 01/09/2026</div>
+    <div id="sidebarResumen"></div>
+    <div class="sidebar-section">Mi negocio</div>
+    <div class="sidebar-item active" id="snav-negocio" onclick="sidebarNav('negocio',null)">
+      <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span> Mi negocio
+    </div>
     <div class="sidebar-section">Tablero</div>
-    <div class="sidebar-item active" id="snav-situacion" onclick="sidebarNav('tablero','situacion')">
+    <div class="sidebar-item" id="snav-situacion" onclick="sidebarNav('tablero','situacion')">
       <span class="sidebar-item-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span> Situación
     </div>
     <div class="sidebar-item" id="snav-plan" onclick="sidebarNav('tablero','plan')">
@@ -669,7 +845,16 @@
   <!-- ══════════════════════════════════════════ -->
   <!-- MODULE: TABLERO                           -->
   <!-- ══════════════════════════════════════════ -->
-  <div class="module active" id="mod-tablero">
+  <!-- ══════════════════════════════════════════ -->
+  <!-- MODULE: MI NEGOCIO                        -->
+  <!-- ══════════════════════════════════════════ -->
+  <div class="module active" id="mod-negocio">
+    <div class="page active" id="npage-negocio">
+      <div id="negocioContent"></div>
+    </div>
+  </div>
+
+  <div class="module" id="mod-tablero">
 
     <div class="page active" id="tpage-situacion">
       <div id="situacionContent"></div>
@@ -732,13 +917,9 @@
       <div class="carga-semana-hero">
         <span class="csh-label">Cargando semana</span>
         <select class="csh-sel" id="cargaSemSel" onchange="onCargaSemanaChange(this.value)">
-          <option value="0">31/08 al 06/09/2026</option>
-          <option value="1">24/08 al 30/08/2026</option>
-          <option value="2">17/08 al 23/08/2026</option>
-          <option value="3">10/08 al 16/08/2026</option>
-          <option value="4">03/08 al 09/08/2026</option>
+          <!-- opciones generadas dinámicamente por renderCargaSemOptions() -->
         </select>
-        <span class="csh-sub" id="cargaSemSub">lun 31 ago → dom 6 sep</span>
+        <span class="csh-sub" id="cargaSemSub"></span>
       </div>
 
       <!-- Semana especial global -->
@@ -762,13 +943,14 @@
         <table class="carga-table">
           <thead>
             <tr>
-              <th style="text-align:left;min-width:160px">Producto / Variante</th>
-              <th>Stock Ant.</th>
-              <th>Ventas</th>
-              <th>Repos.</th>
-              <th>Stock Act.</th>
-              <th>Sem. esp.</th>
-              <th>Ajuste</th>
+              <th style="text-align:left;min-width:170px">Producto / Variante</th>
+              <th>Costo $<span class="th-sub">pre-cargado</span></th>
+              <th style="color:var(--accent)">Ventas<span class="th-sub th-enter">↓ vendido</span></th>
+              <th>St. anterior<span class="th-sub">automático</span></th>
+              <th style="color:var(--success)">Repos.<span class="th-sub th-enter">↓ si reponés</span></th>
+              <th style="color:var(--success)">Stock actual</th>
+              <th style="color:var(--warn)">Sem. esp.<span class="th-sub">si fue rara</span></th>
+              <th style="color:var(--accent)">Ajuste<span class="th-sub">inv. manual</span></th>
             </tr>
           </thead>
           <tbody id="cargaTableBody"></tbody>
@@ -786,9 +968,14 @@
           <span class="pauta-label">Total pauta Meta (TN)</span>
           <input class="pauta-input" type="text" value="$165.000" id="pautaInput" oninput="renderPautaDist()">
         </div>
-        <div class="pauta-hint">La pauta de Instagram no es atribuible por SKU — se distribuye en partes iguales entre los 18 productos activos.</div>
-        <div class="pauta-dist-title">Distribución por SKU (igual)</div>
-        <div id="pautaDistList"></div>
+        <div class="pauta-hint">Ingresás el total que invertiste en Meta esa semana. El sistema te dice cómo distribuirlo la próxima semana según la acción de cada producto — para que ajustes tus conjuntos de anuncios con criterio.</div>
+        <div class="pauta-dist-section">
+          <div class="pauta-dist-section-title smart">Cómo distribuirlo la próxima semana</div>
+          <div class="pauta-smart-box">
+            <div id="pautaSmartList"></div>
+            <div class="pauta-smart-total"><span>Total asignado</span><span id="pautaSmartTotal">$165.000</span></div>
+          </div>
+        </div>
       </div>
 
       <div class="carga-footer">
@@ -1077,7 +1264,10 @@
 <!-- MOBILE BOTTOM NAV -->
 <div class="mobile-bottom-nav" id="mobileBottomNav" style="display:none">
   <div class="mbn-items">
-    <div class="mbn-item active" id="mbn-situacion" onclick="sidebarNav('tablero','situacion')">
+    <div class="mbn-item active" id="mbn-negocio" onclick="sidebarNav('negocio',null)">
+      <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span>Negocio</span>
+    </div>
+    <div class="mbn-item" id="mbn-situacion" onclick="sidebarNav('tablero','situacion')">
       <span class="mbn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span><span>Situación</span>
     </div>
     <div class="mbn-item" id="mbn-plan" onclick="sidebarNav('tablero','plan')">
@@ -1140,26 +1330,26 @@ const allData=[
 
 const CARGA_DATA=[
   // TN
-  {sku:'Zapatilla Pro Runner',    v:'Negro',          canal:'TN', sa:4,  vtn:2,  rep:0},
-  {sku:'Campera Windbreaker',     v:'Navy',           canal:'TN', sa:5,  vtn:2,  rep:0},
-  {sku:'Camiseta Training',       v:'Rojo',           canal:'TN', sa:42, vtn:4,  rep:0},
-  {sku:'Zapatilla Pro Runner',    v:'Blanco',         canal:'TN', sa:9,  vtn:3,  rep:0},
-  {sku:'Campera Windbreaker',     v:'Negro',          canal:'TN', sa:8,  vtn:3,  rep:0},
-  {sku:'Medias Compresión Pack x3',v:'Negro',         canal:'TN', sa:18, vtn:2,  rep:0},
-  {sku:'Zapatilla Pro Runner',    v:'Azul Eléctrico', canal:'TN', sa:20, vtn:0,  rep:0},
-  {sku:'Mochila Trail 25L',       v:'Gris Carbón',    canal:'TN', sa:15, vtn:0,  rep:0},
-  {sku:'Buzo Con Capucha',        v:'Negro',          canal:'TN', sa:12, vtn:0,  rep:0},
-  {sku:'Remera Técnica Dry-Fit',      v:'Blanca',         canal:'TN', sa:21, vtn:5,  rep:0},
-  {sku:'Canguro Running',          v:'Gris',           canal:'TN', sa:27, vtn:4,  rep:0},
+  {sku:'Zapatilla Pro Runner',    v:'Negro',          canal:'TN', sa:4,  vtn:2,  rep:0, costo:38000},
+  {sku:'Campera Windbreaker',     v:'Navy',           canal:'TN', sa:5,  vtn:2,  rep:0, costo:62000},
+  {sku:'Camiseta Training',       v:'Rojo',           canal:'TN', sa:42, vtn:4,  rep:0, costo:18000},
+  {sku:'Zapatilla Pro Runner',    v:'Blanco',         canal:'TN', sa:9,  vtn:3,  rep:0, costo:38000},
+  {sku:'Campera Windbreaker',     v:'Negro',          canal:'TN', sa:8,  vtn:3,  rep:0, costo:62000},
+  {sku:'Medias Compresión Pack x3',v:'Negro',         canal:'TN', sa:18, vtn:2,  rep:0, costo:11000},
+  {sku:'Zapatilla Pro Runner',    v:'Azul Eléctrico', canal:'TN', sa:20, vtn:0,  rep:0, costo:38000},
+  {sku:'Mochila Trail 25L',       v:'Gris Carbón',    canal:'TN', sa:15, vtn:0,  rep:0, costo:32000},
+  {sku:'Buzo Con Capucha',        v:'Negro',          canal:'TN', sa:12, vtn:0,  rep:0, costo:40000},
+  {sku:'Remera Técnica Dry-Fit',      v:'Blanca',         canal:'TN', sa:21, vtn:5,  rep:0, costo:34000},
+  {sku:'Canguro Running',          v:'Gris',           canal:'TN', sa:27, vtn:4,  rep:0, costo:46000},
   // ML
-  {sku:'Pantalón Running Slim',   v:'Gris',           canal:'ML', sa:5,  vtn:2,  rep:0},
-  {sku:'Short Training',          v:'Negro',          canal:'ML', sa:51, vtn:5,  rep:0},
-  {sku:'Zapatilla Street Casual', v:'Blanco',         canal:'ML', sa:11, vtn:4,  rep:0},
-  {sku:'Buzo Con Capucha',        v:'Gris',           canal:'ML', sa:7,  vtn:3,  rep:0},
+  {sku:'Pantalón Running Slim',   v:'Gris',           canal:'ML', sa:5,  vtn:2,  rep:0, costo:30000},
+  {sku:'Short Training',          v:'Negro',          canal:'ML', sa:51, vtn:5,  rep:0, costo:14000},
+  {sku:'Zapatilla Street Casual', v:'Blanco',         canal:'ML', sa:11, vtn:4,  rep:0, costo:42000},
+  {sku:'Buzo Con Capucha',        v:'Gris',           canal:'ML', sa:7,  vtn:3,  rep:0, costo:40000},
   // LF
-  {sku:'Camiseta Training',       v:'Negro',          canal:'LF', sa:10, vtn:0,  rep:0},
-  {sku:'Zapatilla Street Casual', v:'Gris',           canal:'LF', sa:43, vtn:0,  rep:0},
-  {sku:'Short Training',          v:'Gris',           canal:'LF', sa:12, vtn:0,  rep:0},
+  {sku:'Camiseta Training',       v:'Negro',          canal:'LF', sa:10, vtn:0,  rep:0, costo:18000},
+  {sku:'Zapatilla Street Casual', v:'Gris',           canal:'LF', sa:43, vtn:0,  rep:0, costo:42000},
+  {sku:'Short Training',          v:'Gris',           canal:'LF', sa:12, vtn:0,  rep:0, costo:14000},
 ];
 
 const GASTOS_CONFIG=[
@@ -1216,8 +1406,8 @@ function showModule(mod){
 }
 
 function showSubTab(mod, tab){
-  const prefixes={tablero:'tpage',carga:'cpage',config:'cfgpage'};
-  const stabs={tablero:['situacion','plan','acciones','params'],carga:['cierre','publicidad','precios','agregar'],config:['canales','productos']};
+  const prefixes={negocio:'npage',tablero:'tpage',carga:'cpage',config:'cfgpage'};
+  const stabs={negocio:['negocio'],tablero:['situacion','plan','acciones','params'],carga:['cierre','publicidad','precios','agregar'],config:['canales','productos']};
   const prefix=prefixes[mod];
   stabs[mod].forEach(t=>{
     const p=document.getElementById(prefix+'-'+t);
@@ -1237,10 +1427,10 @@ function sidebarNav(mod, tab){
 }
 
 function syncSidebarActive(mod, tab){
-  ['snav-situacion','snav-plan','snav-acciones','snav-params','snav-carga','snav-config'].forEach(id=>{
+  ['snav-negocio','snav-situacion','snav-plan','snav-acciones','snav-params','snav-carga','snav-config'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.classList.remove('active');
   });
-  ['mbn-situacion','mbn-plan','mbn-acciones','mbn-carga','mbn-config'].forEach(id=>{
+  ['mbn-negocio','mbn-situacion','mbn-plan','mbn-acciones','mbn-carga','mbn-config'].forEach(id=>{
     const el=document.getElementById(id);if(el)el.classList.remove('active');
   });
   if(mod==='tablero'&&tab){
@@ -1480,13 +1670,30 @@ let _pendingSemana=null;
 let _currentSemIdx=0;
 let _cargaDirty=false;
 
-const SEMANA_LABELS=[
-  {label:'31/08 al 06/09/2026',sub:'lun 31 ago → dom 6 sep'},
-  {label:'24/08 al 30/08/2026',sub:'lun 24 ago → dom 30 ago'},
-  {label:'17/08 al 23/08/2026',sub:'lun 17 ago → dom 23 ago'},
-  {label:'10/08 al 16/08/2026',sub:'lun 10 ago → dom 16 ago'},
-  {label:'03/08 al 09/08/2026',sub:'lun 3 ago → dom 9 ago'},
-];
+const _MES_ABR=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function _fmtDM(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');}
+function _buildSemanaLabels(){
+  const now=new Date();
+  const offset=(now.getDay()+6)%7; // 0 = lunes
+  const monday=new Date(now.getFullYear(),now.getMonth(),now.getDate()-offset);
+  const out=[];
+  for(let k=0;k<6;k++){
+    const lun=new Date(monday.getFullYear(),monday.getMonth(),monday.getDate()-7*k);
+    const dom=new Date(lun.getFullYear(),lun.getMonth(),lun.getDate()+6);
+    out.push({
+      label:_fmtDM(lun)+' al '+_fmtDM(dom)+'/'+dom.getFullYear(),
+      sub:'lun '+lun.getDate()+' '+_MES_ABR[lun.getMonth()]+' → dom '+dom.getDate()+' '+_MES_ABR[dom.getMonth()]
+    });
+  }
+  return out;
+}
+const SEMANA_LABELS=_buildSemanaLabels();
+function renderCargaSemOptions(){
+  const sel=document.getElementById('cargaSemSel');
+  if(!sel) return;
+  sel.innerHTML=SEMANA_LABELS.map((s,i)=>'<option value="'+i+'">'+s.label+'</option>').join('');
+  sel.value=_currentSemIdx;
+}
 
 function onCargaSemanaChange(idx){
   const i=parseInt(idx);
@@ -1518,28 +1725,33 @@ function confirmPastWeek(){
   showToast('Semana '+(s.label.split(' al ')[0])+' cargada.');
 }
 
+function _persistCargaInputs(){
+  CARGA_DATA.forEach((d,i)=>{
+    const v=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(v)) d.vtn=v;
+    const r=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(r)) d.rep=r;
+  });
+}
+
 function toggleSEGlobal(){
   const chk=document.getElementById('seGlobalChk');
   const bar=document.getElementById('seGlobalBar');
   const mot=document.getElementById('seGlobalMotivo');
   bar.classList.toggle('active',chk.checked);
   mot.classList.toggle('show',chk.checked);
-  if(chk.checked){
-    // Mark all SKUs
-    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=true; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.add('on');btn.textContent='⚠ atípica';} });
-  } else {
-    CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=false; const btn=document.getElementById('atipica_'+i); if(btn){btn.classList.remove('on');btn.textContent='Sem. esp.';} });
-  }
+  _persistCargaInputs();
+  CARGA_DATA.forEach((_,i)=>{ _atipicaState[i]=chk.checked; if(!chk.checked) CARGA_DATA[i].motivo=''; });
+  renderCargaTable();
   markDirty();
 }
 
 function toggleAtipica(i){
+  _persistCargaInputs();
   _atipicaState[i]=!_atipicaState[i];
-  const btn=document.getElementById('atipica_'+i);
-  btn.classList.toggle('on',_atipicaState[i]);
-  btn.textContent=_atipicaState[i]?'⚠ atípica':'Sem. esp.';
+  if(!_atipicaState[i]) CARGA_DATA[i].motivo='';
+  renderCargaTable();
   markDirty();
 }
+function setAtipicaMot(i,val){CARGA_DATA[i].motivo=val;}
 
 function openAjuste(i){
   _ajusteTarget=i;
@@ -1567,35 +1779,113 @@ function applyAjuste(){
 }
 
 function renderCargaTable(){
+  const canalLabels={TN:'Tienda Nube',ML:'Mercado Libre',LF:'Local Físico'};
   document.getElementById('cargaTableBody').innerHTML=CARGA_DATA.map((d,i)=>{
     const isAt=_atipicaState[i]||false;
-    const hasAj=_ajusteState[i];
-    const newStk=d.sa-d.vtn+d.rep;
+    const aj=_ajusteState[i]||null;
+    const ajCant=aj?aj.cant:0;
+    const disponible=d.sa+d.rep;
+    const overSold=d.vtn>disponible;
+    const newStk=Math.max(0,d.sa-d.vtn+d.rep+ajCant);
     const cob=d.vtn>0?newStk/d.vtn:999;
-    const stkCls=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
-    const canalLabel={TN:'Tienda Nube',ML:'Mercado Libre',LF:'Local Físico'}[d.canal]||d.canal;
-    return `<tr>
+    const stkCls=overSold?'n-calc cob-critica':(cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal');
+    const cpStr=d._cp?money(d._cp):'—';
+    const warnCls=overSold?' input-warn':'';
+    const canalLabel=canalLabels[d.canal]||d.canal;
+    const stkCell=overSold
+      ?`<span class="carga-warn-msg" id="stk_${i}">⚠ Vendiste más de lo disponible (${disponible} u)</span>`
+      :`<span class="${stkCls}" id="stk_${i}">${newStk} u</span>`;
+    let html=`<tr${overSold?' class="carga-warn-row"':''}>
       <td><div class="sku-name">${d.sku}</div><div class="sku-var">${d.v} <span style="color:var(--text-muted);font-size:10px;margin-left:4px">${canalLabel}</span></div></td>
-      <td><input class="n-input" type="number" value="${d.sa}" id="sa_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><input class="n-input" type="number" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><input class="n-input" type="number" value="${d.rep}" id="rep_${i}" oninput="recalcStock(${i});markDirty()"></td>
-      <td><span class="${stkCls}" id="stk_${i}">${newStk}</span></td>
+      <td><span class="n-readonly">${money(d.costo)}</span></td>
+      <td><input class="n-input${warnCls}" type="number" min="0" step="1" value="${d.vtn}" id="vtn_${i}" oninput="recalcStock(${i});markDirty()" placeholder="0"></td>
+      <td><span class="n-readonly">${d.sa} u</span></td>
+      <td><input class="n-input" type="number" min="0" step="1" value="${d.rep}" id="rep_${i}" oninput="onRepChange(${i});markDirty()" placeholder="0"></td>
+      <td>${stkCell}</td>
       <td><button class="atipica-btn${isAt?' on':''}" id="atipica_${i}" onclick="toggleAtipica(${i})">${isAt?'⚠ atípica':'Sem. esp.'}</button></td>
-      <td><button class="ajuste-btn${hasAj?' on':''}" id="ajuste_${i}" onclick="openAjuste(${i})">${hasAj?'✓ '+hasAj.cant+'u':'Ajuste'}</button></td>
+      <td><button class="ajuste-btn${aj?' on':''}" id="ajuste_${i}" onclick="togAjuste(${i})">${aj?'± '+ajCant+'u':'± Ajustar'}</button></td>
     </tr>`;
+    if(d.rep>0){
+      html+=`<tr class="carga-tr-sub" style="background:var(--surface3)">
+        <td colspan="2" style="text-align:left;padding-left:24px;font-size:11px;color:var(--text-muted)">¿A qué precio compraste el lote?</td>
+        <td colspan="2" style="text-align:center"><input class="n-input" type="number" placeholder="$/u" value="${d._cr||''}" id="cr_${i}" oninput="setCR(${i})" style="width:90px"></td>
+        <td colspan="4" style="font-size:11px;color:var(--text-muted);text-align:left;padding-left:8px">Costo prom. resultante → <strong style="color:var(--warn)" id="cp_${i}">${cpStr}</strong></td>
+      </tr>`;
+    }
+    if(isAt){
+      html+=`<tr class="carga-tr-sub" style="background:rgba(217,119,6,.06)">
+        <td colspan="2" style="text-align:left;padding-left:24px;font-size:11px;color:var(--warn)">⚠ Semana especial · ${d.sku}</td>
+        <td colspan="6" style="padding:4px 8px"><select class="se-mot-sel" style="display:inline-block;max-width:200px" onchange="setAtipicaMot(${i},this.value)">${['Feriado','Evento especial','Liquidación','Stockout','Otro'].map(op=>`<option${(d.motivo||'Feriado')===op?' selected':''}>${op}</option>`).join('')}</select></td>
+      </tr>`;
+    }
+    if(aj){
+      html+=`<tr class="carga-tr-sub" style="background:rgba(99,102,241,.06)">
+        <td colspan="2" style="text-align:left;padding-left:24px;font-size:11px;color:var(--accent)">± Ajuste inv. · ${d.sku}</td>
+        <td><select class="se-mot-sel" style="display:inline-block" onchange="setAjTipo(${i},this.value)">${['Merma','Rotura','Error de carga','Otro'].map(op=>`<option${(aj.tipo||'Merma')===op?' selected':''}>${op}</option>`).join('')}</select></td>
+        <td><input class="n-input" type="number" step="1" value="${aj.cant||0}" oninput="setAjCant(${i},this.value)" placeholder="+/−" style="width:64px" title="+ agrega, − quita"></td>
+        <td colspan="4" style="text-align:left;padding-left:8px"><input class="n-input" type="text" style="width:200px;text-align:left" value="${aj.motivo||''}" oninput="setAjMotivo(${i},this.value)" placeholder="Motivo (opcional)"></td>
+      </tr>`;
+    }
+    return html;
   }).join('');
 }
 
 function recalcStock(i){
-  const sa=parseInt(document.getElementById('sa_'+i).value)||0;
-  const vtn=parseInt(document.getElementById('vtn_'+i).value)||0;
-  const rep=parseInt(document.getElementById('rep_'+i).value)||0;
-  const newStk=sa-vtn+rep;
+  const sa=CARGA_DATA[i].sa;
+  const vtn=parseInt(document.getElementById('vtn_'+i)?.value)||0;
+  const rep=parseInt(document.getElementById('rep_'+i)?.value)||0;
+  const aj=_ajusteState[i];const ajCant=aj?aj.cant:0;
+  const disponible=sa+rep;
+  const overSold=vtn>disponible;
+  const newStk=Math.max(0,sa-vtn+rep+ajCant);
   const cob=vtn>0?newStk/vtn:999;
   const el=document.getElementById('stk_'+i);
-  el.textContent=newStk;
-  el.className=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
+  if(el){
+    if(overSold){
+      el.className='carga-warn-msg';
+      el.textContent='⚠ Vendiste más de lo disponible ('+disponible+' u)';
+    }else{
+      el.className=cob<2?'n-calc cob-critica':cob>8?'n-calc cob-alta':'n-calc cob-normal';
+      el.textContent=newStk+' u';
+    }
+  }
+  const vtnEl=document.getElementById('vtn_'+i);
+  const tr=el?.closest('tr');
+  if(vtnEl)vtnEl.classList.toggle('input-warn',overSold);
+  if(tr)tr.classList.toggle('carga-warn-row',overSold);
 }
+function onRepChange(i){
+  const rep=parseInt(document.getElementById('rep_'+i)?.value)||0;
+  _persistCargaInputs();
+  CARGA_DATA[i].rep=rep;
+  if(rep===0){CARGA_DATA[i]._cr=null;CARGA_DATA[i]._cp=null;}
+  if(rep>0&&_ajusteState[i]){delete _ajusteState[i];}
+  renderCargaTable();
+}
+function setCR(i){
+  const cr=parseFloat(document.getElementById('cr_'+i)?.value)||0;
+  CARGA_DATA[i]._cr=cr;
+  const d=CARGA_DATA[i];
+  const p=(d.sa+d.rep)>0?Math.round((d.sa*d.costo+d.rep*cr)/(d.sa+d.rep)):d.costo;
+  CARGA_DATA[i]._cp=p;
+  const el=document.getElementById('cp_'+i);
+  if(el) el.textContent=money(p);
+}
+function togAjuste(i){
+  _persistCargaInputs();
+  if(_ajusteState[i]){
+    delete _ajusteState[i];
+  } else {
+    _ajusteState[i]={cant:0,tipo:'Merma',motivo:''};
+    if(CARGA_DATA[i].rep>0){
+      CARGA_DATA[i].rep=0;CARGA_DATA[i]._cr=null;CARGA_DATA[i]._cp=null;
+    }
+  }
+  renderCargaTable();markDirty();
+}
+function setAjTipo(i,val){if(_ajusteState[i])_ajusteState[i].tipo=val;}
+function setAjCant(i,val){if(!_ajusteState[i])return;_ajusteState[i].cant=parseInt(val)||0;recalcStock(i);}
+function setAjMotivo(i,val){if(_ajusteState[i])_ajusteState[i].motivo=val;}
 
 function markDirty(){
   _cargaDirty=true;
@@ -1618,12 +1908,7 @@ function markClean(){
 
 function guardarSemana(){
   if(!_cargaDirty) return;
-  // Persist inputs back to CARGA_DATA
-  CARGA_DATA.forEach((d,i)=>{
-    const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
-    const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
-    const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
-  });
+  _persistCargaInputs();
   markClean();
   showToast('✓ Semana guardada.');
 }
@@ -1641,18 +1926,15 @@ function recalcularMotor(){
   },320);
   setTimeout(()=>{
     // 1. Read inputs & save
-    CARGA_DATA.forEach((d,i)=>{
-      const sa=parseInt(document.getElementById('sa_'+i)?.value); if(!isNaN(sa)) d.sa=sa;
-      const vtn=parseInt(document.getElementById('vtn_'+i)?.value); if(!isNaN(vtn)) d.vtn=vtn;
-      const rep=parseInt(document.getElementById('rep_'+i)?.value); if(!isNaN(rep)) d.rep=rep;
-    });
+    _persistCargaInputs();
     // 2. Recalculate cobertura + reclassify
     const chObj={TN:0.25,ML:0.20,LF:0.30};
     allData.forEach(r=>{
       const ci=CARGA_DATA.findIndex(c=>c.sku===r.producto&&c.v===r.variante&&c.canal===r.canal_id);
       if(ci===-1) return;
       const d=CARGA_DATA[ci];
-      const newStock=Math.max(0,d.sa-d.vtn+d.rep);
+      const ajC=_ajusteState[ci]?_ajusteState[ci].cant:0;
+      const newStock=Math.max(0,d.sa-d.vtn+d.rep+ajC);
       const demand=d.vtn>0?d.vtn:num(r.demanda_referencia)||1;
       const cob=newStock>0?newStock/demand:0;
       r.cobertura_stock=cob>=999?'999':cob.toFixed(1);
@@ -1683,6 +1965,8 @@ function recalcularMotor(){
     renderSituacion();
     renderPlan();
     renderTable();
+    renderNegocio();
+    renderSidebarResumen();
     document.getElementById('motorOverlay').classList.remove('show');
     markClean();
     sidebarNav('tablero','situacion');
@@ -1694,12 +1978,34 @@ function guardarPublicidad(){showToast('✓ Pauta guardada correctamente.');}
 function guardarConfig(){showToast('✓ Configuración guardada.');}
 
 function renderPautaDist(){
-  const raw=document.getElementById('pautaInput').value.replace(/\./g,'').replace('$','').replace(',','.');
+  const raw=(document.getElementById('pautaInput')?.value||'').replace(/\./g,'').replace('$','').replace(',','.');
   const total=parseFloat(raw)||165000;
-  const porSKU=Math.round(total/18);
-  document.getElementById('pautaDistList').innerHTML=CARGA_DATA.map(d=>
-    `<div class="pauta-dist-row"><span class="pauta-dist-sku">${d.sku} ${d.v}</span><span class="pauta-dist-val">${money(porSKU)}</span></div>`
-  ).join('');
+  const weights={EMPUJAR:5,LIQUIDAR:1,ACTIVAR:2,RIESGO_QUIEBRE:0,MONITOREAR:0,REVISAR_PRECIO:0};
+  const reasons={EMPUJAR:'Mejor margen y stock — escalar',LIQUIDAR:'Apoyo mínimo — el precio hace el trabajo',ACTIVAR:'Poner en movimiento',RIESGO_QUIEBRE:'Sin stock — no pautar',MONITOREAR:'En orden — sin pauta extra',REVISAR_PRECIO:'Margen insuficiente — corregir precio primero'};
+  const canalLabels={TN:'Tienda Nube',ML:'Mercado Libre',LF:'Local Físico'};
+  const smart=CARGA_DATA.map(d=>{
+    const idx=allData.findIndex(r=>r.producto===d.sku&&r.variante===d.v&&r.canal_id===d.canal);
+    const accion=(idx>=0?allData[idx].accion:'MONITOREAR').trim();
+    return{sku:d.sku,v:d.v,canal:d.canal,idx,accion,weight:weights[accion]||0,reason:reasons[accion]||''};
+  });
+  const totalWeight=smart.reduce((s,a)=>s+a.weight,0);
+  smart.forEach(a=>{ a.amount=totalWeight>0?Math.round(total*a.weight/totalWeight):0; });
+  const assigned=smart.reduce((s,a)=>s+a.amount,0);
+  const diff=total-assigned;
+  const lastPositive=smart.slice().reverse().find(a=>a.weight>0);
+  if(lastPositive) lastPositive.amount+=diff;
+  const listEl=document.getElementById('pautaSmartList');
+  const totalEl=document.getElementById('pautaSmartTotal');
+  if(listEl) listEl.innerHTML=smart.map(a=>{
+    const clickable=a.idx>=0;
+    return `<div class="pauta-dist-row-smart${clickable?' pauta-row-clickable':''}"${clickable?` onclick="openDetail(${a.idx})"`:''}>
+      <span class="pauta-smart-sku">${a.sku} · ${a.v} <span style="color:var(--text-dim);font-size:10px">${canalLabels[a.canal]||a.canal}</span>${clickable?'<span class="pauta-row-arrow">→</span>':''}</span>
+      <span class="badge badge-${a.accion}" style="font-size:9px">${a.accion}</span>
+      <span class="pauta-smart-reason">${a.reason}</span>
+      <span class="pauta-smart-val${a.amount===0?' zero':''}">${a.amount===0?'$0':money(a.amount)}</span>
+    </div>`;
+  }).join('');
+  if(totalEl) totalEl.textContent=money(total);
 }
 
 /* ── PRECIOS Y CUOTAS ─────────────────── */
@@ -1901,11 +2207,197 @@ function renderProductosTable(){
 }
 
 /* ── INIT ─────────────────────────────── */
+/* ── SIDEBAR RESUMEN ─────────────────── */
+function renderSidebarResumen(){
+  const el=document.getElementById('sidebarResumen');
+  if(!el) return;
+  const costoCanal={TN:0.285,LF:0.25,ML:0.21};
+  const quiebre=allData.filter(r=>r.accion==='RIESGO_QUIEBRE');
+  const liquidar=allData.filter(r=>r.accion==='LIQUIDAR');
+  const empujar=allData.filter(r=>r.accion==='EMPUJAR');
+  const activar=allData.filter(r=>r.accion==='ACTIVAR');
+  const impactoQ=quiebre.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;return s+num(r.demanda_referencia)*num(r.precio_actual)*(1-c);},0);
+  const impactoL=liquidar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+Math.max(0,st*num(r.precio_actual)*(1-c)-st*num(r.costo_prenda_auditoria));},0);
+  const impactoA=activar.reduce((s,r)=>{const c=costoCanal[r.canal_id]||0.285;const d=CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante);const st=d?Math.max(0,d.sa-d.vtn-(d.vlf||0)+d.rep):0;return s+st*num(r.precio_actual)*(1-c);},0);
+  const total=Math.round((impactoQ+impactoL+impactoA)/1000)*1000;
+  const topeE=empujar.length?num(empujar[0].tope_economico_sugerido):0;
+  const row=(badgeCls,badgeTxt,count,val,valCls)=>`<div class="sb-resumen-row"><span class="sb-resumen-badge ${badgeCls}">${badgeTxt}</span><span class="sb-resumen-count">${count}</span><span class="sb-resumen-val ${valCls}">${val}</span></div>`;
+  el.innerHTML=`<div class="sb-resumen">
+    <div class="sb-resumen-label">Esta semana en juego</div>
+    <div class="sb-resumen-total">${money(total)}</div>
+    ${quiebre.length?row('badge-RIESGO_QUIEBRE','QUIEBRE',quiebre.length,'−'+money(Math.round(impactoQ/1000)*1000)+'/sem','negative'):''}
+    ${liquidar.length?row('badge-LIQUIDAR','LIQUIDAR',liquidar.length,'+'+money(Math.round(impactoL/1000)*1000),'positive'):''}
+    ${empujar.length?row('badge-EMPUJAR','EMPUJAR',empujar.length,'tope '+money(topeE),'positive'):''}
+    ${activar.length?row('badge-ACTIVAR','ACTIVAR',activar.length,money(Math.round(impactoA/1000)*1000)+' dorm.','warning'):''}
+  </div>`;
+}
+
+function negToggle(el){el.closest('.neg-acc').classList.toggle('open');}
+
+function renderNegocio(){
+  const wrap=document.getElementById('negocioContent');
+  if(!wrap) return;
+  const cbar=(n,c,v)=>'<div class="neg-color-bar"><div class="neg-color-bar-lbl"><span>'+n+'</span><span>'+v+' variantes · '+Math.round(v/19*100)+'%</span></div><div class="neg-color-track"><div class="neg-color-fill" style="width:'+Math.round(v/7*100)+'%;background:'+c+'"></div></div></div>';
+  const tbar=(t,v,a)=>'<div class="neg-talle-bar"><span class="neg-talle-num'+(a?' neg-talle-alert':'')+'">'+t+'</span><div class="neg-talle-track"><div class="neg-talle-fill'+(a?' neg-talle-fill-alert':'')+'" style="width:'+Math.round(v/41*100)+'%"></div></div><span class="neg-talle-cnt'+(a?' neg-talle-alert':'')+'">'+v+'</span></div>';
+  wrap.innerHTML=`<div class="negocio-wrap">
+    <div class="negocio-greeting"><div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:30px;line-height:1.15;color:var(--text);text-align:center;height:46px;display:flex;align-items:center;justify-content:center;">Accion.IA</div></div>
+    <div class="negocio-sub"><span>Onboarding completado · 18/08/2026</span><span class="neg-badge"><span class="neg-status-dot"></span>Sistema activo</span><span class="neg-badge-demo">Datos demo</span></div>
+
+    <div class="neg-card neg-catalog-card">
+    <div class="neg-catalog-card-hdr"><div class="neg-card-title">Mi negocio</div></div>
+    <div class="neg-stats-hero">
+      <div class="neg-stat-hero-item"><div class="neg-stat-hero-val">18</div><div class="neg-stat-hero-lbl">SKUs activos</div></div>
+      <div class="neg-stat-hero-item"><div class="neg-stat-hero-val">8</div><div class="neg-stat-hero-lbl">Colores</div></div>
+      <div class="neg-stat-hero-item"><div class="neg-stat-hero-val">35<span>–45</span></div><div class="neg-stat-hero-lbl">Talles activos</div></div>
+      <div class="neg-stat-hero-item"><div class="neg-stat-hero-val">15<span>%</span></div><div class="neg-stat-hero-lbl">Promoción activa</div></div>
+    </div>
+
+    <div class="neg-acc">
+      <div class="neg-acc-hdr" onclick="negToggle(this)">
+        <div class="neg-acc-left"><div class="neg-acc-title">Costo de canal</div><div class="neg-acc-meta">TN · Pago Nube · 6 cuotas · Meta Ads</div></div>
+        <div class="neg-acc-right"><div class="neg-acc-val"><span class="neg-acc-val-num">28.5%</span><span class="neg-acc-val-sub">del ticket</span></div><svg class="neg-acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="neg-acc-body">
+        <div class="neg-canal-row"><span>Comisión Tienda Nube</span><span class="neg-canal-num">1%</span></div>
+        <div class="neg-canal-row"><span>Pago Nube (procesador)</span><span class="neg-canal-num">2.99%</span></div>
+        <div class="neg-canal-row neg-canal-row-hl"><span>6 cuotas sin interés <span style="color:var(--text-muted)">(mayor costo)</span></span><span class="neg-canal-num neg-canal-hl">9.5%</span></div>
+        <div class="neg-canal-row"><span>IIBB Buenos Aires</span><span class="neg-canal-num">3%</span></div>
+        <div class="neg-canal-row"><span>Meta Ads <span style="color:var(--text-muted)">(configurable)</span></span><span class="neg-canal-num">~12%</span></div>
+        <div class="neg-canal-total"><span>Total canal TN</span><span>28.5%</span></div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px;margin-bottom:10px;opacity:.7">Comisiones fijas (TN, Pago Nube, IIBB) + estimados propios. Los valores con ~ varían según tu operación.</div>
+        <div class="neg-insight">En Mercado Libre el costo de canal es ~21% y en el local físico ~25% (alquiler + sueldos prorrateados). Por eso el precio y el margen se calculan por canal.</div>
+      </div>
+    </div>
+
+    <div class="neg-acc">
+      <div class="neg-acc-hdr" onclick="negToggle(this)">
+        <div class="neg-acc-left"><div class="neg-acc-title">Color</div><div class="neg-acc-meta">8 colores indexados · Negro dominante</div></div>
+        <div class="neg-acc-right"><div class="neg-acc-val"><span class="neg-acc-val-num">Negro 37%</span><span class="neg-acc-val-sub">del catálogo</span></div><svg class="neg-acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="neg-acc-body">
+        ${cbar('Negro','#6366f1',7)}
+        ${cbar('Gris','#9ca3af',5)}
+        ${cbar('Blanco','#cbd5e1',3)}
+        ${cbar('Navy','#1e3a8a',2)}
+        ${cbar('Rojo','#dc2626',1)}
+        ${cbar('Azul Eléctrico','#3b82f6',1)}
+        <div style="font-size:11px;color:var(--text-muted);margin-top:10px;line-height:1.5">Negro y Gris concentran ~63% de las variantes. Los colores de nicho (Rojo, Azul) tienen menos rotación y conviene vigilar su cobertura.</div>
+      </div>
+    </div>
+
+    <div class="neg-acc neg-acc-alert">
+      <div class="neg-acc-hdr" onclick="negToggle(this)">
+        <div class="neg-acc-left"><div class="neg-acc-title">Disponibilidad por talle</div><div class="neg-acc-meta">Menor cobertura detectada en talles 35 y 45</div></div>
+        <div class="neg-acc-right"><div class="neg-acc-val"><span class="neg-acc-val-num" style="color:#ef4444">4 mín.</span><span class="neg-acc-val-sub">talle 45</span></div><svg class="neg-acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="neg-acc-body">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 24px">
+          ${tbar(35,8,true)}
+          ${tbar(41,24,false)}
+          ${tbar(36,22,false)}
+          ${tbar(42,16,false)}
+          ${tbar(37,34,false)}
+          ${tbar(43,11,false)}
+          ${tbar(38,41,false)}
+          ${tbar(44,7,true)}
+          ${tbar(39,38,false)}
+          ${tbar(45,4,true)}
+          ${tbar(40,33,false)}
+        </div>
+        <div class="neg-insight">Talles 35, 44 y 45 por debajo del umbral de cobertura. Al reponer, priorizá la curva de talles completa — un quiebre de talle puntual frena la venta de todo el modelo.</div>
+      </div>
+    </div>
+
+    <div class="neg-acc">
+      <div class="neg-acc-hdr" onclick="negToggle(this)">
+        <div class="neg-acc-left"><div class="neg-acc-title">Canales de venta</div><div class="neg-acc-meta">B2C online · Marketplace · B2C físico</div></div>
+        <div class="neg-acc-right"><div class="neg-acc-val"><span class="neg-acc-val-num">3</span><span class="neg-acc-val-sub">canales activos</span></div><svg class="neg-acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="neg-acc-body">
+        <div class="neg-channel-grid">
+          <div class="neg-channel-item"><div class="neg-channel-type">B2C Online</div><div class="neg-channel-name">Tienda Nube</div><div class="neg-channel-detail">6 cuotas sin interés · Pago Nube · Meta Ads<br>Costo canal: 28.5%</div></div>
+          <div class="neg-channel-item"><div class="neg-channel-type">Marketplace</div><div class="neg-channel-name">Mercado Libre</div><div class="neg-channel-detail">Comisión + envío + reputación<br>Costo canal: ~21%</div></div>
+          <div class="neg-channel-item"><div class="neg-channel-type">B2C Físico</div><div class="neg-channel-name">Local Físico</div><div class="neg-channel-detail">Efectivo · Transferencia · atención directa<br>Costo canal: ~25%</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="neg-acc">
+      <div class="neg-acc-hdr" onclick="negToggle(this)">
+        <div class="neg-acc-left"><div class="neg-acc-title">Precios activos</div><div class="neg-acc-meta">3 tiers con 15% OFF · $38k–$185k</div></div>
+        <div class="neg-acc-right"><div class="neg-acc-val"><span class="neg-acc-val-num">$38k–$185k</span><span class="neg-acc-val-sub">rango catálogo</span></div><svg class="neg-acc-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+      </div>
+      <div class="neg-acc-body">
+        <div class="neg-tier"><span class="neg-tier-label">Premium</span><span class="neg-tier-range">$145k–$185k</span><span class="neg-tier-ex">Zapatilla Pro Runner · Street Casual · Campera Windbreaker</span></div>
+        <div class="neg-tier"><span class="neg-tier-label">Medio</span><span class="neg-tier-range">$68k–$130k</span><span class="neg-tier-ex">Buzo Con Capucha · Pantalón Running · Canguro · Short</span></div>
+        <div class="neg-tier" style="border-bottom:none"><span class="neg-tier-label">Entrada</span><span class="neg-tier-range">$38k–$75k</span><span class="neg-tier-ex">Camiseta Training · Remera Dry-Fit · Medias Compresión</span></div>
+      </div>
+    </div>
+
+    </div>
+
+    <div class="neg-accionia-card">
+      <div class="neg-card-title">Cómo funciona AccionIA</div>
+      <div class="neg-accionia-intro">La idea central es que cada semana tengas claro qué hacer con cada producto — sin planillas, sin interpretación propia. El sistema toma tres datos simples: lo que vendiste, el stock actual y cuánto invertiste en pauta. Con eso, y con los parámetros que configurás una sola vez, calcula cobertura, margen real por canal y adónde conviene mover la inversión. El resultado: decisiones ordenadas por urgencia — sobrestock a liquidar, productos a empujar, alertas de quiebre.</div>
+
+      <div class="neg-accionia-sub-title">Las 6 acciones posibles por SKU</div>
+      <div class="neg-acciones-grid">
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-RIESGO_QUIEBRE" style="font-size:10px">RIESGO_QUIEBRE</span></div><div class="neg-accion-desc">Stock crítico. Si no reponés esta semana, podés llegar a cero antes del próximo lunes.</div></div>
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-LIQUIDAR" style="font-size:10px">LIQUIDAR</span></div><div class="neg-accion-desc">Sobrestock acumulado. Bajá el precio antes de que el producto quede enterrado en el depósito.</div></div>
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-EMPUJAR" style="font-size:10px">EMPUJAR</span></div><div class="neg-accion-desc">Buen margen, buen stock, buena velocidad. Este producto puede recibir más pauta sin comprometer el margen.</div></div>
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-ACTIVAR" style="font-size:10px">ACTIVAR</span></div><div class="neg-accion-desc">Producto con stock pero sin ventas recientes. Hay que ponerlo en movimiento.</div></div>
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-REVISAR_PRECIO" style="font-size:10px">REVISAR_PRECIO</span></div><div class="neg-accion-desc">El margen actual no cubre los costos del canal. El precio de venta necesita ajuste.</div></div>
+        <div class="neg-accion-item"><div class="neg-accion-badge"><span class="badge badge-MONITOREAR" style="font-size:10px">MONITOREAR</span></div><div class="neg-accion-desc">Todo en orden. Stock, margen y velocidad dentro de los parámetros. Solo seguimiento.</div></div>
+      </div>
+
+      <div class="neg-inputs-section">
+        <div class="neg-met-title">¿Con qué datos trabaja el sistema?</div>
+        <div class="neg-inputs-grid">
+          <div class="neg-input-card">
+            <div class="neg-input-card-header">
+              <span class="neg-input-freq">Una sola vez</span>
+              <span class="neg-input-card-title">Configuración inicial</span>
+            </div>
+            <div class="neg-input-list">
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Lista de SKUs activos (nombre, variantes)</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Costo de cada producto</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Precio de venta por canal</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Gastos por canal (comisiones, IIBB, cuotas)</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Margen mínimo aceptado por canal</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Cuotas sin interés que ofrecés</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Canales activos (TN, Mercado Libre, local)</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot"></span><span>Lead time de reposición (semanas)</span></div>
+            </div>
+            <div class="neg-input-note">La primera configuración la hacemos juntos — no te quedás solo.</div>
+          </div>
+          <div class="neg-input-card neg-input-card-weekly">
+            <div class="neg-input-card-header">
+              <span class="neg-input-freq weekly">Una vez por semana</span>
+              <span class="neg-input-card-title">Actualización semanal</span>
+            </div>
+            <div class="neg-input-list">
+              <div class="neg-input-row"><span class="neg-input-dot weekly"></span><span>Stock actual por SKU (cuántas unidades tenés)</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot weekly"></span><span>Ventas de la semana por SKU y por canal</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot weekly"></span><span>Reposiciones recibidas (si pediste y llegó)</span></div>
+              <div class="neg-input-row"><span class="neg-input-dot weekly"></span><span>Total invertido en pauta digital esa semana (Meta Ads, Google Ads u otras)</span></div>
+            </div>
+            <div class="neg-input-note weekly">Con eso, el sistema recalcula todo y te da las decisiones de esa semana.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>`;
+}
+
 function initApp(){
+  renderNegocio();
+  renderSidebarResumen();
   renderSituacion();
   renderPlan();
   renderTable();
   renderParametros();
+  renderCargaSemOptions();
   renderCargaTable();
   renderPautaDist();
   renderGastosConfig();
@@ -1913,10 +2405,12 @@ function initApp(){
   renderAgregarForm('variante');
   const sub=document.getElementById('cargaSemSub');
   if(sub) sub.textContent=SEMANA_LABELS[0].sub;
+  const wk=document.getElementById('sidebarWeek');
+  if(wk) wk.textContent='Semana: '+SEMANA_LABELS[0].label.split(' al ')[0]+'/'+new Date().getFullYear();
   // Show mobile nav
   const nav=document.getElementById('mobileBottomNav');
   if(nav) nav.style.display='block';
-  syncSidebarActive('tablero','situacion');
+  syncSidebarActive('negocio',null);
 }
 </script>
 
@@ -1946,7 +2440,7 @@ let _tourIdx=-1,_tourRaf=null,_tourDragged=false,_tourDragActive=false,_tourDrag
 function tourStart(){_tourIdx=0;const b=document.getElementById('tourStartFixed');if(b)b.style.display='none';document.getElementById('tourHighlight').classList.add('vis');document.getElementById('tourCard').classList.add('vis');tourRender();tourTrackLoop();}
 function tourNext(){_tourIdx++;if(_tourIdx>=TOUR_STEPS.length){tourEnd();return;}tourRender();}
 function tourPrev(){if(_tourIdx<=0)return;_tourIdx--;tourRender();}
-function tourEnd(){_tourIdx=-1;if(_tourRaf)cancelAnimationFrame(_tourRaf);_tourRaf=null;document.getElementById('tourHighlight').classList.remove('vis');document.getElementById('tourCard').classList.remove('vis');const b=document.getElementById('tourStartFixed');if(b)b.style.display='flex';}
+function tourEnd(){_tourIdx=-1;if(_tourRaf)cancelAnimationFrame(_tourRaf);_tourRaf=null;const hl=document.getElementById('tourHighlight');hl.classList.remove('vis');hl.style.opacity='0';document.getElementById('tourCard').classList.remove('vis');const b=document.getElementById('tourStartFixed');if(b)b.style.display='flex';}
 function tourRender(){
   const s=TOUR_STEPS[_tourIdx];
   _tourDragged=false;
