@@ -1100,7 +1100,7 @@
 function tryLogin(){
   const inp=document.getElementById('loginInput');
   if(inp.value==='demo'){
-    fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({demo:'Zona Sport',referrer:document.referrer})}).catch(()=>{});
+    fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({demo:'Zona Sport',referrer:document.referrer,url:location.href,language:navigator.language,screen:screen.width+'x'+screen.height})}).catch(()=>{});
     const ov=document.getElementById('loginOverlay');
     ov.style.animation='loginFadeOut .4s ease forwards';
     setTimeout(()=>{
