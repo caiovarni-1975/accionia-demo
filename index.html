@@ -986,7 +986,7 @@
     <!-- ── PRECIOS Y CUOTAS ── -->
     <div class="page page-inner" id="cpage-precios">
       <div class="page-title">Precios y cuotas</div>
-      <div class="page-subtitle">Precio de venta activo por canal y condiciones de financiación — semana 01/09/2026</div>
+      <div class="page-subtitle">Precio de venta activo por canal y condiciones de financiación — semana <span id="preciosSemLabel">—</span></div>
 
       <div class="precios-table-wrap">
         <table class="precios-table">
@@ -996,7 +996,7 @@
               <th>Precio TN</th>
               <th>Cuotas s/i</th>
               <th>Costo unit.</th>
-              <th>Precio mínimo sugerido <span style="font-size:9px;font-weight:400;color:var(--text-dim)">(costo / 0.61)</span></th>
+              <th>Precio mínimo sugerido</th>
             </tr>
           </thead>
           <tbody id="preciosTableBody"></tbody>
@@ -1330,26 +1330,26 @@ const allData=[
 
 const CARGA_DATA=[
   // TN
-  {sku:'Zapatilla Pro Runner',    v:'Negro',          canal:'TN', sa:4,  vtn:2,  rep:0, costo:38000},
-  {sku:'Campera Windbreaker',     v:'Navy',           canal:'TN', sa:5,  vtn:2,  rep:0, costo:62000},
-  {sku:'Camiseta Training',       v:'Rojo',           canal:'TN', sa:42, vtn:4,  rep:0, costo:18000},
-  {sku:'Zapatilla Pro Runner',    v:'Blanco',         canal:'TN', sa:9,  vtn:3,  rep:0, costo:38000},
-  {sku:'Campera Windbreaker',     v:'Negro',          canal:'TN', sa:8,  vtn:3,  rep:0, costo:62000},
-  {sku:'Medias Compresión Pack x3',v:'Negro',         canal:'TN', sa:18, vtn:2,  rep:0, costo:11000},
-  {sku:'Zapatilla Pro Runner',    v:'Azul Eléctrico', canal:'TN', sa:20, vtn:0,  rep:0, costo:38000},
-  {sku:'Mochila Trail 25L',       v:'Gris Carbón',    canal:'TN', sa:15, vtn:0,  rep:0, costo:32000},
-  {sku:'Buzo Con Capucha',        v:'Negro',          canal:'TN', sa:12, vtn:0,  rep:0, costo:40000},
-  {sku:'Remera Técnica Dry-Fit',      v:'Blanca',         canal:'TN', sa:21, vtn:5,  rep:0, costo:34000},
-  {sku:'Canguro Running',          v:'Gris',           canal:'TN', sa:27, vtn:4,  rep:0, costo:46000},
+  {sku:'Zapatilla Pro Runner',     v:'Negro',          canal:'TN', sa:20, vtn:7, rep:0, costo:75000},
+  {sku:'Campera Windbreaker',      v:'Navy',           canal:'TN', sa:12, vtn:4, rep:0, costo:60000},
+  {sku:'Camiseta Training Dry-Fit',v:'Rojo',           canal:'TN', sa:31, vtn:3, rep:0, costo:28000},
+  {sku:'Zapatilla Pro Runner',     v:'Blanco',         canal:'TN', sa:33, vtn:6, rep:0, costo:75000},
+  {sku:'Campera Windbreaker',      v:'Negro',          canal:'TN', sa:26, vtn:4, rep:0, costo:60000},
+  {sku:'Medias Compresión',        v:'Pack x3 · Negro',canal:'TN', sa:41, vtn:6, rep:0, costo:14000},
+  {sku:'Zapatilla Pro Runner',     v:'Azul Eléctrico', canal:'TN', sa:18, vtn:0, rep:0, costo:75000},
+  {sku:'Mochila Trail 25L',        v:'—',              canal:'TN', sa:12, vtn:0, rep:0, costo:42000},
+  {sku:'Buzo Con Capucha',         v:'Negro',          canal:'TN', sa:22, vtn:0, rep:0, costo:52000},
+  {sku:'Remera Técnica Dry-Fit',   v:'Blanca',         canal:'TN', sa:26, vtn:5, rep:0, costo:34000},
+  {sku:'Canguro Running',          v:'Gris',           canal:'TN', sa:25, vtn:4, rep:0, costo:46000},
   // ML
-  {sku:'Pantalón Running Slim',   v:'Gris',           canal:'ML', sa:5,  vtn:2,  rep:0, costo:30000},
-  {sku:'Short Training',          v:'Negro',          canal:'ML', sa:51, vtn:5,  rep:0, costo:14000},
-  {sku:'Zapatilla Street Casual', v:'Blanco',         canal:'ML', sa:11, vtn:4,  rep:0, costo:42000},
-  {sku:'Buzo Con Capucha',        v:'Gris',           canal:'ML', sa:7,  vtn:3,  rep:0, costo:40000},
+  {sku:'Pantalón Running Slim',    v:'Gris',           canal:'ML', sa:15, vtn:5, rep:0, costo:38000},
+  {sku:'Short Training',           v:'Negro',          canal:'ML', sa:45, vtn:4, rep:0, costo:25000},
+  {sku:'Zapatilla Street Casual',  v:'Blanco',         canal:'ML', sa:35, vtn:6, rep:0, costo:62000},
+  {sku:'Buzo Con Capucha',         v:'Gris',           canal:'ML', sa:35, vtn:7, rep:0, costo:52000},
   // LF
-  {sku:'Camiseta Training',       v:'Negro',          canal:'LF', sa:10, vtn:0,  rep:0, costo:18000},
-  {sku:'Zapatilla Street Casual', v:'Gris',           canal:'LF', sa:43, vtn:0,  rep:0, costo:42000},
-  {sku:'Short Training',          v:'Gris',           canal:'LF', sa:12, vtn:0,  rep:0, costo:14000},
+  {sku:'Camiseta Training Dry-Fit',v:'Negro',          canal:'LF', sa:48, vtn:8, rep:0, costo:28000},
+  {sku:'Zapatilla Street Casual',  v:'Gris',           canal:'LF', sa:28, vtn:3, rep:0, costo:62000},
+  {sku:'Short Training',           v:'Gris',           canal:'LF', sa:19, vtn:3, rep:0, costo:25000},
 ];
 
 const GASTOS_CONFIG=[
@@ -1373,26 +1373,26 @@ const GASTOS_CONFIG=[
 
 const PRODUCTOS_CONFIG=[
   // TN
-  {sku:'Zapatilla Pro Runner',     v:'Negro',          canal:'TN', precio:89000,  costo:38000, cuotas:6},
-  {sku:'Campera Windbreaker',      v:'Navy',           canal:'TN', precio:145000, costo:62000, cuotas:6},
-  {sku:'Camiseta Training',        v:'Rojo',           canal:'TN', precio:48000,  costo:18000, cuotas:3},
-  {sku:'Zapatilla Pro Runner',     v:'Blanco',         canal:'TN', precio:89000,  costo:38000, cuotas:6},
-  {sku:'Campera Windbreaker',      v:'Negro',          canal:'TN', precio:145000, costo:62000, cuotas:6},
-  {sku:'Medias Compresión Pack x3',v:'Negro',          canal:'TN', precio:22000,  costo:11000, cuotas:1},
-  {sku:'Zapatilla Pro Runner',     v:'Azul Eléctrico', canal:'TN', precio:89000,  costo:38000, cuotas:6},
-  {sku:'Mochila Trail 25L',        v:'Gris Carbón',    canal:'TN', precio:78000,  costo:32000, cuotas:6},
-  {sku:'Buzo Con Capucha',         v:'Negro',          canal:'TN', precio:95000,  costo:40000, cuotas:6},
-  {sku:'Remera Técnica Dry-Fit',       v:'Blanca',         canal:'TN', precio:42000,  costo:34000, cuotas:3},
-  {sku:'Canguro Running',           v:'Gris',           canal:'TN', precio:68000,  costo:46000, cuotas:6},
+  {sku:'Zapatilla Pro Runner',     v:'Negro',          canal:'TN', precio:185000, costo:75000, cuotas:6},
+  {sku:'Campera Windbreaker',      v:'Navy',           canal:'TN', precio:145000, costo:60000, cuotas:6},
+  {sku:'Camiseta Training Dry-Fit',v:'Rojo',           canal:'TN', precio:75000,  costo:28000, cuotas:3},
+  {sku:'Zapatilla Pro Runner',     v:'Blanco',         canal:'TN', precio:185000, costo:75000, cuotas:6},
+  {sku:'Campera Windbreaker',      v:'Negro',          canal:'TN', precio:145000, costo:60000, cuotas:6},
+  {sku:'Medias Compresión',        v:'Pack x3 · Negro',canal:'TN', precio:38000,  costo:14000, cuotas:1},
+  {sku:'Zapatilla Pro Runner',     v:'Azul Eléctrico', canal:'TN', precio:185000, costo:75000, cuotas:6},
+  {sku:'Mochila Trail 25L',        v:'—',              canal:'TN', precio:115000, costo:42000, cuotas:6},
+  {sku:'Buzo Con Capucha',         v:'Negro',          canal:'TN', precio:130000, costo:52000, cuotas:6},
+  {sku:'Remera Técnica Dry-Fit',   v:'Blanca',         canal:'TN', precio:42000,  costo:34000, cuotas:3},
+  {sku:'Canguro Running',          v:'Gris',           canal:'TN', precio:68000,  costo:46000, cuotas:3},
   // ML
-  {sku:'Pantalón Running Slim',    v:'Gris',           canal:'ML', precio:72000,  costo:30000, cuotas:6},
-  {sku:'Short Training',           v:'Negro',          canal:'ML', precio:38000,  costo:14000, cuotas:3},
-  {sku:'Zapatilla Street Casual',  v:'Blanco',         canal:'ML', precio:95000,  costo:42000, cuotas:6},
-  {sku:'Buzo Con Capucha',         v:'Gris',           canal:'ML', precio:95000,  costo:40000, cuotas:6},
+  {sku:'Pantalón Running Slim',    v:'Gris',           canal:'ML', precio:95000,  costo:38000, cuotas:6},
+  {sku:'Short Training',           v:'Negro',          canal:'ML', precio:68000,  costo:25000, cuotas:3},
+  {sku:'Zapatilla Street Casual',  v:'Blanco',         canal:'ML', precio:165000, costo:62000, cuotas:6},
+  {sku:'Buzo Con Capucha',         v:'Gris',           canal:'ML', precio:125000, costo:52000, cuotas:6},
   // LF
-  {sku:'Camiseta Training',        v:'Negro',          canal:'LF', precio:48000,  costo:18000, cuotas:1},
-  {sku:'Zapatilla Street Casual',  v:'Gris',           canal:'LF', precio:95000,  costo:42000, cuotas:1},
-  {sku:'Short Training',           v:'Gris',           canal:'LF', precio:38000,  costo:14000, cuotas:1},
+  {sku:'Camiseta Training Dry-Fit',v:'Negro',          canal:'LF', precio:80000,  costo:28000, cuotas:1},
+  {sku:'Zapatilla Street Casual',  v:'Gris',           canal:'LF', precio:175000, costo:62000, cuotas:1},
+  {sku:'Short Training',           v:'Gris',           canal:'LF', precio:72000,  costo:25000, cuotas:1},
 ];
 
 /* ── NAVIGATION ───────────────────────── */
@@ -1989,7 +1989,7 @@ function renderPautaDist(){
     return{sku:d.sku,v:d.v,canal:d.canal,idx,accion,weight:weights[accion]||0,reason:reasons[accion]||''};
   });
   const totalWeight=smart.reduce((s,a)=>s+a.weight,0);
-  smart.forEach(a=>{ a.amount=totalWeight>0?Math.round(total*a.weight/totalWeight):0; });
+  smart.forEach(a=>{ a.amount=totalWeight>0?Math.round(total*a.weight/totalWeight/1000)*1000:0; });
   const assigned=smart.reduce((s,a)=>s+a.amount,0);
   const diff=total-assigned;
   const lastPositive=smart.slice().reverse().find(a=>a.weight>0);
@@ -2405,6 +2405,8 @@ function initApp(){
   renderAgregarForm('variante');
   const sub=document.getElementById('cargaSemSub');
   if(sub) sub.textContent=SEMANA_LABELS[0].sub;
+  const psl=document.getElementById('preciosSemLabel');
+  if(psl) psl.textContent=SEMANA_LABELS[0].label;
   const wk=document.getElementById('sidebarWeek');
   if(wk) wk.textContent='Semana: '+SEMANA_LABELS[0].label.split(' al ')[0]+'/'+new Date().getFullYear();
   // Show mobile nav
