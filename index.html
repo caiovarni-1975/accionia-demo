@@ -2453,6 +2453,25 @@ function initApp(){
   if(nav) nav.style.display='block';
   syncSidebarActive('negocio',null);
 }
+
+/* Si el middleware de Vercel ya autenticó (cookie zs_ok=1), saltar el overlay.
+   En local (sin middleware) la cookie no existe y el login funciona normal. */
+(function(){
+  if(!/(?:^|;\s*)zs_ok=1(?:;|$)/.test(document.cookie)) return;
+  const go=()=>{
+    if(/(?:^|;\s*)zs_fresh=1(?:;|$)/.test(document.cookie)){
+      document.cookie='zs_fresh=; Path=/; Max-Age=0';
+      fetch('/api/notify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({demo:'Zona Sport',referrer:document.referrer,url:location.href,language:navigator.language,screen:screen.width+'x'+screen.height})}).catch(()=>{});
+    }
+    const ov=document.getElementById('loginOverlay');
+    if(ov) ov.style.display='none';
+    document.getElementById('app').style.display='block';
+    const vb=document.getElementById('vBadge'); if(vb) vb.style.display='block';
+    initApp();
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go);
+  else go();
+})();
 </script>
 
 <!-- TOUR GUIADO -->
