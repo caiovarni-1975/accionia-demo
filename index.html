@@ -1514,7 +1514,7 @@ function renderSituacion(){
   const empujar=allData.filter(r=>r.accion==='EMPUJAR');
   const activar=allData.filter(r=>r.accion==='ACTIVAR');
   const revisar=allData.filter(r=>r.accion==='REVISAR_PRECIO');
-  const urgentes=quiebre.length+liquidar.length+revisar.length;
+  const urgentes=quiebre.length+revisar.length;
   const cargaFor=(r)=>CARGA_DATA.find(x=>x.sku===r.producto&&x.v===r.variante&&x.canal===r.canal_id);
   const impactoQ=quiebre.reduce((s,r)=>s+num(r.demanda_referencia)*num(r.precio_actual)*(1-(costoCanal[r.canal_id]||0.385)),0);
   const impactoL=liquidar.reduce((s,r)=>{
@@ -1529,7 +1529,7 @@ function renderSituacion(){
   },0);
   const totalJuego=impactoQ+impactoL+impactoA;
   _lastTotalJuego=totalJuego;
-  const top=quiebre[0]||liquidar[0];
+  const top=quiebre[0]||revisar[0];
   const topIdx=top?allData.indexOf(top):-1;
   const firstSentence=(s)=>s?s.split('.')[0]+'.':'';
   const skuRowsQ=quiebre.map(r=>{
@@ -1597,11 +1597,11 @@ function renderSituacion(){
 }
 
 function renderPlan(){
-  const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='LIQUIDAR'||r.accion==='REVISAR_PRECIO');
+  const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='REVISAR_PRECIO');
   const rc=['rank-1','rank-2','rank-3','rank-3','rank-3','rank-3','rank-3','rank-3'];
   document.getElementById('planGrid').innerHTML=urgentes.map((r,i)=>`
     <div class="plan-card ${rc[i]}" onclick="openDetail(${allData.indexOf(r)})">
-      <div class="plan-rank">#${num(r.rank_cliente_semana)}</div>
+      <div class="plan-rank">#${i+1}</div>
       <div>
         <div class="plan-header"><span class="plan-producto">${r.producto}</span><span class="plan-canal">${r.canal_nombre}</span>${badge(r.accion)}</div>
         ${r.variante?`<div class="plan-variante">${r.variante}</div>`:''}
@@ -2008,7 +2008,7 @@ function recalcularMotor(){
     document.getElementById('motorOverlay').classList.remove('show');
     markClean();
     sidebarNav('tablero','situacion');
-    const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='LIQUIDAR'||r.accion==='REVISAR_PRECIO').length;
+    const urgentes=allData.filter(r=>r.accion==='RIESGO_QUIEBRE'||r.accion==='REVISAR_PRECIO').length;
     showToast('✓ Tablero actualizado — '+urgentes+' urgentes esta semana');
   },1500);
 }
@@ -2493,7 +2493,7 @@ function initApp(){
 const TOUR_STEPS=[
   {nav:['tablero','situacion'],sel:'.new-hero',title:'La foto de la semana',text:'Un número arriba de todo: cuánta plata está en juego esta semana según cómo actúes. No es un tablero para interpretar — es el titular.'},
   {nav:['tablero','situacion'],sel:'.new-acciones-grid',title:'El motor agrupa por acción',text:'Cada tarjeta es un tipo de decisión: reponer para no quebrar, liquidar sobrestock, empujar, activar. El sistema ya clasificó cada producto y le puso número.'},
-  {nav:['tablero','plan'],sel:'#planGrid',title:'Lo urgente, rankeado',text:'Las urgencias ordenadas por criticidad: primero lo que vende a pérdida, después el riesgo de quiebre, después el capital inmovilizado.'},
+  {nav:['tablero','plan'],sel:'#planGrid',title:'Lo urgente, rankeado',text:'Solo lo que no puede esperar a la semana que viene: riesgo de quiebre y productos que están vendiendo con el margen mal. El sobrestock a liquidar va aparte, no compite por tu atención acá.'},
   {nav:['carga','publicidad'],sel:'.pauta-dist-section',title:'La pauta, repartida sola',text:'Ponés cuánto vas a invertir en publicidad y el motor te dice cómo repartirlo entre productos según margen y stock disponible.'},
   {nav:['carga','cierre'],sel:'.carga-semana-hero',title:'10 minutos por semana',text:'Todo esto se alimenta de una carga simple de ventas y stock. Si avanzás, lo conectamos a tu Tienda Nube o Mercado Libre y se actualiza solo.'}
 ];
